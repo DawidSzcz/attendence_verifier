@@ -1,0 +1,6 @@
+[submodule "attendence_verifier"]
+	path = attendence_verifier
+	url = git@github.com:ZielonyKazik/test.git
+[submodule "student_base"]
+	path = student_base
+	url = git@github.com:ZielonyKazik/student_base2.git
