@@ -11,19 +11,19 @@
 % Pamietaj o madrym (zgodnym z logicznym rozbiorem zdania oraz estetyka) recznym
 % zlamaniu wierszy w temacie pracy, zwlaszcza tego w jezyku pracy. Uzyj do tego
 % polecenia \fmlinebreak.
-\polishtitle    {System kontroli obecności na podstawie elektronicznych legitymacji studenckich}
-\englishtitle   {Students attendence verifing system with the use of student card}
+\polishtitle {System kontroli obecności na podstawie elektronicznych legitymacji studenckich}
+\englishtitle {Students attendence verifing system with the use of student card}
 \polishabstract {\ldots}
 \englishabstract{\ldots}
 % w pracach wielu autorow nazwiska mozna oddzielic poleceniem \and
-\author         {Dawid Szczyrk}
+\author {Dawid Szczyrk}
 % w przypadku kilku promotorow, lub koniecznosci podania ich afiliacji, linie
 % w ponizszym poleceniu mozna zlamac poleceniem \fmlinebreak
-\advisor        {dr Jakub Michaliszyn}
-%\date          {}                     % Data zlozenia pracy
+\advisor {dr Jakub Michaliszyn}
+%\date {} % Data zlozenia pracy
 % Dane do oswiadczenia o autorskim wykonaniu
-%\transcriptnum {}                     % Numer indeksu
-%\advisorgen    {dr. Jana Kowalskiego} % Nazwisko promotora w dopelniaczu
+%\transcriptnum {} % Numer indeksu
+%\advisorgen {dr. Jana Kowalskiego} % Nazwisko promotora w dopelniaczu
 %%%%%
 
 %%%%% WLASNE DODATKOWE PAKIETY
@@ -44,26 +44,87 @@
 
 \chapter{Wprowadzenie}
 
-Celem niniejszej pracy jest zaprojektowanie użytecznego i niedrogiego w utrzymaniu systemu do kontroli obecności studentów na wykładzie z wykorzystaniem dostępnych legitymacji studenckich.\\
+Celem niniejszej pracy jest zaprojektowanie użytecznego i niedrogiego w utrzymaniu systemu do kontroli obecności studentów na wykładzie.\\
 \indent Niemalże każde zajęcia na naszym instytucie zaczynają się od zebrania listy obecności. Odbywa się to w siermiężny sposób, ponieważ każdy ze studentów musi wpisać swoje dane na listę obecności.
 Taka forma jest uciążliwy, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają, ponieważ muszą sobie wzajemnie podawać listę obecności. Dziś, kiedy do ochrony danych osobowych przykłada się
-coraz większą wagę, staromodne sposoby sprawdzania obecności są tym bardziej wątpliwe.\\
-\indent Ze względu na to, że w trakcie moich studiów dostrzegałem powyższe braki oraz dlatego że bardzo zależało mi na tym, żeby w ramach pracy kończącej moje studia móc wykonać jakiś praktyczny projekt postanowiłem 
-zaprojektować system, który możliwie usprawni proces weryfikacji obecności studentów na wykładzie. Zaproponowane przeze mnie rozwiązanie można rozszerzyć o wykorzystanie innych dokumentów identyfikujących
-osobę, które są oparte na tej samej technologi, na której oparte są legitymacje studenckie.\\
+coraz większą wagę, starodawne sposoby sprawdzania obecności są tym bardziej wątpliwe.\\
+\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że żak sprzed kilku stuleci nie odczułby w procesie zbierania obecności niemal żadnej różnicy względem swojej współczesności (z tym zastrzeżeniem, że uczelniany system przechowujący dane byłby fizycznym dziennikiem obecności). Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości tego zmienić. W niniejszej pracy chciałbym podjąć tę rękawicę i spróbować zaproponować rozwiązania które mogłyby cały proces znacznie usprawnić. \\
+\indent Poniższa praca przedstawia proces od postawienia wymagań do realizacji finalnej wersji wielokomponentowego projektu. Zależało mi, aby w ramach pracy magisterskiej w praktyce wykorzystać nowoczesne platformy umożliwiające realizację projektów informatycznych.
+\indent Istotnym elementem w procesie wybierania przeze mnie rozwiązań, była chęć praktycznego wykorzystania wiedzy z zakresu systemów wbudowanych, dlatego - co w dalszej części pracy zostanie szerzej opowiedziane - zdecydowałem na zbudowanie własnego urządzenia na bazie platformy Arduino.
+
+
+\chapter{Określenie wymagań}
+\section{Krytyczne spojrzenie na obecny system sprawdzania obecności}
+W celu doprecyzowania wymagań stawianych przed projektowanym przeze mnie system postanowiłem rozważyć znany mi z autopsji proces weryfikowania obecności uczestników zajęć na zajęciach prowadzonych przez Uniwersytet Wrocławski\\
+\indent Sprawdzanie listy obecności jest w dużej mierze uzależnione od preferencji prowadzącego i zwyczajów panujących na konkretnym wydziale - przykładowo obecność może być potwierdzona słownie - poprzez kolejne wywołanie osób z listy, albo pisemnie - poprzez udostępnienie listy na którą uczestnicy będą zobowiązani się wpisać.\\
+\indent Dla uproszczenia dalszych rozważań postanowiłem przyjąć za ogólnie stosowaną metodę pisemną - która według moich obserwacji jest stosowana częściej - i na tej podstawie wyodrębnić czynności które składają się na wypełnienie listy obecności podczas zajęć.\\
+\indent Zbieranie informacji o obecności studentów na wykładzie jest czynnością na pierwszy rzut oka oczywistą, po bliższym przyjrzeniu się całej procedurze, okazuje się jednak, że daje się ona rozłożyć na jeszcze prostsze elementy. W mojej pracy o ostatecznych rozwiązaniach zdecydowałem właśnie przez pryzmat tych wyodrębnionych elementów\\
+
+\begin{itemize}
+\item Przygotowanie kartki z listą obecności (przypisanie listy obecności do zajęć których będzie ona dotyczyła).
+\item Udostępnienie kartki uczestnikom oraz wpisywanie się na listę.
+\item Weryfikacja poprawności zebranej listy poprzez przeliczenie osób obecnych na zajęciach.
+\item Przeniesienie zebranych danych do uczelnianego systemu.
+\end{itemize}
+
+\indent Powyższy schemat zbierania listy obecności podatny jest na dodatkowe błędy. Nie trudno wyobrazić sobie sytuację w której student intencjonalnie podaje nie swoje dane w celu zaliczenia obecności innej osobie. Kolejnym krokiem który może doprowadzić do błędów na ostatecznej liście obecności jest błąd ludzki podczas przenoszenia danych z kartki do uczelnianego systemu komputerowego. Podobny błąd trudno jest od razu wychwycić ze względu na to, że studenci zazwyczaj nie przeglądają na bieżąco list obecności dostępnych np. na usosie. Kiedy na koniec semestru obecność jest rozliczana bardzo trudno dojść do faktów.\\
+\indent Pierwszym elementem nadającym się w moim mniemaniu do usprawnienia jest samo tworzenie listy obecności z informację na temat zajęć których taka lista będzie dotyczyła. Fizyczna lista, poza czasem poświęconym na jej stworzenie musi być po odbytych zajęciach przechowywana - co stwarza ryzyko jej zgubienia - dodatkowo istnieje prawdopodobieństwo, że trafi w niepowołane ręce i ktoś nieżyczliwy wpisze na nią dodatkowe nazwiska. Do tego wszystkiego dochodzi jeszcze aspekt ekologiczny, ponieważ każda kolejna kartka to dodatkowy element wyrwany matce naturze. \\
+\indent Również udział studentów w rejestrowaniu własnej obecności może ulec optymalizacji. Wpisanie własnego imienia i nazwiska, a czasem numeru albumu zabiera czas. Dodatkowo niejednokrotnie zdarza się, że któryś ze studentów nie posiada długopisu co wprowadza dodatkowy zamęt na początku zajęć.\\
+\indent Weryfikacja poprawności listy jest nie tylko pracochłonna, ale również podatna na błędy. Czas poświęcony na policzenie uczestników rośnie wprost proporcjonalnie do ich liczby, a prowadzący zajęcia może się zwyczajnie pomylić, albo ktoś dopisać do listy już po tym sprawdzeniu.\\
+\indent Z całą pewnością usprawnienia wymaga proces przenoszenia danych z fizycznego nośnika do uczelnianego systemu komputerowego. Problemem jest nie tylko to, że podczas wpisywania obecności do komputerowego systemu można się pomylić, co trudno będzie później sprawdzić, ale również to, że jest to proces czasochłonny.\\
+
+\section{Zdefiniowanie wymagań}
+\indent Na podstawie poszczególnych kroków w procesie zbierania obecności, wyodrębniłem cztery właściwości przez pryzmat których mogłem ocenić potencjalne rozwiązania. Dodatkowo w dalszych rozważaniach do grona kryteriów oceny poszczególnych możliwości dołącze jeszcze dwa istotne elementy - przewidywany koszt, oraz stopień skomplikowania rozwiązania.
+
+\subsection{Identyfikacja zajęć na których obecność była weryfikowana}
+Jestem w stanie zidentyfikować dwa możliwe podejścia do tego problemu. Rozwiązanie tradycyjne realizuje to zadanie w naturalnej kolejności tzn. w momencie zbierania obecności wiemy dla jakich zajęć jest ona zbierana. W moim przekonaniu warto rozważyć opcję odwrotną, tzn. najpierw zbierać dane (pamiętając jedynie kiedy zostały zebrane), a w dalszej kolejności decydować jakich zajęć one dotyczą. W ten sposób unikamy konieczności wprowadzenia do nośnika informacji na temat tego jakich zajęć dotyczą zebrane dane.
+\subsection{Zbieranie danych od studentów}
+W tej kwestii brałem pod uwagę trzy możliwości. Tradycyjne rozwiązanie realizowane poprzez wpisywanie się na listę może zostać zastąpione poprzez użycie bardziej nowoczesnego sposobu identyfikacji - np. wbudowaną funkcję legitymacji studenckiej tj. identyfikację zbliżeniową. Innym sposobem byłoby zastąpienie fizycznej kartki wypełnianej przez osoby uczesniczące w zajęciach cyfrowym formularzem udostępnianym przez internetową aplikację. Ostatnią rozważaną przeze mnie możliwością jest skorzystanie z istniejącego albo stworzenie własnego systemu do rozpoznawania twarzy.
+\subsection{Wprowadzenie danych do systemu}
+To zadanie może być realizowane na dwa sposoby. Pierwszym z nich jest rejestrowanie obecności w systemie od razu przy jej odnotowaniu. W tym wypadku wymagane jest bezpośrednie połączenie z systemem. Drugim - zebranie wszystkich danych na wstępie i późniejsze, zbiorcze wprowadzanie ich do aplikacji. W tym wypadku niezbędny będzie nośnik na którym dane zostaną przetransportowane, wskazane jest również zaszyfrowanie tych danych na czas transportu.
+\subsection{Weryfikacja poprawności danych}
+W przypadku tradycyjnego zbierania obecności weryfikacja jest niedoskonała, ale konieczna ze względu na to że nośnik danych - kartka z listą obecności - udostępniana jest szerokiej publiczności. Podobny problem będzie występował jeśli kartkę papieru zastąpimy cyfrowym tabletem. Możemy również odseparować medium i każdą zebraną obecność weryfikować osobno.
+
+\indent W kontekście powyższych rozważań zdecydowałem się na następujące założenia
+\begin{itemize}
+\item Implementowany przeze mnie system powinien być w stanie zbierać obecności bez wcześniejszego określenia w kontekście jakich zajęć jest to robione.
+\item Dane od studentów powinny być zbierane bez ingerencji wykładowcy i nie zaburzając porządku zajęć.
+\item Wprowadzanie danych powinno odbywać się w taki sposób, żeby uniknąć pomyłki.
+\item Student nie powinien mieć możliwości ingerencji w listę obecności.
+\end{itemize}
+
+\section{Inne brane pod uwagę realizacje realizacje}
+\subsection{Responsywna aplikacja internetowa umożliwiająca wygodne rejestrowanie obecności studentów na zajęciach w samej aplikacji przez internet albo telefon}. \\
+W mojej ocenie to najprostsze rozwiązanie składające się z jednolitego systemu, w którym jednocześnie można zbierać obecności uczestników wykładu, oraz je przechowywać i przeglądać. Jej niewątpliwym plusem jest całkowite wyeliminowanie problemu związanego z wprowadzaniem danych do systemu katalogującego obecności, ponieważ dane wprowadzane są wprost do systemu. Identyfikacja konkretnych zajęć w ramach których rejestrowana jest obecność, odbywałaby się na początku zajęć poprzez wyklikanie w aplikacji. Obecność uczestników na zajęciach byłaby sprawdzana przez prowadzącego i od razu wprowadzana do systemu. Ze względu na swoją czasochłonność wydaje się to największym minusem tego rozwiązanie.
+\subsection{Urządzenie rejestrujące obecności za pośrednictwem sieci bezprzewodowej}
+To rozwiązanie początkowo wydało mi się bardzo atrakcyjne i przez długi czas miałem zamiar je zrealizować. Planowałem rozszerzyć mikrokontroler o moduł do bezprzewodowej łączności z internetem i w stworzonej aplikacji udostępnić interfejs do odnotowywania obecności. Po dłuższych rozważaniach okazało się jednak, że takie rozwiązanie przerasta moje możliwości. Po pierwsze moduł do łączności bezprzewodowej okazał się kapryśny. Dodatkowo ten sposób na zbieranie danych wymagałby umożliwienia powiązanie obecności z zajęciami, co pociągałoby dołączenie do urządzenia dodatkowego interfejsu który by na to pozwalał.
+
+\chapter{Określenie struktury projektu}
+\indent W trakcie realizacji projektu zdecydowałem, że częścią projektowanego przeze mnie systemu powinna być aplikacja umożliwiająca przechowywanie i katalogowanie danych zebranych od studentów w celu weryfikacji ich obecności na wykładzie. Zależało mi na aplikacji zbliżonej funkcjonalnością do elektronicznego dziennika, z możliwie uproszczonym procesem zbierania danych o obecności studentów. Ze względu na dostępność mojego systemu zdecydowałem się, że moja aplikacja powinna być aplikacją internetową, bez konieczności instalowania dodatkowego oprogramowania na komputerze czy telefonie.
+
 \indent Zaproponowane przeze mnie rozwiązanie składa się z dwóch części:
 \begin{enumerate}
 \item Urządzenia opartego o platformę Arduino rozszerzoną o dodatkowe moduły niezbędne do odczytania potrzebnych informacji
 \begin{itemize}
-  \item Moduł RFID - odczytujący unikalny identyfikator z legitymacji studenckiej
-  \item USB Host Shield - pozwalający na podłączenie zewnętrznej pamięci do Arduino i zapisanie zebranych informacji
-  \item Wyświetlacz LCD + Buzzer - pozwalający na komunikację z użytkownikiem
-  \item Zegar czasu rzeczywistego
+\item Moduł RFID - odczytujący unikalny identyfikator z legitymacji studenckiej
+\item USB Host Shield - pozwalający na podłączenie zewnętrznej pamięci do Arduino i zapisanie zebranych informacji
+\item Wyświetlacz LCD + Buzzer - pozwalający na komunikację z użytkownikiem
+\item Zegar czasu rzeczywistego
 \end{itemize}
 \item Aplikacji internetowej pozwalającej na tworzenie i zarządzanie wykładami. Portal umożliwia utworzenia własnego użytkownika, do którego można przypisywać zajęcia, w ramach których można rejestrować obecności studentów
 zebrane przy pomocy opisanego wyżej urządzenia.
 \end{enumerate}
-Funkcjonowanie całego systemy opiszę szczegółowe w rozwinięciu pracy.
+
+\chapter{Realizacja}
+\chapter{Możliwości rozwoju}
+\begin{itemize}
+\item dostęp do usos i propagowanie zebranych danych na stronach uczelnianych
+\item Udostępnienie systemu dla studentów i umożliwienie monitorowania swoich obecności (logowanie tylko przez uczelnianego maila, albo konta utworzone wyłącznie przez administratora)
+\item powiadomienia mailowe do studenta o zbliżającym się wyczerpaniu limitu nieobecności
+\end{itemize}
+
+\chapter{Problemy}
+\chapter{Wnioski}
 
 \ldots
 
@@ -74,3 +135,5 @@ Funkcjonowanie całego systemy opiszę szczegółowe w rozwinięciu pracy.
 %\end{thebibliography}
 
 \end{document}
+
+
