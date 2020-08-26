@@ -27,6 +27,7 @@
 #define DELAY_TIME 3000
 #define MAX_TONE 6000
 #define TONE_STEP 25
+#define DEBUG false
 
 
 #define LOOP_DELAY 500
@@ -45,6 +46,9 @@ void setup()
 {
     Serial.begin(9600);   // Initiate a serial communication 
     while (!Serial); 
+    #if DEBUG
+        Serial.println("SETUP");
+    #endif
     
     pinMode(SS_PIN, OUTPUT);
     digitalWrite(SS_PIN, LOW);
@@ -54,10 +58,14 @@ void setup()
     mfrc522.PCD_Init();   // Initiate MFRC522
 
     if (!initUSB(&usb)) {
-        Serial.println("initUSB fail");
+        #if DEBUG
+            Serial.println("initUSB fail");
+        #endif
         printLCD("Insert pendrive", 0);
     } else if(!key.begin()) {
-        Serial.println("key.begin fail");
+        #if DEBUG
+            Serial.println("key.begin fail");
+        #endif
         printLCD("Initialization Error", 0);
         looped();
     } else {
@@ -68,10 +76,14 @@ void setup()
 void loop() 
 {   
     if (!usb_inserted) {
-        Serial.println("State: not Inserted");
+        #if DEBUG
+            Serial.println("State: not Inserted");
+        #endif
         if (initUSB(&usb)) {
             if(!key.begin()) {
-                Serial.println("key.begin fail");
+                #if DEBUG
+                    Serial.println("key.begin fail");
+                #endif
                 printLCD("Initialization Error", 0);
                 looped();
             } else {
@@ -79,14 +91,20 @@ void loop()
             }
         }
     } else {
-        Serial.println("State: Inserted"); 
+        #if DEBUG
+            Serial.println("State: Inserted");
+        #endif
         if (!key.init()) {
             onUsbOut();
         } else {
             if (mfrc522.PICC_IsNewCardPresent()) {
-                Serial.println("PICC_IsNewCardPresent success");
+                #if DEBUG
+                    Serial.println("PICC_IsNewCardPresent success");
+                #endif
                 if ( !mfrc522.PICC_ReadCardSerial()) {
-                    Serial.println("Fail read card");
+                    #if DEBUG
+                        Serial.println("Fail read card");
+                    #endif
                     printLCD("Read Cart error", 0);
                     delay(1000);
                     printLCD("Scan card", 0);
@@ -101,15 +119,19 @@ void loop()
 
 void onCardRead() {
   String content = readRfidUid();
-  file_ptr.println(content);   
-  Serial.println(content + " Printed");
+  file_ptr.println(content);
+  #if DEBUG
+      Serial.println(content + " Printed");
+  #endif
   printLCD("Read Success" , 0); 
   buzzer();
   printLCD("Scan Card" , 0);   
 }
 
 void onUsbOut() {
-    Serial.println("USB Out");
+    #if DEBUG
+        Serial.println("USB Out");
+    #endif
     file_ptr.close();
     printLCD("Inseert Pendrive", 0);
     printLCD("", 1);
@@ -117,9 +139,13 @@ void onUsbOut() {
 }
 
 void onUsbIn() {
-    Serial.println("USB Inserted");
+    #if DEBUG
+        Serial.println("USB Inserted");
+    #endif
     if(!createFile()) {
-        Serial.println("open file fail");
+        #if DEBUG
+            Serial.println("open file fail");
+        #endif
         printLCD("Reinsert pendrive", 0);
         looped();
     } else {
@@ -133,45 +159,55 @@ void onUsbIn() {
 
 String readRfidUid()
 {
-  Serial.println("ReadRfidUid");
-  String content = "";
-  content.concat(String(mfrc522.uid.uidByte[0] < 0x10 ? "0" : ""));
-  content.concat(String(mfrc522.uid.uidByte[0], HEX));
-  for (byte i = 1; i < mfrc522.uid.size; i++) 
-  {
-     content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
-     content.concat(String(mfrc522.uid.uidByte[i], HEX));
-  }
-
-  return content;
+    #if DEBUG
+        Serial.println("ReadRfidUid");
+    #endif
+    String content = "";
+    content.concat(String(mfrc522.uid.uidByte[0] < 0x10 ? "0" : ""));
+    content.concat(String(mfrc522.uid.uidByte[0], HEX));
+    for (byte i = 1; i < mfrc522.uid.size; i++) 
+    {
+         content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
+         content.concat(String(mfrc522.uid.uidByte[i], HEX));
+    }
+  
+    return content;
 }
 
 void looped()
 {
-  while(true){};
+    while(true){};
 }
 
 void buzzer()
 {
-  Serial.println("Buzzer");
-  for(int i = 0; i < BUZZ_TIME; i += TONE_STEP) {
-    noTone(BUZZER_PIN);
-    tone(BUZZER_PIN, i, MAX_TONE * TONE_STEP / BUZZ_TIME);
-    delay(TONE_STEP);
-  }
-  delay(DELAY_TIME);
+    #if DEBUG
+        Serial.println("Buzzer");
+    #endif
+    for(int i = 0; i < BUZZ_TIME; i += TONE_STEP) {
+        noTone(BUZZER_PIN);
+        tone(BUZZER_PIN, i, MAX_TONE * TONE_STEP / BUZZ_TIME);
+        delay(TONE_STEP);
+    }
+    delay(DELAY_TIME);
 }
 
 bool createFile()
 {
-    Serial.println("createFile");
+    #if DEBUG
+        Serial.println("createFile");
+    #endif
     tmElements_t tm;
   
     if (RTC.read(tm)) {
-        Serial.println("RTC.read success");
+        #if DEBUG
+            Serial.println("RTC.read success");
+        #endif
         char buff[25];
         sprintf(buff, FILENAME_FORMAT, tm.Day, tm.Month, tmYearToCalendar(tm.Year),tm.Hour, tm.Minute, tm.Minute);
-        Serial.println(buff);
+        #if DEBUG
+            Serial.println(buff);
+        #endif
     
         if(file_ptr.open(buff, O_CREAT | O_RDWR | O_APPEND)) {
             printLCD(buff, 1);
