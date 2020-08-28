@@ -3,10 +3,7 @@
 #include <LiquidCrystal.h>
 #include <UsbFat.h>
 #include <DS1307RTC.h>
-
-
-#define FILENAME_FORMAT "%02d-%02d-%02d-%02d_%02d_%02d"
-#define TIME_FORMAT "%02d/%02d %02d:%02d:%02d"
+#include <MemoryFree.h>
 
 /*
  * Pin 13 SCK
@@ -30,17 +27,35 @@
 #define TONE_STEP 25
 #define DEBUG false
 
-#define STATE_USB_WAIT 1
-#define STATE_CARD_WAIT 2
-#define STATE_CLOCK_ERROR 3
-#define STATE_INIT_ERROR 4
-#define STATE_USB_FOUND 5
-#define STATE_USB_LOST 6
-#define STATE_CARD_FOUND 7
-#define STATE_FILE_ERROR 8
-#define STATE_CLOCK_ERROR_USB_WAIT 9
-#define STATE_CLOCK_ERROR_DATE_FILE 10
-#define TIME_FILE_NAME "timefileav"
+const byte STATE_USB_WAIT = 1;
+const byte STATE_CARD_WAIT = 2;
+const byte STATE_CLOCK_ERROR = 3;
+const byte STATE_INIT_ERROR = 4;
+const byte STATE_USB_FOUND = 5;
+const byte STATE_USB_LOST = 6;
+const byte STATE_CARD_FOUND = 7;
+const byte STATE_FILE_ERROR = 8;
+const byte STATE_CLOCK_ERROR_USB_WAIT = 9;
+const byte STATE_CLOCK_ERROR_DATE_FILE = 10;
+
+
+const char TIME_FILE_NAME[] = "tfav";
+const char FILENAME_FORMAT[] = "%02d-%02d-%02d-%02d_%02d_%02d";
+
+const char LCD_INSERT[] PROGMEM = "Insert pendrive";
+const char LCD_INSERT_1[] PROGMEM = "with time";
+const char LCD_SCAN[] PROGMEM = "Scan card";
+const char LCD_CARD_ERROR[] PROGMEM = "Read card error";
+const char LCD_CLOCK_ERROR_1[] PROGMEM = "Clock Error. Set";
+const char LCD_CLOCK_ERROR_2[] PROGMEM = "time to continue";
+const char LCD_UPLOAD_FILE[] PROGMEM = "Upload time file";
+const char LCD_INIT_ERROR_1[] PROGMEM = "Initialization";
+const char LCD_INIT_ERROR_2[] PROGMEM = "Error";
+const char LCD_REINSERT_1[] PROGMEM = "Open file error";
+const char LCD_REINSERT_2[] PROGMEM = "Reinsert USB";
+const char LCD_READ_SUCCESS[] PROGMEM = "Read Success";
+const char LCD_INSERTED[] PROGMEM = "USB Inserted";
+const char LCD_SET_SUCCESS[] PROGMEM = "Time set success";
 
 int state = STATE_USB_WAIT;
 
@@ -72,6 +87,8 @@ void setup()
 
 void loop() 
 {  
+    Serial.print("freeMemory()=");
+    Serial.println(freeMemory());
     tmElements_t tm;
     if (state != STATE_CLOCK_ERROR && state != STATE_CLOCK_ERROR_USB_WAIT && state != STATE_CLOCK_ERROR_DATE_FILE) {
          tm = getTime();
@@ -116,21 +133,21 @@ void loop()
 void stateUsbWait(tmElements_t tm)
 {
     #if DEBUG 
-        Serial.println("stateUsb"); 
+        Serial.println(F("stateUsb"));
     #endif
-    printTmLCD("Insert pendrive", tm);
+    printTmLCD(LCD_INSERT, tm);
     if (!initUSB(&usb)) {
         #if DEBUG 
-            Serial.println("initUSB fail"); 
+            Serial.println(F("initUSB fail"));
         #endif
     } else if(!key.begin()) {
         #if DEBUG 
-            Serial.println("key.begin fail"); 
+            Serial.println(F("key.begin fail"));
         #endif
         state = STATE_INIT_ERROR;
     } else {    
         #if DEBUG  
-            Serial.println("USB Inserted"); 
+            Serial.println(F("USB Inserted"));
         #endif
         state = STATE_USB_FOUND;
     }
@@ -138,23 +155,23 @@ void stateUsbWait(tmElements_t tm)
 
 void stateCardWait(tmElements_t tm)
 {
-    printTmLCD("Scan card", tm);   
+    printTmLCD(LCD_SCAN, tm);   
     #if DEBUG 
-        Serial.println("stateCard"); 
+        Serial.println(F("stateCard"));
     #endif
     
     if (!key.init()) {
         state = STATE_USB_LOST;
     } else if (mfrc522.PICC_IsNewCardPresent()) {
         #if DEBUG 
-            Serial.println("PICC_IsNewCardPresent success"); 
+            Serial.println(F("PICC_IsNewCardPresent success"));
         #endif
         
         if ( !mfrc522.PICC_ReadCardSerial()) {
             #if DEBUG 
-                Serial.println("Fail read card"); 
+                Serial.println(F("Fail read card"));
             #endif
-            printTmLCD("Read card error", tm);
+            printTmLCD(LCD_CARD_ERROR, tm);
             delay(1000);
         } else {
             state = STATE_CARD_FOUND;;
@@ -164,12 +181,12 @@ void stateCardWait(tmElements_t tm)
 
 void stateInitError() 
 {
-    printLCD("Initialization", "Error");
+    printLCD(LCD_INIT_ERROR_1, LCD_INIT_ERROR_2);
 }
 
 void stateFileError() 
 {  
-    printLCD("Open file error", "Reinsert USB");
+    printLCD(LCD_REINSERT_1, LCD_REINSERT_2);
     if(!key.init()) {
         state = STATE_USB_WAIT;
     }
@@ -179,13 +196,13 @@ void stateCardFound(tmElements_t tm)
 {  
     if (!file_ptr.open(file_name, O_CREAT | O_RDWR | O_APPEND) || !file_ptr.println(readRfidUid())) {
         #if DEBUG 
-            Serial.println("open file fail"); 
+            Serial.println(F("open file fail"));
         #endif
         state = STATE_FILE_ERROR;
     } else {
         file_ptr.close();
       
-        printTmLCD("Read Success", tm); 
+        printTmLCD(LCD_READ_SUCCESS, tm); 
         buzzer();
         state = STATE_CARD_WAIT;
     }
@@ -194,17 +211,17 @@ void stateCardFound(tmElements_t tm)
 void stateUsbLost() 
 {
     #if DEBUG 
-        Serial.println("USB Out"); 
+        Serial.println(F("USB Out"));
     #endif
     state = STATE_USB_WAIT;
 }
 
 void stateUsbFound(tmElements_t tm) 
 {
-    printTmLCD("USB Inserted", tm);
+    printTmLCD(LCD_INSERTED, tm);
 
     #if DEBUG 
-        Serial.println("createFileName"); 
+        Serial.println(F("createFileName"));
     #endif
     sprintf(file_name, FILENAME_FORMAT, tm.Day, tm.Month, tmYearToCalendar(tm.Year),tm.Hour, tm.Minute, tm.Second);
 
@@ -218,31 +235,31 @@ void stateUsbFound(tmElements_t tm)
 void stateClockError()
 {
     #if DEBUG 
-        Serial.println("stateClockError"); 
+        Serial.println(F("stateClockError"));
     #endif
 
     if(digitalRead(CLOCK_PIN)) {
         state = STATE_CLOCK_ERROR_DATE_FILE;
     } else {
-        printLCD("Clock Error. Set", "time to continue");
+        printLCD(LCD_CLOCK_ERROR_1, LCD_CLOCK_ERROR_2);
     }
 }
 
 void stateClockErrorUsbWait()
 {
-    printLCD("Insert pendrive", "with time");
+    printLCD(LCD_INSERT, LCD_INSERT_1);
     
     #if DEBUG 
-        Serial.println("stateClockErrorInsertUsb"); 
+        Serial.println(F("stateClockErrorInsertUsb"));
     #endif
     
     if (!initUSB(&usb)) {
         #if DEBUG 
-            Serial.println("initUSB fail"); 
+            Serial.println(F("initUSB fail"));
         #endif
     } else if(!key.begin()) {
         #if DEBUG 
-            Serial.println("key.begin fail"); 
+            Serial.println(F("key.begin fail"));
         #endif
         state = STATE_INIT_ERROR;
     } else {
@@ -253,13 +270,13 @@ void stateClockErrorUsbWait()
 void stateClockErrorDateFile()
 {
     #if DEBUG 
-        Serial.println("stateClockErrorDateFile"); 
+        Serial.println(F("stateClockErrorDateFile"));
     #endif
 
     if(!key.init()) {
         state = STATE_CLOCK_ERROR_USB_WAIT;
     } else if(!key.exists(TIME_FILE_NAME)) {
-        printLCD("Upload time file", TIME_FILE_NAME);
+        printLCD(LCD_UPLOAD_FILE, TIME_FILE_NAME);
     } else if (!file_ptr.open(TIME_FILE_NAME, O_READ)) {
       
     } else {
@@ -277,9 +294,11 @@ void stateClockErrorDateFile()
             tm.Hour = hr;
             tm.Minute = min;
             tm.Second = sec;
-            printTmLCD("Time set success", tm);
+            printTmLCD(LCD_SET_SUCCESS, tm);
             delay(1000);
-            state = STATE_CARD_WAIT;
+            if (RTC.write(tm)) {
+               state = STATE_CARD_WAIT;
+            }            
         }
     }
 }
@@ -289,7 +308,7 @@ tmElements_t getTime()
     tmElements_t tm;
     if (RTC.read(tm)) {
         #if DEBUG 
-            Serial.println("RTC.read success"); 
+            Serial.println(F("RTC.read success"));
         #endif
     } else {
         state = STATE_CLOCK_ERROR;
@@ -301,7 +320,7 @@ tmElements_t getTime()
 String readRfidUid()
 {
     #if DEBUG 
-        Serial.println("ReadRfidUid"); 
+        Serial.println(F("ReadRfidUid"));
     #endif
     String content = "";
     content.concat(String(mfrc522.uid.uidByte[0] < 0x10 ? "0" : ""));
@@ -322,7 +341,7 @@ String readRfidUid()
 void buzzer()
 {
     #if DEBUG 
-        Serial.println("Buzzer"); 
+        Serial.println(F("Buzzer"));
     #endif
     for(int i = 0; i < BUZZ_TIME; i += TONE_STEP) {
         noTone(BUZZER_PIN);
@@ -333,16 +352,36 @@ void buzzer()
 
 void printTmLCD(char* content, tmElements_t tm)
 {    
-    char time_buff[20];
-    sprintf(time_buff, TIME_FORMAT, tm.Day, tm.Month,tm.Hour, tm.Minute, tm.Second);
-    printLCD(content, time_buff);
+    lcd.begin(16, 2);
+    lcd.setCursor(0, 0);
+    printProgmemLCD(content);
+    lcd.setCursor(0, 1);
+    printIntLcd(tm.Day); lcd.print("/");
+    printIntLcd(tm.Month); lcd.print(" ");
+    printIntLcd(tm.Hour); lcd.print(":");
+    printIntLcd(tm.Minute); lcd.print(":");
+    printIntLcd(tm.Second);
 }
 
 void printLCD(char* content1, char* content2)
 {
     lcd.begin(16, 2);
     lcd.setCursor(0, 0);
-    lcd.print(content1);
+    printProgmemLCD(content1);
     lcd.setCursor(0, 1);
-    lcd.print(content2);
+    printProgmemLCD(content2);
+}
+
+void printProgmemLCD(char* content)
+{
+    for (byte aux_byte = 0; aux_byte < strlen_P(content); aux_byte++) {
+        lcd.print((char)pgm_read_byte_near(content + aux_byte));
+    }
+}
+
+void printIntLcd(byte i) {
+    if(i < 10) {
+        lcd.print(0);
+    }
+    lcd.print(i);
 }
