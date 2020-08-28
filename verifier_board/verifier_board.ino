@@ -16,6 +16,7 @@
 #define SS_PIN 8
 #define RST_PIN 9
 #define BUZZER_PIN A1
+#define CLOCK_PIN 10
 
 #define LCD_RESET_PIN 7
 #define LCD_ENABLE_PIN 6
@@ -37,6 +38,10 @@
 #define STATE_USB_LOST 6
 #define STATE_CARD_FOUND 7
 #define STATE_FILE_ERROR 8
+#define STATE_CLOCK_ERROR_USB_WAIT 9
+#define STATE_CLOCK_ERROR_DATE_FILE 10
+#define TIME_FILE_NAME "timefileav"
+
 int state = STATE_USB_WAIT;
 
 #define LOOP_DELAY 100
@@ -61,12 +66,16 @@ void setup()
     pinMode(SS_PIN, OUTPUT);
     digitalWrite(SS_PIN, LOW);
     pinMode(BUZZER_PIN, OUTPUT);
+    pinMode(CLOCK_PIN, OUTPUT);
     digitalWrite(BUZZER_PIN, LOW);
 }
 
 void loop() 
-{       
-    tmElements_t tm = getTime();
+{  
+    tmElements_t tm;
+    if (state != STATE_CLOCK_ERROR && state != STATE_CLOCK_ERROR_USB_WAIT && state != STATE_CLOCK_ERROR_DATE_FILE) {
+         tm = getTime();
+    }
     
     switch(state) {
         case STATE_USB_WAIT:
@@ -76,13 +85,19 @@ void loop()
             stateCardWait(tm);
             break;
         case STATE_CLOCK_ERROR:
-            stateClockError(tm);
+            stateClockError();
+            break;
+        case STATE_CLOCK_ERROR_USB_WAIT:
+            stateClockErrorUsbWait();
+            break;
+        case STATE_CLOCK_ERROR_DATE_FILE:
+            stateClockErrorDateFile();
             break;
         case STATE_INIT_ERROR:
-            stateInitError(tm);
+            stateInitError();
             break;
         case STATE_FILE_ERROR:
-            stateFileError(tm);
+            stateFileError();
             break;
         case STATE_USB_FOUND:
             stateUsbFound(tm);
@@ -103,7 +118,7 @@ void stateUsbWait(tmElements_t tm)
     #if DEBUG 
         Serial.println("stateUsb"); 
     #endif
-    printLCD("Insert pendrive", "", tm);
+    printTmLCD("Insert pendrive", tm);
     if (!initUSB(&usb)) {
         #if DEBUG 
             Serial.println("initUSB fail"); 
@@ -123,7 +138,7 @@ void stateUsbWait(tmElements_t tm)
 
 void stateCardWait(tmElements_t tm)
 {
-    printLCD("Scan card", "", tm);   
+    printTmLCD("Scan card", tm);   
     #if DEBUG 
         Serial.println("stateCard"); 
     #endif
@@ -139,7 +154,7 @@ void stateCardWait(tmElements_t tm)
             #if DEBUG 
                 Serial.println("Fail read card"); 
             #endif
-            printLCD("Read card error", "", tm);
+            printTmLCD("Read card error", tm);
             delay(1000);
         } else {
             state = STATE_CARD_FOUND;;
@@ -147,14 +162,14 @@ void stateCardWait(tmElements_t tm)
     }
 }
 
-void stateInitError(tmElements_t tm) 
+void stateInitError() 
 {
-    printLCD("Initialization", "Error", tm);
+    printLCD("Initialization", "Error");
 }
 
-void stateFileError(tmElements_t tm) 
+void stateFileError() 
 {  
-    printLCD("Open file error", "Reinsert USB", tm);
+    printLCD("Open file error", "Reinsert USB");
     if(!key.init()) {
         state = STATE_USB_WAIT;
     }
@@ -170,7 +185,7 @@ void stateCardFound(tmElements_t tm)
     } else {
         file_ptr.close();
       
-        printLCD("Read Success", "", tm); 
+        printTmLCD("Read Success", tm); 
         buzzer();
         state = STATE_CARD_WAIT;
     }
@@ -186,7 +201,7 @@ void stateUsbLost()
 
 void stateUsbFound(tmElements_t tm) 
 {
-    printLCD("USB Inserted", "", tm);
+    printTmLCD("USB Inserted", tm);
 
     #if DEBUG 
         Serial.println("createFileName"); 
@@ -200,12 +215,73 @@ void stateUsbFound(tmElements_t tm)
     delay(1000);
 }
 
-void stateClockError(tmElements_t tm)
+void stateClockError()
 {
     #if DEBUG 
         Serial.println("stateClockError"); 
     #endif
-    printLCD("Clock Error. Set", "time to continue", tm);
+
+    if(digitalRead(CLOCK_PIN)) {
+        state = STATE_CLOCK_ERROR_DATE_FILE;
+    } else {
+        printLCD("Clock Error. Set", "time to continue");
+    }
+}
+
+void stateClockErrorUsbWait()
+{
+    printLCD("Insert pendrive", "with time");
+    
+    #if DEBUG 
+        Serial.println("stateClockErrorInsertUsb"); 
+    #endif
+    
+    if (!initUSB(&usb)) {
+        #if DEBUG 
+            Serial.println("initUSB fail"); 
+        #endif
+    } else if(!key.begin()) {
+        #if DEBUG 
+            Serial.println("key.begin fail"); 
+        #endif
+        state = STATE_INIT_ERROR;
+    } else {
+        state = STATE_CLOCK_ERROR_DATE_FILE;
+    }
+}
+
+void stateClockErrorDateFile()
+{
+    #if DEBUG 
+        Serial.println("stateClockErrorDateFile"); 
+    #endif
+
+    if(!key.init()) {
+        state = STATE_CLOCK_ERROR_USB_WAIT;
+    } else if(!key.exists(TIME_FILE_NAME)) {
+        printLCD("Upload time file", TIME_FILE_NAME);
+    } else if (!file_ptr.open(TIME_FILE_NAME, O_READ)) {
+      
+    } else {
+        char buff[20];
+        int sec, min, hr, day, mon, year;
+        tmElements_t tm;
+        
+        file_ptr.read(buff, 20);
+        if(sscanf(buff, "%d/%d/%d %d:%d:%d", &day, &mon, &year, &hr, &min, &sec) != 6) {
+          
+        } else {
+            tm.Day = day;
+            tm.Month = mon;
+            tm.Year = year;
+            tm.Hour = hr;
+            tm.Minute = min;
+            tm.Second = sec;
+            printTmLCD("Time set success", tm);
+            delay(1000);
+            state = STATE_CARD_WAIT;
+        }
+    }
 }
 
 tmElements_t getTime()
@@ -255,19 +331,18 @@ void buzzer()
     }
 }
 
-void printLCD(char* content1, char* content2, tmElements_t tm)
+void printTmLCD(char* content, tmElements_t tm)
+{    
+    char time_buff[20];
+    sprintf(time_buff, TIME_FORMAT, tm.Day, tm.Month,tm.Hour, tm.Minute, tm.Second);
+    printLCD(content, time_buff);
+}
+
+void printLCD(char* content1, char* content2)
 {
     lcd.begin(16, 2);
     lcd.setCursor(0, 0);
     lcd.print(content1);
     lcd.setCursor(0, 1);
-    
-    if(content2[0] == 0) {
-        char buff[20];
-        
-        sprintf(buff, TIME_FORMAT, tm.Day, tm.Month,tm.Hour, tm.Minute, tm.Second);
-        lcd.print(buff);
-    } else {
-        lcd.print(content2);
-    }
+    lcd.print(content2);
 }
