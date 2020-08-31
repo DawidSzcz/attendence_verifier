@@ -14,12 +14,12 @@
 #define BUZZER_PIN A1
 #define CLOCK_PIN A0
 
-#define LCD_RESET_PIN 7
-#define LCD_ENABLE_PIN 6
-#define LCD_D4_PIN 5
-#define LCD_D5_PIN 4
-#define LCD_D6_PIN 3
-#define LCD_D7_PIN 2
+#define LCD_RESET_PIN 6
+#define LCD_ENABLE_PIN 7
+#define LCD_D4_PIN 2
+#define LCD_D5_PIN 3
+#define LCD_D6_PIN 4
+#define LCD_D7_PIN 5
 
 #define BUZZ_TIME 1000
 #define MAX_TONE 2000
@@ -27,23 +27,42 @@
 #define DEBUG false
 
 const byte STATE_USB_WAIT = 1;
-const byte STATE_CARD_WAIT = 2;
-const byte STATE_CLOCK_ERROR = 3;
-const byte STATE_INIT_ERROR = 4;
-const byte STATE_USB_INIT = 5;
-const byte STATE_USB_LOST = 6;
-const byte STATE_CARD_FOUND = 7;
+const byte STATE_USB_INIT = 2;
+const byte STATE_CARD_WAIT = 3;
+const byte STATE_CARD_FOUND = 4;
+const byte STATE_INIT_ERROR = 5;
+const byte STATE_USB_REMOVE = 6;
+const byte STATE_USB_LOST = 7;
 const byte STATE_FILE_ERROR = 8;
-const byte STATE_CLOCK_ERROR_USB_WAIT = 9;
-const byte STATE_CLOCK_ERROR_CLICK = 10;
-const byte STATE_USB_REMOVE = 11;
+const byte STATE_CLOCK_ERROR = 9;
+const byte STATE_CLOCK_ERROR_USB_WAIT = 10;
+const byte STATE_CLOCK_ERROR_CLICK = 11;
 const byte STATE_CLOCK_ERROR_RESET_FAIL = 12;
 
 
 const char TIME_FILE_NAME[] = "tfav";
 const char FILENAME_FORMAT[] = "%02d-%02d-%02d-%02d_%02d_%02d";
 
+
+
+
+
+
+//Deklaracja łańcucha znaków w pamięci operacyjne 
 const char LCD_INSERT[] PROGMEM = "Insert pendrive";
+
+//Deklaracja łańcucha znakóW w pamięci flash 
+const char LCD_INSERT[] = "Insert pendrive"; 
+
+
+//Wy
+
+
+
+
+
+
+
 const char LCD_INSERT_1[] PROGMEM = "with time";
 const char LCD_SCAN[] PROGMEM = "Scan card";
 const char LCD_CARD_ERROR[] PROGMEM = "Read error";
@@ -58,6 +77,7 @@ const char LCD_REMOVED[] PROGMEM = "USB removed";
 const char LCD_SET_SUCCESS[] PROGMEM = "Time set";
 const char LCD_CLOCK_RESET_FAIL[] PROGMEM = "Clock Reset Fail";
 const char LCD_CLICK_TO_RESET[] PROGMEM = "Click to reset";
+const char LCD_WRONG_DATE_FORMAT[] PROGMEM = "Bad date format";
 const char LCD_EMPTY[] PROGMEM = "";
 
 int state = STATE_USB_WAIT;
@@ -71,8 +91,8 @@ bool usb_inserted = false;
 MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
 LiquidCrystal lcd(LCD_RESET_PIN, LCD_ENABLE_PIN, LCD_D4_PIN, LCD_D5_PIN, LCD_D6_PIN, LCD_D7_PIN); // initialize the lcd
 File file_ptr;
-tmElements_t tm;
 char file_name[25];
+tmElements_t time_to_set;
 
 void setup() 
 {
@@ -91,6 +111,8 @@ void setup()
 
 void loop() 
 {  
+    tmElements_t tm;
+  
     if (state == STATE_USB_WAIT || state == STATE_CARD_WAIT || state == STATE_CARD_FOUND || state == STATE_USB_INIT || state == STATE_USB_REMOVE) {
          tm = getTime();
     }
@@ -215,7 +237,7 @@ void stateCardFound(tmElements_t tm)
         #endif
         state = STATE_FILE_ERROR;
     } else {
-        1qQfile_ptr.close();      
+        file_ptr.close();      
         printTmLCD(LCD_READ_SUCCESS, tm); 
         buzzer(false);
         state = STATE_CARD_WAIT;
@@ -293,19 +315,26 @@ void stateClockErrorUsbWait()
         #if DEBUG 
             Serial.println(F("key.begin fail")); 
         #endif
-        state = STATE_USB_REMOVE;
+        state = STATE_INIT_ERROR;
     } else if(!key.exists(TIME_FILE_NAME)) {
         printLCD(LCD_UPLOAD_FILE, TIME_FILE_NAME);
     } else if (!file_ptr.open(TIME_FILE_NAME, O_READ)) {
-        state = STATE_USB_REMOVE;
+        state = STATE_INIT_ERROR;
     } else {
         char buff[20];
         int sec, min, hr, day, mon, year;
         file_ptr.read(buff, 20);
+        file_ptr.close();
         
         if(sscanf(buff, "%d/%d/%d %d:%d:%d", &day, &mon, &year, &hr, &min, &sec) != 6) {
-            printLCD(LCD_UPLOAD_FILE, TIME_FILE_NAME);
+            printLCD(LCD_WRONG_DATE_FORMAT, LCD_EMPTY);
         } else {
+            time_to_set.Day = day;
+            time_to_set.Month = mon;
+            time_to_set.Year = year;
+            time_to_set.Hour = hr;
+            time_to_set.Minute = min;
+            time_to_set.Second = sec;
             state = STATE_CLOCK_ERROR_CLICK;
         }
     }
@@ -317,32 +346,14 @@ void stateClockErrorClick()
         Serial.println(F("stateClockErrorDateFile")); 
     #endif
 
-    if(!key.init()) {
-        state = STATE_INIT_ERROR;
-    } else if(1 != digitalRead(CLOCK_PIN)) {
+    if(1 != digitalRead(CLOCK_PIN)) {
         printLCD(LCD_CLICK_TO_RESET, LCD_EMPTY);
+    } else if (!RTC.write(time_to_set)) {
+        state = STATE_CLOCK_ERROR_RESET_FAIL;
     } else {
-        char buff[20];
-        int sec, min, hr, day, mon, year;
-        tmElements_t tm;
-        
-        file_ptr.read(buff, 20);
-        sscanf(buff, "%d/%d/%d %d:%d:%d", &day, &mon, &year, &hr, &min, &sec);
-        file_ptr.close();
-        
-        tm.Day = day;
-        tm.Month = mon;
-        tm.Year = year;
-        tm.Hour = hr;
-        tm.Minute = min;
-        tm.Second = sec;
-        printTmLCD(LCD_SET_SUCCESS, tm);
+        printTmLCD(LCD_SET_SUCCESS, time_to_set);
         delay(1000);
-        if (RTC.write(tm)) {
-           state = STATE_USB_INIT;
-        } else {
-            state = STATE_CLOCK_ERROR_RESET_FAIL;
-        }
+        state = STATE_USB_INIT;
     }
 }
 
@@ -353,6 +364,7 @@ void stateClockErrorResetFail()
 
 tmElements_t getTime()
 {
+    tmElements_t tm;
     if (RTC.read(tm)) {
         #if DEBUG 
             Serial.println(F("RTC.read success")); 
