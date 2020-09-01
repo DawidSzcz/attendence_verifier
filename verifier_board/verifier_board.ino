@@ -1,8 +1,9 @@
 #include <SPI.h>
-#include <MFRC522.h>
 #include <LiquidCrystal.h>
 #include <UsbFat.h>
 #include <DS1307RTC.h>
+#include <PN532_SPI.h>
+#include "PN532.h"
 
 /*
  * Pin 13 SCK
@@ -10,7 +11,6 @@
  * Pin 11 MOSI
  */ 
 #define SS_PIN 8
-#define RST_PIN 9
 #define BUZZER_PIN A1
 #define CLOCK_PIN A0
 
@@ -24,7 +24,7 @@
 #define BUZZ_TIME 1000
 #define MAX_TONE 2000
 #define TONE_STEP 25
-#define DEBUG false
+#define DEBUG true
 
 const byte STATE_USB_WAIT = 1;
 const byte STATE_USB_INIT = 2;
@@ -39,30 +39,10 @@ const byte STATE_CLOCK_ERROR_USB_WAIT = 10;
 const byte STATE_CLOCK_ERROR_CLICK = 11;
 const byte STATE_CLOCK_ERROR_RESET_FAIL = 12;
 
-
 const char TIME_FILE_NAME[] = "tfav";
 const char FILENAME_FORMAT[] = "%02d-%02d-%02d-%02d_%02d_%02d";
 
-
-
-
-
-
-//Deklaracja łańcucha znaków w pamięci operacyjne 
 const char LCD_INSERT[] PROGMEM = "Insert pendrive";
-
-//Deklaracja łańcucha znakóW w pamięci flash 
-const char LCD_INSERT[] = "Insert pendrive"; 
-
-
-//Wy
-
-
-
-
-
-
-
 const char LCD_INSERT_1[] PROGMEM = "with time";
 const char LCD_SCAN[] PROGMEM = "Scan card";
 const char LCD_CARD_ERROR[] PROGMEM = "Read error";
@@ -79,6 +59,7 @@ const char LCD_CLOCK_RESET_FAIL[] PROGMEM = "Clock Reset Fail";
 const char LCD_CLICK_TO_RESET[] PROGMEM = "Click to reset";
 const char LCD_WRONG_DATE_FORMAT[] PROGMEM = "Bad date format";
 const char LCD_EMPTY[] PROGMEM = "";
+const char TIME_FORMAT[] PROGMEM = "%d/%d/%d %d:%d:%d";
 
 int state = STATE_USB_WAIT;
 
@@ -88,11 +69,12 @@ USB usb;
 BulkOnly bulk(&usb);
 UsbFat key(&bulk);
 bool usb_inserted = false;
-MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance.
 LiquidCrystal lcd(LCD_RESET_PIN, LCD_ENABLE_PIN, LCD_D4_PIN, LCD_D5_PIN, LCD_D6_PIN, LCD_D7_PIN); // initialize the lcd
 File file_ptr;
-char file_name[25];
+char file_name[18];
 tmElements_t time_to_set;
+PN532_SPI pn532spi(SPI, 8);
+PN532 nfc(pn532spi);
 
 void setup() 
 {
@@ -101,7 +83,8 @@ void setup()
     #if DEBUG
         Serial.println("SETUP");
     #endif
-    
+
+    nfc.begin();
     pinMode(SS_PIN, OUTPUT);
     digitalWrite(SS_PIN, LOW);
     pinMode(BUZZER_PIN, OUTPUT);
@@ -185,22 +168,17 @@ void stateCardWait(tmElements_t tm)
         Serial.println(F("stateCard")); 
     #endif
     
+    uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };
+    uint8_t uid_length;
+    
     if (!key.init()) {
         state = STATE_USB_LOST;
-    } else if (mfrc522.PICC_IsNewCardPresent()) {
+    } else if (nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uid_length)) {
+
         #if DEBUG 
-            Serial.println(F("PICC_IsNewCardPresent success")); 
+            Serial.println(F("readPassiveTargetID success")); 
         #endif
-        
-        if ( !mfrc522.PICC_ReadCardSerial()) {
-            #if DEBUG 
-                Serial.println(F("Fail read card")); 
-            #endif
-            printTmLCD(LCD_CARD_ERROR, tm);
-            delay(1000);
-        } else {
-            state = STATE_CARD_FOUND;;
-        }
+        state = STATE_CARD_FOUND;;
     }
 }
 
@@ -269,9 +247,7 @@ void stateUsbInit(tmElements_t tm)
         #endif
         state = STATE_INIT_ERROR;
     } else {
-        SPI.begin();      // Initiate  SPI bus
-        mfrc522.PCD_Init();   // Initiate MFRC522
-        
+        pn532spi.begin();
         state = STATE_CARD_WAIT;
     }
     delay(1000);
@@ -325,8 +301,14 @@ void stateClockErrorUsbWait()
         int sec, min, hr, day, mon, year;
         file_ptr.read(buff, 20);
         file_ptr.close();
+
+        char time_buff[18];
+        readProgmemIntoBuff(TIME_FORMAT, time_buff);
+        #if DEBUG 
+            Serial.println(time_buff); 
+        #endif
         
-        if(sscanf(buff, "%d/%d/%d %d:%d:%d", &day, &mon, &year, &hr, &min, &sec) != 6) {
+        if(sscanf(buff, time_buff, &day, &mon, &year, &hr, &min, &sec) != 6) {
             printLCD(LCD_WRONG_DATE_FORMAT, LCD_EMPTY);
         } else {
             time_to_set.Day = day;
@@ -376,27 +358,6 @@ tmElements_t getTime()
     return tm;
 }
 
-String readRfidUid()
-{
-    #if DEBUG 
-        Serial.println(F("ReadRfidUid")); 
-    #endif
-    String content = "";
-    content.concat(String(mfrc522.uid.uidByte[0] < 0x10 ? "0" : ""));
-    content.concat(String(mfrc522.uid.uidByte[0], HEX));
-    for (byte i = 1; i < mfrc522.uid.size; i++) 
-    {
-         content.concat(String(mfrc522.uid.uidByte[i] < 0x10 ? " 0" : " "));
-         content.concat(String(mfrc522.uid.uidByte[i], HEX));
-    }
-
-    #if DEBUG 
-        Serial.println(content + " Printed"); 
-    #endif
-  
-    return content;
-}
-
 void buzzer(bool reverse)
 {
     #if DEBUG 
@@ -407,6 +368,33 @@ void buzzer(bool reverse)
         tone(BUZZER_PIN, reverse ? MAX_TONE - (i * MAX_TONE / BUZZ_TIME) : i * MAX_TONE / BUZZ_TIME , TONE_STEP);
         delay(TONE_STEP);
     }
+}
+
+String readRfidUid()
+{
+    #if DEBUG
+        Serial.println(F("ReadRfidUid"));
+    #endif
+    String content = "";
+    uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };
+    uint8_t uid_length;
+    nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, uid, &uid_length);
+
+    
+    content.concat(String(uid[0] < 0x10 ? "0" : ""));
+    content.concat(String(uid[0], HEX));
+    
+    for (byte i = 1; i < uid_length; i++)
+    {
+         content.concat(String(uid[i] < 0x10 ? " 0" : " "));
+         content.concat(String(uid[i], HEX));
+    }
+
+    #if DEBUG
+        Serial.println(content + " Printed");
+    #endif
+
+    return content;
 }
 
 void printTmLCD(char* content, tmElements_t tm)
@@ -436,6 +424,14 @@ void printProgmemLCD(char* content)
     for (byte aux_byte = 0; aux_byte < strlen_P(content); aux_byte++) {
         lcd.print((char)pgm_read_byte_near(content + aux_byte));
     }
+}
+
+void readProgmemIntoBuff(char* buff, char* content)
+{
+    for (byte aux_byte = 0; aux_byte < strlen_P(content); aux_byte++) {
+        buff[aux_byte] = (char)pgm_read_byte_near(content + aux_byte);
+    }
+    buff[strlen_P(content)] = '\0';
 }
 
 char* printIntLcd(byte i) {
