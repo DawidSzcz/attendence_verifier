@@ -1,4 +1,4 @@
-% Opcje klasy 'iithesis' opisane sa w komentarzach w pliku klasy. Za ich pomoca
+ % Opcje klasy 'iithesis' opisane sa w komentarzach w pliku klasy. Za ich pomoca
 % ustawia sie przede wszystkim jezyk i rodzaj (lic/inz/mgr) pracy, oraz czy na
 % drugiej stronie pracy ma byc skladany wzor oswiadczenia o autorskim wykonaniu.
 
@@ -50,17 +50,17 @@ Celem niniejszej pracy jest zaprojektowanie użytecznego i niedrogiego w utrzyma
 \indent Niemalże każde zajęcia na naszym instytucie zaczynają się od zebrania listy obecności. Odbywa się to w siermiężny sposób, ponieważ każdy ze studentów musi wpisać swoje dane na listę obecności.
 Taka forma jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Dziś, kiedy do ochrony danych osobowych przykłada się
 coraz większą wagę, starodawne sposoby sprawdzania obecności są tym bardziej wątpliwe.\\
-\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trafamy przy tym czasochłonnym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości tego zmienić. Istnieją jednak opracowania które wskazują, że wato jest wdrażać nowoczesne rowiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}.\\
-\indent Patrząc na problem sprawdzanie obecności z szerszej perspektywy. można również dość do wniosku, że nie ma konieczności sprawdzania obecności w ogóle. Na studia w olbrzymiej części uczęszczają osoby dorosłe, odpowiedzialne za siebie, być moża należy wieć zrezygnować z kontroli. Zostało jednak sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucajacych studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale\\\\
-\indent Poniższa praca przedstawia proces od postawienia wymagań do realizacji finalnej wersji wielokomponentowego projektu. Na efekt ostateczny składają się aplikacje wykorzystujące najnowsze technologie i oparte na popularnych frameworkach, oraz niskopoziomowe elektroniczne urządzenie zaprojektowane i wykonane na potrzyby tego projektu.\\
-\indent Z jednej strony ramach pracy musiałem zaprojektować komunikacje pomiędzy poszczególnymi komponentami, zaproponować i wdrożyć architekturę aplikacji internetowych, tzn. serwery na któych wykonywany jest kod stron internetowych oraz bazy danych. W wersji finalnej użytkownikowi umożliwiono stworzenie własnego konta w internetowym serwisie i zarządzanie danymi o obecnościach w jego kontekście. Wszystko to zostało oparte na nowoczesnych rozwiązaniach chmurowych. \\
-\indent Z drugiej strony moim zadaniem było zaprojektowanie niedrogiego urządzenia elektronicznego, które miało za zadanie udostępniać zrozumiały interfejs i realizować zadania zwiazane ze zbieraniem danych od uczesników wykładu. Zagadnienie to wymagało wiedzy z zakresu elekroniki i zapoznania się ze schamatami połączeń pomiędzy poszczególnymi modułami ioraz zrozumienia zasady ich działania. Dodatkowo ważnym elementem było połączenie odrępnych komponentów w jedną całość, a więc projekt układu elektronicznego na płytce stykowej i zamknięcie wszystkiego w opakowaniu umożliwiającym bezpieczne i wygodne użytkowanie. 
+\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym czasochłonnym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości jego zmienić. Istnieją jednak opracowania które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}.\\
+\indent Patrząc na problem sprawdzanie obecności z szerszej perspektywy. można również dojść do wniosku, że nie ma konieczności sprawdzania obecności w ogóle. Na studia w olbrzymiej części uczęszczają osoby dorosłe, odpowiedzialne za siebie, być moża należy wieć zrezygnować z kontroli. Zostało jednak sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale\\\\
+\indent Poniższa praca przedstawia proces od postawienia wymagań do realizacji finalnej wersji wielokomponentowego projektu. Na efekt ostateczny składają się aplikacje wykorzystujące najnowsze technologie i oparte na popularnych frameworkach, oraz niskopoziomowe elektroniczne urządzenie zaprojektowane i wykonane na potrzeby tego projektu.\\
+\indent Z jednej strony w ramach pracy musiałem zaprojektować komunikację pomiędzy poszczególnymi komponentami, zaproponować i wdrożyć architekturę aplikacji internetowych, tzn. serwery na których wykonywany jest kod stron internetowych oraz bazy danych. W wersji finalnej użytkownikowi umożliwiono stworzenie własnego konta w internetowym serwisie i zarządzanie danymi o obecnościach w jego kontekście. Wszystko to zostało oparte na nowoczesnych rozwiązaniach chmurowych. \\
+\indent Z drugiej strony moim zadaniem było zaprojektowanie niedrogiego urządzenia elektronicznego, które miało za zadanie udostępniać zrozumiały interfejs i realizować zadania związane ze zbieraniem danych od uczestników wykładu. Zagadnienie to wymaga wiedzy z zakresu elektroniki, zapoznania się ze schematami poszczególnych modułów oraz zrozumienia zasady ich działania. Kolejnym etapem projektu było połączenie odrębnych komponentów w jedną całość, a więc projekt układu elektronicznego na płytce stykowej i zamknięcie wszystkiego w opakowaniu umożliwiającym bezpieczne i wygodne użytkowanie.
 
 
 \chapter{Analiza problemu}
 \section{Przegląd obecnego sposobu sprawdzania obecności}
-W celu doprecyzowania wymagań stawianych przed projektowanym przeze mnie system postanowiłem rozważyć znany mi z autopsji proces weryfikowania obecności na zajęciach prowadzonych przez Uniwersytet Wrocławski\\
-\indent Sprawdzanie listy obecności jest w dużej mierze uzależnione od preferencji prowadzącego i zwyczajów panujących na konkretnym wydziale - przykładowo obecność może być potwierdzona słownie - poprzez kolejne wywołanie osób z listy, albo pisemnie - poprzez udostępnienie listy na którą uczestnicy będą zobowiązani się wpisać.\\
+\indent W celu doprecyzowania wymagań stawianych przed projektowanym przeze mnie system postanowiłem rozważyć znany mi z autopsji proces weryfikowania obecności na zajęciach prowadzonych przez Uniwersytet Wrocławski\\
+\indent Sprawdzanie listy obecności jest w dużej mierze uzależnione od preferencji prowadzącego i zwyczajów panujących na konkretnym wydziale - przykładowo obecność może być potwierdzona słownie - poprzez kolejne wywołanie osób z listy albo pisemnie - poprzez udostępnienie listy na którą uczestnicy będą zobowiązani się wpisać.\\
 \indent Dla uproszczenia dalszych rozważań postanowiłem przyjąć za ogólnie stosowaną metodę pisemną - która według moich obserwacji jest stosowana częściej - i na tej podstawie wyodrębnić czynności które składają się na wypełnienie listy obecności podczas zajęć.\\
 \indent Zbieranie informacji o obecności studentów na wykładzie jest czynnością na pierwszy rzut oka oczywistą, po bliższym przyjrzeniu się całej procedurze, okazuje się jednak, że daje się ona rozłożyć na jeszcze prostsze elementy. \\
 
@@ -71,107 +71,109 @@ W celu doprecyzowania wymagań stawianych przed projektowanym przeze mnie system
 \item Przeniesienie zebranych danych do uczelnianego systemu.
 \end{itemize}
 
-\indent Powyższy schemat zbierania listy obecności podatny jest na dodatkowe błędy. Nie trudno wyobrazić sobie sytuację w której student intencjonalnie podaje nie swoje dane w celu zaliczenia obecności innej osobie. Kolejnym krokiem który może doprowadzić do błędów na ostatecznej liście obecności jest błąd ludzki podczas przenoszenia danych z kartki do uczelnianego systemu komputerowego. Podobny błąd trudno jest od razu wychwycić ze względu na to, że studenci zazwyczaj nie przeglądają na bieżąco list obecności dostępnych np. na usosie. Kiedy na koniec semestru obecność jest rozliczana bardzo trudno dojść do faktów.\\
-\indent Pierwszym elementem nadającym się w moim mniemaniu do usprawnienia jest samo tworzenie listy obecności z informację na temat zajęć których taka lista będzie dotyczyła. Fizyczna lista, poza czasem poświęconym na jej stworzenie musi być po odbytych zajęciach przechowywana - co stwarza ryzyko jej zgubienia. Dodatkowo istnieje prawdopodobieństwo, że trafi w niepowołane ręce i ktoś nieżyczliwy wpisze na nią dodatkowe nazwiska. Do tego wszystkiego dochodzi jeszcze aspekt ekologiczny, ponieważ każda kolejna kartka to dodatkowy element wyrwany matce naturze. \\
+\indent Powyższy schemat zbierania listy obecności podatny jest na dodatkowe błędy. Nie trudno wyobrazić sobie sytuację w której student intencjonalnie podał nie swoje dane w celu zaliczenia obecności innej osobie. Kolejnym krokiem który może doprowadzić do błędów na ostatecznej liście obecności jest błąd ludzki podczas przenoszenia danych z kartki do uczelnianego systemu komputerowego. Podobny błąd trudno jest od razu wychwycić ze względu na to, że studenci zazwyczaj nie przeglądają na bieżąco list obecności dostępnych np. na Usosie. Kiedy na koniec semestru obecność jest rozliczana bardzo trudno dojść do faktów.\\
+\indent Pierwszym elementem nadającym się w moim mniemaniu do usprawnienia jest samo tworzenie listy obecności z informację na temat zajęć których taka lista będzie dotyczyła. Fizyczna lista, poza czasem poświęconym na jej stworzenie musi być po odbytych zajęciach przechowywana - co stwarza ryzyko jej zgubienia. Dodatkowo istnieje prawdopodobieństwo, że trafi w niepowołane ręce i ktoś nieżyczliwy wpisze na nią dodatkowe nazwiska. Do tego wszystkiego dochodzi jeszcze aspekt ekologiczny, ponieważ każda kolejna kartka generuje wymagające utylizacji śmieci. \\
 \indent Również udział studentów w rejestrowaniu własnej obecności może ulec optymalizacji. Wpisanie własnego imienia i nazwiska, a czasem numeru albumu zabiera czas, naraża na upublicznienie dane osobowe i utrudnia studentowi śledzenie wykładu.\\
 \indent Weryfikacja poprawności listy jest nie tylko pracochłonna, ale również podatna na błędy. Czas poświęcony na policzenie uczestników rośnie wprost proporcjonalnie do ich liczby. Dodatkowo prowadzący zajęcia może się zwyczajnie pomylić albo ktoś dopisać do listy już po tym sprawdzeniu.\\
-\indent Z całą pewnością usprawnienia wymaga proces przenoszenia danych z fizycznego nośnika do uczelnianego systemu komputerowego. Problemem jest nie tylko to, że podczas wpisywania obecności do komputerowego systemu można poopełnić błąd, ale również to, że jest to proces czasochłonny.\\
+\indent Z całą pewnością usprawnienia wymaga proces przenoszenia danych z fizycznego nośnika do uczelnianego systemu komputerowego. Problemem jest nie tylko to, że podczas wpisywania obecności do komputerowego systemu można popełnić błąd, ale również to, że jest to proces czasochłonny.\\
 
-\section{Isteniejące i możliwe realizacje zagadnienia}
-\subsection{Podłączenie czytnika RFID bezpośrenio do komputea}
-\indent Popularnym pomysłem usprawniającym system weryfikacji obecności jest skorzystanie technologi  RFID (Radio-frequency identification). Wykorzystuje ona pole elektromagnetyczne do śledzenia na niewielkie odległości tagów (etykiet) RFID - małych transmiterów fal radiowych zdolnych do przechowywania danych umożliwiających zdalną identyfikację \cite{rfid_itself}. Tagi często mają formę kart, breloków lub innych łatwych w transporcie i przechowywaniu przedmiotów.\\
-\indent W opracowaniu \cite{rfid_serial} przedstawiono projekt weryfikatora obecności zrealizowany przy pomocy radiotechnologii. Każdemu studentowi został przypisany tag z unikatowym identyfikatorem. System składa się z czytnika etykiet podłączonego do komputera przy użyciu portu szeregowego oraz aplikacji komputerowej, zdolnej do rozpoznawania zbliżonych do czytnika tagów i zapamiętywania którzy studenci zeskanowali swoje karty w trakcie zajęć. \\
-\indent Ciekawym pomysłem przdstawionym w tym projekcie jest przekazanie osobnego tagu prowadzącemu zajęcia. Zbliżenie tej etykiety na początku i na końcu zajęć do czytnika wyznacza ramy czasowe podczas których obecność może zostać zaliczona studentom. Dodatkowo zastosowano tutaj podejście w którym uczesnik powinien rejestrować swoje pojawienie się jak i opuszczesnie zajęć - jest to odstępstwo on tradycyjnej formy zbierania podpisów. \\
-\indent W projekcie można zaobserwować kilka wad. Wykorzystany czytnik RFID jest urządzeniem w calości dostarczonym przez producenta. Można spodziewać się że jest to rozwiazanie drogie, a samego urządzenia nie będzie dało się rozszeżyć o dodatkowe funkcjonalnośći. \\
-\indent Taka architektura pociąga za sobą konieczność cięgłego połączenia z komputerem oraz dodatkowego okablowenia. Może to  powodować problemy logistyczne, jeśli chcielibyśmy korzystać z systemu w różnych salach.\\
-\indent Sama aplikacja komputerowa katalogująca zebrane obecności również poddana jest ograniczeniom. Korzystanie z tego programu ogranczone jest do komputerów na których zainstalowano taką aplikację, co jest rozwiązaniem uciążliwym. Baza danych zapamiętująca obecności współdzielona jest pomiędzy instancje aplikacji na różnych komputerach, jest więc ona udostępniona publicznie, co ułatwia nieautoryzowany dostęp.
+\section{Istniejące i możliwe realizacje zagadnienia}
+\subsection{Podłączenie czytnika RFID bezpośrednio do komputera}
+\indent Popularnym pomysłem usprawniającym system weryfikacji obecności jest skorzystanie technologii RFID (Radio-frequency identification). Wykorzystuje ona pole elektromagnetyczne do śledzenia na niewielkie odległości tagów (etykiet) RFID - małych transmiterów fal radiowych zdolnych do przechowywania danych umożliwiających zdalną identyfikację \cite{rfid_itself}. Tagi często mają formę kart, breloków lub innych łatwych w transporcie i przechowywaniu przedmiotów.\\
+\indent W opracowaniu \cite{rfid_serial} przedstawiono projekt weryfikatora obecności zrealizowany przy pomocy radio technologii. Każdemu studentowi został przypisany tag z unikatowym identyfikatorem. System składa się z czytnika etykiet podłączonego do komputera przy użyciu portu szeregowego oraz aplikacji komputerowej, zdolnej do rozpoznawania zbliżonych do czytnika tagów i zapamiętywania którzy studenci zeskanowali swoje karty w trakcie zajęć. \\
+\indent Ciekawym pomysłem przedstawionym w tym projekcie jest przekazanie osobnego tagu prowadzącemu zajęcia. Zbliżenie tej etykiety na początku i na końcu zajęć do czytnika wyznacza ramy czasowe podczas których obecność może zostać zaliczona studentom. Dodatkowo zastosowano tutaj podejście w którym uczestnik powinien rejestrować swoje pojawienie się jak i opuszczenie zajęć - jest to odstępstwo od tradycyjnej formy zbierania obecności. \\
+\indent W projekcie można zaobserwować kilka wad. Wykorzystany czytnik RFID jest urządzeniem w całości dostarczonym przez producenta. Można spodziewać się że jest to rozwiązanie drogie, a samego urządzenia nie będzie dało się rozszerzyć o dodatkowe funkcjonalności. \\
+\indent Taka architektura pociąga za sobą konieczność ciągłego połączenia z komputerem oraz dodatkowego okablowania. Może to powodować problemy logistyczne, jeśli chcielibyśmy korzystać z systemu w różnych salach.\\
+\indent Sama aplikacja komputerowa katalogująca zebrane obecności również poddana jest ograniczeniom. Korzystanie z tego systemu możliwe jest wyłącznie na komputerach na których zainstalowano taką aplikację, co jest rozwiązaniem uciążliwym. Baza danych zapamiętująca obecności współdzielona jest pomiędzy poszczególne instancje aplikacji na różnych komputerach, jest więc ona udostępniona publicznie, co ułatwia nieautoryzowany dostęp.
 
 \subsection{Podłączenie przy pomocy kabla ethernetowego}
-\indent W ppracowaniu opisanym w pracy \cite{rfid_serial} zaproponowano podobną realizację, tym razem w oparciu o bezpośrednie podlączenie czytnika do internetu kablem RJ45. Wykorzystywane urządzenie jest stworzone na bazie Arduino Uno i rozszerzone o moduł RFID i gniazdo pozwalające podłączyć kabel ethernetowy. \\
-\indent Zaproponowany projekt rozwiązuje problem konieczności korzystania z czytnika w połączeniu z komputerem, a wybrana platforma pozwala rozrzeczyć elektroniczne urządzenie od dodatkowe funkcjonwalności. Łączność internetowa pozawala na natychmiastowe połączenie z internetem, co na pewno jest wygodnym rozwiązaniem. \\
-\indent Nieporuszonym w treści opracowania jest problem połączenia obecności z zajęciami na których została ona odnotowana. W przypadku rozszerzenia systemu o kolejne czytniki podłączony do sieci i korzystanie wielu urządzeń jednocześnie, nie będzie możliwości rozszyfrowania, z jakich zajęć pochodzą spływające do serwera dane. \\
-\indent Dodatkowo jedynym możliwym sposobem na komunikację urządzenia z użytkownikiem, jest w tym wypadku buzzer, co może okazać się niewystarczające do wyrażenia stanu urządzenia. W razie kłopotów z łącznością albo anteną RFID, nie ma możliwości sprawnego sygnalizowania problemu.
+\indent W opracowaniu opisanym w pracy \cite{rfid_serial} zaproponowano podobną realizację, tym razem w oparciu o bezpośrednie podłączenie czytnika do internetu kablem RJ45. Wykorzystywane urządzenie jest stworzone na bazie Arduino Uno i rozszerzone o moduł RFID i gniazdo pozwalające podłączyć kabel ethernetowy. \\
+\indent Zaproponowany projekt rozwiązuje problem konieczności korzystania z komputera w bezpośrednim połączeniu z czytnikiem, a wybrany układ elektroniczny pozwala rozszerzyć urządzenie o dodatkowe funkcjonalności. Łączność internetowa pozwala na natychmiastowe odnotowywanie obecności w bazie, co na pewno jest wygodnym rozwiązaniem. \\
+\indent W treści opracowania nie został poruszony problem połączenia obecności z zajęciami na których została ona odnotowana. W przypadku rozszerzenia systemu o kolejne czytniki podłączone do sieci i korzystania z wielu urządzeń jednocześnie, nie będzie możliwości rozszyfrowania, z jakich zajęć pochodzą spływające do serwera dane. \\
+\indent Jedynym możliwym sposobem na komunikację urządzenia z użytkownikiem, jest w tym wypadku buzzer, co może okazać się niewystarczające do wyrażenia stanu urządzenia. W razie kłopotów z łącznością albo anteną RFID, nie ma możliwości wygodnego sygnalizowania problemu.
 
 \subsection{Samodzielny czytnik }
-\indent W cytowanym we wstępie opracowaniu \cite{lcd}, w celu rozwiązania powyższego problemu zaproponowano skorzystanie z wyświetlacza lcd, z którego użytek robi opisany w tej pracy projekt. Przedstawione w pracy urządzenie poza czytnikiem RFID, zdolne jest również do wyświetlania treściwych komunikatów potwierdzających udane odnotowanie karty studenta. \\
+\indent W cytowanym we wstępie opracowaniu \cite{lcd}, w celu rozwiązania powyższego problemu zaproponowano wykorzystanie z wyświetlacza lcd, z którego użytek robi opisany w tej pracy układ elektroniczny. Przedstawione w pracy urządzenie poza czytnikiem RFID, zdolne jest również do wyświetlania treściwych komunikatów potwierdzających udane odnotowanie karty studenta. \\
 \indent Trudno w tym wypadku dyskutować jednak z innymi rozwiązaniami technicznymi zawartymi w tej pracy, ponieważ motywem przewodnim tego opracowania jest pokazanie, że sprawdzanie obecności przy pomocy tagów RFID przebiega szybciej niż w klasycznym podejściu.
 
-\subsection{Responsywna aplikacja internetowa umożliwiająca wygodne rejestrowanie obecności studentów na zajęciach w samej aplikacji przez internet albo telefon}. \\
-\indent W mojej ocenie to najprostsze rozwiązanie składające się z jednolitego systemu, w którym jednocześnie można zbierać obecności uczestników wykładu, oraz je przechowywać i przeglądać. Jej niewątpliwym plusem jest całkowite wyeliminowanie problemu związanego z wprowadzaniem danych do systemu katalogującego obecności, ponieważ dane wprowadzane są wprost do systemu. Identyfikacja konkretnych zajęć w ramach których rejestrowana jest obecność, odbywałaby się na początku zajęć poprzez wejście w kontekst opowiedniego wykładu w aplikacji. Obecność uczestników na zajęciach byłaby sprawdzana przez prowadzącego i od razu wprowadzana do systemu. \\
-\indent Nie zdecydowałem się na to rozwiązanie, ponieważ wydaje mi się ono nieszczególnie odbiegać od aktualnej procedury, poza zminą nośnika z kartki papieru na ekran tabletu.
+\subsection{Aplikacja internetowa umożliwiająca rejestrowanie obecności studentów na zajęciach przez internet lub telefon}. 
+\indent W mojej ocenie to najprostsze rozwiązanie składające się z jednolitego systemu, w którym jednocześnie można zbierać obecności uczestników wykładu, oraz je przechowywać i przeglądać. Jej niewątpliwym plusem jest całkowite wyeliminowanie problemu związanego z wprowadzaniem danych do systemu katalogującego obecności, ponieważ dane wprowadzane są wprost do systemu. Identyfikacja konkretnych zajęć w ramach których rejestrowana jest obecność, odbywałaby się na początku zajęć poprzez wejście w kontekst odpowiedniego wykładu w aplikacji. Obecność uczestników na zajęciach byłaby sprawdzana przez prowadzącego i od razu wprowadzana do systemu. \\
+\indent Nie zdecydowałem się na to rozwiązanie, ponieważ wydaje mi się ono nieszczególnie odbiegać od aktualnej procedury, poza zmianą nośnika z kartki papieru na ekran tabletu.
 
 \subsection{Urządzenie rejestrujące obecności za pośrednictwem sieci bezprzewodowej}
 \indent To rozwiązanie początkowo wydało mi się bardzo atrakcyjne i przez długi czas miałem zamiar je zrealizować. Planowałem rozszerzyć mikrokontroler o moduł do bezprzewodowej łączności z internetem i w stworzonej aplikacji udostępnić interfejs do odnotowywania obecności. \\
-\indent Po dłuższych rozważaniach okazało się jednak, że takie rozwiązanie przerasta moje możliwości. Ten sposób wysyłania danych do aplikacji katalogującej obecności  wymagałby umożliwienia powiązania obecności z zajęciami na których zostały zebrane \\
+\indent Po dłuższych rozważaniach okazało się jednak, że takie rozwiązanie przerasta moje możliwości. Ten sposób wysyłania danych do aplikacji katalogującego obecności wymagałby umożliwienia powiązania obecności z zajęciami na których zostały zebrane \\
 \indent Wymagałoby to dołączenia dodatkowego interfejsu który pozwalałby wprowadzać takie dane, co jeszcze bardziej komplikowałoby projektowane przeze mnie urządzenie. Dodatkowo ograniczyłoby to zbiór układów scalonych z których mógłbym skorzystać, ponieważ musiałbym wybrać takie, które posiadają wystarczającą ilość pamięci, pinów i innych potrzebnych peryferiów. \\
 \indent Ostatecznie moje plany dotyczące takiego projektu pokrzyżował moduł ESP, który miał realizować komunikację bezprzewodową, ale okazał się bardzo kapryśny.
 
 \section{Określenie wymagań wobec projektu}
-\indent W poprzednim rozdziale wspomniano o wielu możliwych realizacjach problemu zbierania obecności, co jest i tak tylko niewielkim wycinkiem możliwych do wykonia projektów. W opracowani \cite{review} wspomniano o wielu innych przedsięwzięciach, z którcy na spomnienie zasługiją jeszcze na pewno:
+\indent W poprzednim rozdziale wspomniano o wielu możliwych realizacjach problemu zbierania obecności, co jest i tak tylko niewielkim wycinkiem możliwych do wykonania projektów. W opracowaniu \cite{review} wspomniano o wielu innych przedsięwzięciach, z których na wspomnienie zasługują na pewno:
 
 \begin{itemize}
 \item Skorzystania z telefonu komórkowego i łączności bluetooth w celu odnotowania obecności.
-\item Wykorzystanie odcisku palca do dodatkowego potwierdzeni tożsamości studenta.
-\item Użycia kamery i rozpoznawania twarzy w celu identyfikacji wchodządcych na wykład studentów.
+\item Wykorzystanie odcisku palca do dodatkowego potwierdzenia tożsamości studenta.
+\item Użycia kamery i rozpoznawania twarzy w celu identyfikacji wchodzących na wykład studentów.
 \end{itemize}
 
-\indent Analiza powyższych rozwiązań wraz z ich mocnymi i słabymi stronami pozwoliła wyłonić zbiór wymagań wobec projektowanego systemu. Wymagania zostały dobrane pod kontem poprawienia wydajności klasycznego sposobu weryfikowania obecności co zostało rozważone w rozdziale 2.1, oraz możliwości jakie dają współczene technologie - które zostały opisane powyżek.
+\indent Analiza powyższych rozwiązań wraz z ich mocnymi i słabymi stronami pozwoliła wyłonić zbiór wymagań wobec projektowanego systemu. Wymagania zostały dobrane pod kątem poprawienia wydajności klasycznego sposobu weryfikowania obecności, co zostało rozważone w rozdziale 2.1, oraz możliwości jakie dają współczesne technologie - które zostały opisane powyżej.
 
 \subsubsection{Urządzenie powinno udostępniać następujące funkcjonalności}
 
 \begin{itemize}
-\item Zarejestrowanie obecności uczesnika zajęć przy pomocy tagu RFID.
-\item Wyświtlanie jasnych komunikatów odnośnie stanu urządzenia.
+\item Zarejestrowanie obecności uczestnika zajęć przy pomocy tagu RFID.
+\item Wyświetlanie jasnych komunikatów odnośnie stanu urządzenia.
 \item Powiązanie obecności z zajęciami podczas których zostały zebrane.
 \item Potwierdzenie tożsamości uczstnika odnotowującego swoją obecność.
-\item Katalogowanie zebranych danych i generowanie repostów podsumowujących.
-\item Wygodne przeniesienie obecnosci zebranych przez czytnik do aplikacji przechowującej dane.
+\item Katalogowanie zebranych danych i generowanie raportów podsumowujących.
+\item Wygodne przeniesienie obecności zebranych przez czytnik do aplikacji przechowującej dane.
 \end{itemize}
 
 
 
 \chapter{Określenie struktury projektu}
 \indent Finalnie zdecydowałem, żeby jednoznacznie oddzielić sposób zbierania danych od ich przechowywania i przetwarzania.\\
-\indent W realizacji projektu skorrzystałem z faktu, że polskie uczelnie powszechnie korzystają z Elektronicznych Legitymacji Studenckich (ELS), które zawierają wbudowany tag RFID. \\
-\indent Komponent umożliwiajacy studentowi odnotowanie swojej obecności na wykładzie - weryfikator - postanowiłem oprzeć o platformę arduino - znaną mi z zajęć systemów wbudowanych. Urządzenie zostało rozszerzone o moduły umożliwiające  realizację założeń z poprzedniego rozdziału. \\
-Czytnik fal radiowych umożliwi odczytanie danych z etykiety RFID znajdującej sie na ELS.  Gniazdo USB  pozwoli podlączyć penrive umożliwiający przeniesienie danych z urządzenia na bazie Arduino do aplikacji internetować przechowującej dane. Dodatkowo częścią urządzenia będzie zegar RTC umożliwiający zapamietanie godziny o które odnotowane zostały obecności, a więc powiązanie ich z konkretnymi zajęciami, oraz wyświatlacz LCD + Buzzer pozwalające na wygodne korzystanie z samodzielnego urządzenia. \\
-\indent Sposobem na potwierdzenie tożsamości studenta, będzie w wypadku realizowanego projektu porównanie zdjęcia na legitymacji z twarzą osoby która zbliża ją do czytnika.\\\\
+\indent W realizacji projektu skorzystałem z faktu, że polskie uczelnie powszechnie korzystają z Elektronicznych Legitymacji Studenckich (ELS), które zawierają wbudowany tag RFID. \\
+\indent Komponent umożliwiający studentowi odnotowanie swojej obecności na wykładzie - weryfikator - postanowiłem oprzeć o platformę Arduino - znaną mi z zajęć systemów wbudowanych. Urządzenie zostało rozszerzone o moduły umożliwiające realizację założeń z poprzedniego rozdziału. \\
+\indent Czytnik fal radiowych umożliwiający odczytanie danych z etykiety RFID znajdującej się na ELS. Gniazdo USB pozwalające podłączyć pendrive na którym zostaną przeniesione dane z urządzenia na bazie Arduino do aplikacji internetowej przechowującej dane. \\ 
+\indent Dodatkowo częścią urządzenia będzie zegar RTC umożliwiający zapamiętanie godziny o której odnotowane zostały obecności, a więc powiązanie ich z konkretnymi zajęciami, oraz wyświetlacz LCD + Buzzer pozwalające na wygodne korzystanie z samodzielnego urządzenia. \\
+\indent Sposobem na potwierdzenie tożsamości studenta, będzie w wypadku realizowanego projektu porównanie zdjęcia na legitymacji z twarzą osoby która zbliża ją do czytnika. Za tę weryfikację odpowiedzialny będzie prowadzący.\\\\
 
-\indent Rolę oprogramowania odpowiedzialnego za katalogowanie zebranych przez weryfikator danych będzie w moim systemie ogólnodostępna aplikacja internetowa, umożliwiająca założenie konta i zarządzenie zebranymi obecnościami w konekście całego przedmiotu  i w kontekście pojedynczych zajęć. Dodatkowo ma ona umożliwiaać generowanie raportów ze zagregowanymi danymi, tak aby dało się łatwo prześledzić obecności w konktekście całego semetru. \\
-\indent Postanowłem uczynić realizowany projekt niezależnym od danych studenów. Dzięki takiemu podejści w łatwy sposób będę mógł przełączyć cały system na korzystnie z baz danych na różnych uczelniach oraz uniknę konieczności przechowywania wrażliwych danych w systemie. \\
-\indent Ze względu na to, że na etapie realizowania załozonego projektu nie uzyskałem dostępu do serwisu udostępniającego dane wrocławskich studentów, stworzyłem własną, niezalażną od innych, części projektu -  aplikację realizującą taką funckję bazy danych studentów.  Umożliwia ona powiązanie danych pobranych z legitymacji studenckiej z danymi pozwalającymi na jego identyfikację. Jest to aplikacja rozlączna względem systemu zarządzającego obecnościami osób uczesniczących w zajęciach, wystawiająca RESTowe api. 
+\indent Rolę oprogramowania odpowiedzialnego za katalogowanie zebranych przez weryfikator danych będzie w moim systemie ogólnodostępna aplikacja internetowa, umożliwiająca założenie konta i zarządzanie zebranymi obecnościami w kontekście całego przedmiotu i w kontekście pojedynczych zajęć. Dodatkowo ma ona umożliwiać generowanie raportów ze zagregowanymi danymi, tak aby dało się łatwo prześledzić obecności w kontekście całego semestru. \\
+\indent Postanowiłem uczynić realizowany projekt niezależnym od danych studentów. Dzięki takiemu podejściu w łatwy sposób będę mógł przełączyć cały system na korzystanie z baz danych na różnych uczelniach oraz uniknę konieczności przechowywania wrażliwych danych w systemie. \\
+\indent Ze względu na to, że na etapie realizowania założonego projektu nie uzyskałem dostępu do serwisu udostępniającego dane wrocławskich studentów, stworzyłem własną, niezależną od innych części projektu, aplikację realizującą funkcję bazy danych studentów. \\
+\indent Umożliwia ona powiązanie danych pobranych z legitymacji studenckiej z danymi pozwalającymi na jego identyfikację. Jest to aplikacja rozłączna względem systemu zarządzającego obecnościami osób uczestniczących w zajęciach, wystawiająca RESTowe api.
 
 \chapter{Realizacja}
 \section{Weryfikator - czytnik legitymacji studenckich}
-\indent Zgodnie z wymaganiami projetkowane przeze mnie urządzenie powinno udostępniać co najmniej następujące możliwości.
+\indent Zgodnie z wymaganiami projektowane przeze mnie urządzenie powinno udostępniać co najmniej następujące możliwości.
 \begin{itemize}
 \item Możliwość podłączenie zewnętrznego nośnika danych.
 \item Stworzenie pliku na którym zapamiętani zostaną uczestnicy zajęć
-\item Zebranie informacji z elektronicznej legitymacji studenckiej, potwierdzające obecność uczesników
+\item Zebranie informacji z elektronicznej legitymacji studenckiej, potwierdzające obecność uczestników
 \item Wyświetlanie informacji o stanie urządzenia, w szczególności sukcesy odczytania danych z legitymacji
 \item Zapamiętanie czasu kiedy zebrane zostały obecności
 \end{itemize}
-\indent Dodatkowo, chciałbym żeby cała elektronika schowana była wewnątrz plastkiwego opakowania, a zasilanie dostarczane zapomocą kabla podłączenego do sieci elektrycznej. Opakowanie powinno zostać wyposarzone w otwory na kabel zasilający, zewnętrzny nośnik danych, wyświetlacz. Czytnik kart RFId powinien być tak zlokalizowany aby umożliwić łatwe zebranie danych z ELS.
+\indent Dodatkowo, chciałbym żeby cała elektronika schowana była wewnątrz plastikowego opakowania, a zasilanie dostarczane za pomocą kabla podłączonego do sieci elektrycznej. Opakowanie powinno zostać wyposażone w otwory na kabel zasilający, zewnętrzny nośnik danych, wyświetlacz. Czytnik kart RFID powinien być tak zlokalizowany aby umożliwić łatwe zebranie danych z ELS.
 \subsection{Zastosowana platforma i peryferia}
-\indent Arduino to cała platforma programistyczna umożliwiająca łatwe projektowanie i testowanie układów składających się z wielu elektronicznych modułów. Podstawą każdego projektu Arduino jest układ elektroniczny oparty na mikroprocesorze. Pod egidą tego systemu udostępniony jest cały wachlarz wersji takich układów, różniących się rodzajem kontolera i udostępnianymi peryferiami (przykładowo: slot na kartę SD, gniazdo RJ-45, wbudowany wyświetlacz, czy moduł wifi). Do wyboru użtkownika pozostaje cała gama wersji płytek drukowanych spod znaku Arduino. Dodatkowo platforma udostępniona jest na licencji open hardware, co sprawiło, że z projektem związana jest olbrzymia międzynarodowa społeczność entuzjastów elektroniki. Częścią platformy jest również środowisko programistyczne umożliwiające wgrywanie własnych programów na podłączoną do komputera płytkę.\\
-\indent Ciekawą możliwościa dostępną dla użytkowników platformy jest możliwość skonstruowania własnej płytki z procesorem na bazie powszechnie dostępnych schamatów gotowych układów. Może to być rozwiązanie bardzo atrakcyjne w przypadku kiedy projektantowi zależy na ograniczeniu kosztów układu. W moim rozwiązaniu postanowiłem nie iść tak daleko i skorzystać z jednej z gotowych płytek.\
-\indent Podstawą mojego weryfikatora postanowiłem uczynić płytkę Arduino Uno opartą na mikroprocesorze AVR ATmega328. Kontroler w tym układzie jest bardzo prosty, posiada bardzo mocno ograniczone zasoby, co wymusza dodatkowy wysiłek włożony w zarządzanie pamięcią i czasem procesora. Do moejej dyspozycji miałem następujące zasoby\\
+\indent Arduino to cała platforma programistyczna umożliwiająca łatwe projektowanie i testowanie układów składających się z wielu elektronicznych modułów. Podstawą każdego projektu Arduino jest układ elektroniczny oparty na mikroprocesorze. Pod egidą tego systemu udostępniony jest cały wachlarz wersji takich układów, różniących się rodzajem kontrolera i udostępnionymi peryferiami (przykładowo: slot na kartę SD, gniazdo RJ-45, wbudowany wyświetlacz, czy moduł wifi). Do wyboru użytkownika pozostaje cała gama wersji płytek drukowanych spod znaku Arduino. Dodatkowo platforma udostępniona jest na licencji open hardware, co sprawiło, że z projektem związana jest olbrzymia międzynarodowa społeczność entuzjastów elektroniki. Częścią platformy jest również środowisko programistyczne umożliwiające wgrywanie własnych programów na podłączoną do komputera płytkę.\\
+\indent Ciekawą opcją dostępną dla użytkowników platformy jest możliwość skonstruowania własnej płytki z procesorem na bazie powszechnie dostępnych schematów gotowych układów. Może to być rozwiązanie bardzo atrakcyjne w przypadku kiedy projektantowi zależy na ograniczeniu kosztów układu. W moim rozwiązaniu postanowiłem nie iść tak daleko i skorzystać z jednej z gotowych płytek.\\
+\indent Podstawą mojego weryfikatora postanowiłem uczynić płytkę Arduino Uno oparte na mikroprocesorze AVR ATmega328. Kontroler w tym układzie jest bardzo prosty, posiada bardzo mocno ograniczone zasoby, co wymusza dodatkowy wysiłek włożony w zarządzanie pamięcią i czasem procesora. Do mojej dyspozycji miałem następujące zasoby\\
 \begin{itemize}
-\item 32 kB Flash - przestrszeń na kod programu
-\item 2 kb SRAM zajmowane przez pamięć operacyjną.
-\item  porty SPI, I2C, szeregowy
+\item 32kB Flash - przestrzeń na kod programu
+\item 2kB SRAM zajmowane przez pamięć operacyjną.
+\item porty SPI, I2C, szeregowy
 \item Jednostka obliczeniowa o częstotliwości zegara 20MHz
 \end{itemize}
-\indent Dodatkowo, w celu zapenienia wszystkich wymaganych funkcjonalności przez projektowany przeze mnie weryfikator, skorzystałem z następujących dodatkowych modułów:
+\indent Dodatkowo, w celu zapewnienia wszystkich wymaganych funkcjonalności przez projektowany przeze mnie weryfikator, skorzystałem z następujących dodatkowych modułów:
 \begin{itemize}
 \item Czytnik RFID - do odczytywania danych z legitymacji studenckiej wyposażonej w interfejs zbliżeniowy. Czytnik podłączony jest przez port szeregowy
-\item USB Host Shield - dodające port USB, umożliwiający podłączenie pendriva, korzystający z drugiego portu SPI
-\item Wyświetlacz LCD wraz z  potencjometrem do ustawiania kontrastu, przekazujący użtkownikowi informacje na temat stanu urządzenia
+\item USB Host Shield - dodające gniazdo USB, umożliwiające podłączenie pendriva, korzystający z drugiego portu SPI
+\item Wyświetlacz LCD wraz z potencjometrem do ustawiania kontrastu, przekazujący użytkownikowi informacje na temat stanu urządzenia
 \item RTC - zegar czasu rzeczywistego z baterią do zapamiętywania czasu zbierania danych, korzystający z interfejstu I2C
-\item Buzzer piezo wydający dźwiękowe sygnały w razie sukcecsu
+\item Buzzer piezo wydający dźwiękowe sygnały w razie sukcesu
 \end{itemize}
 \subsection{Konstrukcja}
-\indent Do skonstuowana ostatecznego układu z zebranych elementów użyłem dodatkowo jednej dwustronnej płytki stykowej.
+\indent Do skonstruowania ostatecznego układu z zebranych elementów używam dodatkowo:
 \begin{itemize}
 \item Jednej dwustronnej płytki stykowej
 \item Dwóch rezystorów 220 Ohm
@@ -185,14 +187,14 @@ Czytnik fal radiowych umożliwi odczytanie danych z etykiety RFID znajdującej s
 \includegraphics{circuit.png}
 \end{figure}
 \subsection{Działanie}
-\indent Osią działania zaprojektowanego przeze mnie weryfikatora jest interakcja z dwoma zewnętrznymi urządzeniami. Jednym z nich jest nośnik danych na którym zapisane zostaną obecności uczesników zajęć. W realizowanym projektcie rolę tę pełni pendrive sformatowany w systemie FAT. W zależności od tego czy w danym momencie penrive jest podłączony, urządzenie jest w stanie oczekiwania na drugie z zewnętrznych narzędzi - elektroniczną legitymację studencką. Dodatkowo weryfikator jest zdolny do wyświetlanie komunikatów o swoim stanie na ekranie LCD i wydawania sygnałów dźwiękowych przy pomocy brzęczka. Cżęścią urządzenia jest również zegar RTC, który pozwala śledzić aktualną godzinę. Weryfikator monitoruje swój własny stan i jest zdolny do wykrywania błędów takich jak:
+\indent Osią działania zaprojektowanego przeze mnie weryfikatora jest interakcja z dwoma zewnętrznymi urządzeniami. Jednym z nich jest nośnik danych na którym zapisane zostaną obecności uczestników zajęć. W realizowanym projekcie rolę tę pełni pendrive sformatowany w systemie FAT. W zależności od tego czy w danym momencie pendrive jest podłączony, urządzenie jest w stanie oczekiwania na drugie z zewnętrznych narzędzi - Elektroniczną Legitymację Studencką. Dodatkowo weryfikator jest zdolny do wyświetlanie komunikatów o swoim stanie na ekranie LCD i wydawania sygnałów dźwiękowych przy pomocy brzęczka. Częścią urządzenia jest również zegar RTC, który pozwala śledzić aktualną godzinę. Weryfikator monitoruje swój własny stan i jest zdolny do wykrywania błędów takich jak:
 \begin{itemize}
-\item Błąd inizjalizacji podłączonego pendriva
+\item Błąd Inicjalizacji podłączonego pendrive'a
 \item Błąd zapisu odczytanych danych na nośniku
 \item Błąd zegara RTC - spowodowanego najczęściej rozładowaną baterią
 \end{itemize}
-\indent Kod mojego weryfikatora projektowałem z myślą o tym, żeby łatwo dało się przedstawić przebieg programu na diagramie. Strukura kodu jest przemyślana w taki sposób, żeby podczas jednego przebiegu pętli głównej wykonywał się jedynie kd powiazany z aktualnym stanem urządzenia. Taki układ nie tylko pozwala zwięźle opowiadać o działaniu urządzenia, ale również ulatwiał testowanie poprawności podczas pisania kodu i montowania urządzenia.\\
-\indent Weryfikator w danej chwili może znajdować się w jednym z 12 stanów. Na przedstawionym diagramie stany oczekujące na zdarzenie przdstawiono kolorem kremowym, a stany przejściowe kolorem niebieskim:
+\indent Kod mojego weryfikatora projektowałem z myślą o tym, żeby łatwo dało się przedstawić przebieg programu na diagramie. Struktura kodu jest przemyślana w taki sposób, żeby podczas jednego przebiegu pętli głównej wykonywał się jedynie kod powiązany z aktualnym stanem urządzenia. Taki układ nie tylko pozwala zwięźle opowiadać o działaniu urządzenia, ale również ułatwia testowanie poprawności podczas pisania kodu i montowania urządzenia.\\
+\indent Weryfikator w danej chwili może znajdować się w jednym z 12 stanów. Na przedstawionym diagramie stany oczekujące na zdarzenie przedstawiono kolorem kremowym, a stany przejściowe kolorem niebieskim:
 \begin{figure}[h]
 \caption{Diagram stanów}
 \centering
@@ -200,36 +202,36 @@ Czytnik fal radiowych umożliwi odczytanie danych z etykiety RFID znajdującej s
 \end{figure}
 
 \begin{itemize}
-\item STATE\_USB\_WAIT - czekanie na penrive - ekran wyświetla informację -  "Insert pendrive". Próba inicjalizacji nośnika zajmuje około 5 sekund dlatego wyświetlany czas jest aktualizowany z opóźnieniem
-\item STATE\_USB\_INIT - inicjalizacja pendriva - po odnalezieniu pendriva wyświetlana jest informacja "USB Inserted". W przypadku błędu inicjalizacji - przejście do stanu STATE\_INIT\_ERROR,  w razie sukcesu na podstawie aktualnego czasu stworzona i zapamiętana zostaje nazwa YY-MM-DD-hh\_mm\_ss dla pliku który będzie przechowywał zebrane uidy. STATE\_CARD\_WAIT w przeciwnym
-\item STATE\_CARD\_WAIT - oczekiwanie na kartę RFID - ekran: "Scan Card". W razie wykrycia odłączenia penriva przejście do stanu STATE\_USB\_LOST. W przypadku wykrycia karty, ale błędu w odczycie (np. ze względu na zbyt szybkie odsunięcie karty) wyświetlenie informacji: Read error.
+\item STATE\_USB\_WAIT - oczekiwanie na pendrive - ekran wyświetla informację - "Insert pendrive". Próba inicjalizacji nośnika zajmuje około 5 sekund dlatego wyświetlany czas jest aktualizowany z opóźnieniem
+\item STATE\_USB\_INIT - inicjalizacja pendriva - po odnalezieniu pendriva wyświetlana jest informacja "USB Inserted". W przypadku błędu inicjalizacji - przejście do stanu STATE\_INIT\_ERROR, w razie sukcesu na podstawie aktualnego czasu stworzona i zapamiętana zostaje nazwa YY-MM-DD-hh\_mm\_ss dla pliku który będzie przechowywał zebrane uidy. STATE\_CARD\_WAIT.
+\item STATE\_CARD\_WAIT - oczekiwanie na kartę RFID - ekran: "Scan Card". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST. W przypadku wykrycia karty, ale błędu w odczycie (np. ze względu na zbyt szybkie odsunięcie karty) wyświetlenie informacji: Read error.
 \item STATE\_CARD\_FOUND - zapisywanie Uidu do pliku - otwarcie pliku o zapamiętanej nazwie zapisanie do niego odczytanego Uidu. W razie błędu przy zapisie przejście do stanu STATE\_FILE\_ERROR, w przypadku sukcesu sygnał dźwiękowy, wyświetlenie informacji "Read Success" i powrót do stanu STATE\_CARD\_WAIT
 \item STATE\_INIT\_ERROR - błąd inicjalizacji pendriva - ekran: "Init Error"
-\item STATE\_USB\_REMOVE - czekanie na odłączenie pendriva. Wyświetlacz:''Reinsert USB". W razie wykrycia odłączenia penriva przejście do stanu STATE\_USB\_LOST.
+\item STATE\_USB\_REMOVE - czekanie na odłączenie pendriva. Wyświetlacz:''Reinsert USB". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST.
 \item STATE\_USB\_LOST - odłączono pendrive . Ekran: "USB removed", sygnał dźwiękowy oraz przejście do stanu STATE\_USB\_WAIT
 \item STATE\_FILE\_ERROR - błąd zapisu do pliku. Ekran: ''Open file error", przejście do stanu STATE\_USB\_REMOVE
-\item STATE\_CLOCK\_ERROR  - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: "Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT
+\item STATE\_CLOCK\_ERROR - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: "Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT
 \item STATE\_CLOCK\_ERROR\_USB\_WAIT - oczekiwanie na pendrive z czasem - wyświetlacz "Insert pendrive with time". Sterowanie pozostaje w tym stanie do czasu kiedy na zewnętrznym nośniku wykryty zostanie plik o nazwie tdav, który w pierwszym wierszu będzie zawierał datę w formacie "YYYY/MM/DD hh:mm:ss". W przypadku wykrycia poprawnego pliku program zapamiętuje datę z pliku tdav i przechodzi w stan STATE\_CLOCK\_ERROR\_CLICK\\
 - W razie błędu przy inicjalizacji pendriva program przechodzi do stanu STATE\_INIT\_ERROR \\
 - W razie wykrycia pendrive i nie wykrycia pliku o nazwie tdav wyświetlona zostaje informacja "Upload time tdav"\\
 - W razie złego formatu pierwszej linijki w pliku tdav wyświetlona zostaje informacja: "Bad date format"
-\item STATE\_CLOCK\_ERROR\_CLICK - Czekanie na reset. Wyświetlacz: "Click to reset".  Sterowanie pozostaje w tym stanie do czasu kiedy zostanie przyciśnięty guzik resetu. Po naciśnięciu guzika na zegarze zostaje ustawiona zapamiętana data, wyświetlony zostaje komunikat "Time set", a sterowanie przechodzi w stan STATE\_USB\_INIT. Jeśli podczas ustawiania czasu na zagarze wystąpi błąd program przechodzi w stan STATE\_CLOCK\_ERROR\_RESET\_FAIL \\
-\item STATE\_CLOCK\_ERROR\_RESET\_FAIL - błąd resetowania czasu. Wyświetlacz: ''Clock Reset Fail". Ze względu na brak możliwośąciu ustawienia poprawnego czasu jest to stan ostatecznej porażki.
+\item STATE\_CLOCK\_ERROR\_CLICK - oczekiwanie na reset. Wyświetlacz: "Click to reset". Sterowanie pozostaje w tym stanie do czasu kiedy zostanie przyciśnięty guzik resetu. Po naciśnięciu guzika na zegarze zostaje ustawiona zapamiętana data, wyświetlony zostaje komunikat "Time set", a sterowanie przechodzi w stan STATE\_USB\_INIT. Jeśli podczas ustawiania czasu na zagarze wystąpi błąd program przechodzi w stan STATE\_CLOCK\_ERROR\_RESET\_FAIL \\
+\item STATE\_CLOCK\_ERROR\_RESET\_FAIL - błąd resetowania czasu. Wyświetlacz: ''Clock Reset Fail". Ze względu na brak możliwości ustawienia poprawnego czasu jest to stan ostatecznej porażki.
 \end{itemize}
 \subsection{Procedura resetowania zegara RTC}
 
 \subsection{Napotkane problemy}
 \subsubsection{Dwa moduły korzystające z interfejsu SPI}
 \indent Początko zamiast Arduino Uno planowałem użyć innej wersji tej popularnej płytki - Arduino Leonardo. \\
-\indent Tak jak w wersji którą ostatecznie zrealizowałem, planowałem do układu Leonardo podłączyć USB Host Shield oraz moduł RFID - oba używają intrfejsu SPI. Każdy z tych komponentów osobno współpracował poprawnie z Arduino Leonardo. Problemy pojawiły się kiedy próbwałem podłączyć wszystko w jedną całość i zapisywać odczytane dane z karty magnetycznej na podłączonym pendrivie. \\
-\indent Podczas montowania ukladu problemem nie do przeskoczenia okazało się to, że w przypadku tej wersji płytki piny intefejsu SPI znajdują się w magistrali ICSP, która jest zajęta przez moduł USB w taki sposób, że nie ma możliwości podłączyć tam pinów inych pinów. \\
-\indent Próbowałem jeszcze dolutować kable do magistrali CSP na płytce  USB Host Shield, jednak ze względu na to że, są to jedynie milimetrowe wypuski, przepaliłem któreś z połączeń wewnątrz tego układu i ostatecznie musiałem je wyrzucić. \\
-\indent zeby rozwiązać problem z brakującym portem SPI przeszedłem na wersję UNO które interfejs SPI ma doprowadzony również na piny 10-13. \\
+\indent Tak jak w wersji którą ostatecznie zrealizowałem, planowałem do układu Leonardo podłączyć USB Host Shield oraz moduł RFID - oba używają interfejsu SPI. Każdy z tych komponentów osobno współpracował poprawnie z Arduino Leonardo. Problemy pojawiły się kiedy próbowałem podłączyć wszystko w jedną całość i zapisywać odczytane dane z karty magnetycznej na podłączonym pendrivie. \\
+\indent Podczas montowania układu problemem nie do przeskoczenia okazało się to, że w przypadku tej wersji płytki piny interfejsu SPI znajdują się w magistrali ICSP, która jest zajęta przez moduł USB w taki sposób, że nie ma możliwości podłączyć tam innych kabli. \\
+\indent Próbowałem jeszcze dolutować kable do magistrali CSP na płytce USB Host Shield, jednak ze względu na to że, są to jedynie milimetrowe wypustki, przepaliłem któreś z połączeń wewnątrz tego układu i ostatecznie musiałem je wyrzucić. \\
+\indent żeby rozwiązać problem z brakującym portem SPI przeszedłem na wersję UNO które interfejs SPI ma doprowadzony również na piny 10-13. \\
 
-\subsubsection{Problemy z odczytaniem danyc z ELS}
-\indent W początkowej wersji urządzenie korzystało z modułu RFID - MFRC-522. Ten komponent bez zarzutów współpracował z załączonymi w zestawie tagami, jednak bardzo słabo wykrywał Elektroniczną Legitymację Studencką. Odczytanie Uidu z ELS zajmowało zazwyczaj parę minut.  Żeby rozwiązać ten problem postanowiłem zamienić moduł RFID, na taki o którym czytałem, że ma lepszy zasięg - PNS532. Pierwsze próby zwiastowały pełny sukces - próby odczytania danych z ELS przebiegały bez zarzutu. \\
-\indent Problem pojawił się jednak przy współpracy nowego modułu z resztą układu. Jak już zostało wcześniej wspomniane, Arduino Uno posiada jeden port SPI, do którego można podlączyć więcej urządzeń. Niestety w tym wypadku rzeczywistość okazała się odbiegać od oczekiwań. Arduino było wstanie współracować tylko z jednym z dwóch komponentów - albo USB Host shield albo modułem RFID. Ostatecznie okazało się jednak, że moduł PNS532 udostępnia również inne porty, dzięki czemu udało mi się go podłączyć przy pomocy portu szeregowego na pinach 0, 1
- \begin{figure}[h]
+\subsubsection{Problemy z odczytaniem danych z ELS}
+\indent W początkowej wersji urządzenie korzystało z modułu RFID - MFRC-522. Ten komponent bez zarzutów współpracował z załączonymi w zestawie tagami, jednak bardzo słabo wykrywał Elektroniczną Legitymację Studencką. Odczytanie Uidu z ELS zajmowało zazwyczaj parę minut. Żeby rozwiązać ten problem postanowiłem zamienić moduł RFID, na taki o którym czytałem, że ma lepszy zasięg - PNS532. Pierwsze próby zwiastowały pełny sukces - próby odczytania danych z ELS przebiegały bez zarzutu. \\
+\indent Problem pojawił się jednak przy współpracy nowego modułu z resztą układu. Jak już zostało wcześniej wspomniane, Arduino Uno posiada jeden port SPI, do którego można podłączyć więcej urządzeń. Niestety w tym wypadku rzeczywistość okazała się odbiegać od oczekiwań. Arduino było w stanie współpracować tylko z jednym z dwóch komponentów - albo USB Host shield albo modułem PNS532. Ostatecznie okazało się jednak, że moduł PNS532 udostępnia również inne porty, dzięki czemu udało mi się go podłączyć przy pomocy portu szeregowego.
+\begin{figure}[h]
 \caption{Uklad USB Host shield ze wskzaniem na zakończenia magistrali CSP}
 \centering
 \includegraphics[scale=0.6]{usb_host_shield.jpg}
@@ -239,43 +241,44 @@ Czytnik fal radiowych umożliwi odczytanie danych z etykiety RFID znajdującej s
 \indent W miarę dołączania kolejnych komponentów do układu, tzn. zegara RTC, brzęczka oraz wyświetlacza LCD, zacząłem natrafiać na problemy z pamięcią. \\
 \indent Pierwsza skończyła się pamięć operacyjna której mój kontroler posiadał jedynie 2KB. Objawiało się to nagłym zawieszaniem się wykonywania programu, co w pierwszym momencie było dla mnie zaskakujące i niezrozumiałe.\\
 \indent Udało mi się rozwiązać ten problem dzięki większej dyscyplinie w korzystaniu z pamięci. Ograniczyłem liczbę zmiennych globalnych, a największy efekt przyniosło przeniesienie wykorzystywanych w programie napisów z pamięci operacyjnej do pamięci flash, do czego służy dyrektywa PROGMEM.\\
-\indent Pamięć flash jest przeznaczona do przechwywania kodu programu i nie ma do niej swobodnego dostępu jak w przypadku pamięci operacyjnej. Dodanie kolejnej biblioteki która ułatwiłaby przechowywanie danych w tej przestrzeni nie było możliwym ze względu na graniczone zasoby.\\
-\indent Ostatecznie zdecydowałem się na korzystanie z pamięci flash wczytując dane bajt po bajcie. Chcąc więc wyświetlić komunikat na kranie LCD, tak czy inaczej musiałem najpierw wczytać bajtowo łańcuch znaków do pamięci operacyjnej, jednak nie było już potrzeby przechowywać wszystkich łańcuchów znaków jednocześnie w SRAM.
- \begin{figure}[h]
+\indent Pamięć flash jest przeznaczona do przechowywania kodu programu i nie ma do niej swobodnego dostępu jak w przypadku pamięci operacyjnej. Dodanie kolejnej biblioteki która ułatwiłaby przechowywanie danych w tej przestrzeni nie było możliwym ze względu na ograniczone zasoby.\\
+\indent Ostatecznie zdecydowałem się na korzystanie z pamięci flash wczytując dane bajt po bajcie. Chcąc więc wyświetlić komunikat na ekranie LCD, tak czy inaczej musiałem najpierw wczytać bajtowo łańcuch znaków do pamięci operacyjnej, jednak nie było już potrzeby przechowywać wszystkich łańcuchów znaków jednocześnie w SRAM.
+\begin{figure}[h]
 \caption{Stałe programu przechowywane w pamięci flash}
 \centering
 \includegraphics[scale=0.8]{progmem.png}
 \end{figure}
 \subsubsection{Wypełniona pamięć flash}
-\indent Przeniesienie łańcuchów znaków do pamięci flash, chociaż poprawiło wydajność pamięci operacyjnej, to spowodowało wyczerpanie przestrzeni przeznaczonej  na kod programu. \\
+\indent Przeniesienie łańcuchów znaków do pamięci flash, chociaż poprawiło wydajność pamięci operacyjnej, to spowodowało wyczerpanie przestrzeni przeznaczonej na kod programu. \\
 \indent Pamięć flash jest bardziej pojemna niż SRAM ponieważ w tym wypadku jest to aż 32KB do dyspozycji programisty, jednak duża liczba bibliotek do obsługi peryferiów doprowadziła do wyczerpanie się również tej przestrzeni. \\
-\indent Ułatwieniem w przypadku optymalizowania wykorzystania pamięci flash jest to, że przestrzeń zajmowana przez kod programu jest stała po kompilacji. Nie ma więc obawy że w trakcie przebiegu programu nastąpi nagły wzrost i przekroczenie pojemności. Wytraczy dostosować się do limitu 32 KB. \\
+\indent Ułatwieniem w przypadku optymalizowania wykorzystania pamięci flash jest to, że przestrzeń zajmowana przez kod programu jest stała po kompilacji. Nie ma więc obawy że w trakcie przebiegu programu nastąpi nagły wzrost i przekroczenie pojemności. Wystarczy dostosować się do limitu 32 KB. \\
 \indent Udało mi się tego dokonać poprzez ograniczenie liczby funkcji które deklarowałem w moim programie, oraz schowanie komunikatów wysyłanych na serial monitor wewnątrz dyrektyw preprocesora \#if DEBUG serial.println("SETUP"); \#endif. Dzięki temu mogłem łatwo wyłączyć kod programu odpowiedzialny za debugowanie.\\
-\subsubsection{Moduł}
-\indent W pierszej wersji planowanego przeze mnie weryfikatora, miał on się łączyć z siecią za pomocą modułu WIFI. Bardzo dużo kłopotów sprawił mi jednak układ ESP8266, odpowiedzialny za tę łączność. Po wgraniu sterownika do tego układu przestawał on być wykrywany przez komputer i Arduino\\. \indent Pomimo wykorzystania kilku takich układów za każdym razem pojawiał się ten sam problem. Nie udało mi się dociec jaka była tego przyczyna. Ostatecznie odszedłem od wykorzytania modułu ESP8266 ze względu na zmianę koncepcji.
+\subsubsection{Moduł Wifi}
+\indent W pierwszej wersji planowanego przeze mnie weryfikatora, miał on się łączyć z siecią za pomocą modułu WIFI. Bardzo dużo kłopotów sprawił mi jednak układ ESP8266, odpowiedzialny za tę łączność. Po wgraniu sterownika do tego układu przestawał on być wykrywany przez komputer i Arduino\\. 
+\indent Pomimo wykorzystania kilku takich układów za każdym razem pojawiał się ten sam problem. Nie udało mi się dociec jaka była tego przyczyna. Ostatecznie odszedłem od wykorzystania modułu ESP8266 ze względu na zmianę koncepcji.
 \subsection{Inne koncepcje weryfikatora}
-\indent Zastanawiając się nad ostateczną formą jaką powinien przyjąć projektowany przeze mnie weryfikator brałem jeszcze pod uwagę układ Rosberry Pi. Ostatecznie zrezygnowałem z tego pomysłu, ze względu na to ża takie urządzenie mogłoby wymagać utrzymywania systemu operacyjnego aktualnej wersji. Za wykorzystaniem Arduino przemawiała również cena takiego układu i fakt, że jest on mi bardzo dobrze znany z zajęć Systemów Wbudowanych.\\
-\indent Projektując układ musiałem również podjąć decyzję z jakiego nośnika skorzystać do przenoszenia danych z weryfikatora do aplikacji zarządzającejobecnosciami. Brałem pod uwagę dwie możliwości. Poza opcją na którą się ostatecznie zdecydowałem, brałem jeszcze pod uwagę korzystanie z kart SD \\
-\indent Ze względu na większą dostępnąść i łatwiejsze podłączenie klasycznego pendriva do komputera ( nie każdy komputer posiada slot na kartę SD), zdecydowałem się nie tę właśnie możliwość.  Później okazało się, że ta decyzja miała swoje konsekwncje.\\
+\indent Zastanawiając się nad ostateczną formą jaką powinien przyjąć projektowany przeze mnie weryfikator brałem jeszcze pod uwagę układ Rosberry Pi. Ostatecznie zrezygnowałem z tego pomysłu, ze względu na to że takie urządzenie mogłoby wymagać utrzymywania systemu operacyjnego aktualnej wersji. Za wykorzystaniem Arduino przemawia również cena takiego układu i fakt, że jest on mi bardzo dobrze znany z zajęć Systemów Wbudowanych.\\
+\indent Projektując układ musiałem również podjąć decyzję z jakiego nośnika skorzystać do przenoszenia danych z weryfikatora do aplikacji zarządzającej obecnościami. Brałem pod uwagę dwie możliwości. Poza opcją na którą się ostatecznie zdecydowałem, brałem jeszcze pod uwagę korzystanie z kart SD \\
+\indent Ze względu na większą dostępność i łatwiejsze podłączenie klasycznego pendrive'a do komputera ( nie każdy komputer posiada slot na kartę SD), zdecydowałem się nie tę właśnie możliwość. Później okazało się, że ta decyzja miała swoje konsekwencje.\\
 \indent Po pierwsze USB Host Shield zajął magistralę ICSP, będącą jedynym wyjściem pinów interfejsu SPI w układzie Arduino Leonrado. Po perypetiach wcześniej już przeze mnie opisanych, zdecydowałem się na zmianę wersji płytki na Uno. \\
-\indent Kolejnym utrudnieniem które zostało postawione na mojej drodze ze względu na korzystanie z pendriva, były problemy z dostępnością biblioteki obsługującej pamięć w tej formie. Podstawowa biblioteka obslugująca układ USB Host Shield nie przwiduje wykorzystania złącza USB do podłączenia pamięci masowej. \\
+\indent Kolejnym utrudnieniem które zostało postawione na mojej drodze ze względu na korzystanie z pendriva, były problemy z dostępnością biblioteki obsługującej pamięć w tej formie. Podstawowa biblioteka obsługująca układ USB Host Shield nie przewiduje wykorzystania złącza USB do podłączenia pamięci masowej. \\
 \indent Ostatecznie udało mi się znaleźć nieszczególnie popularną bibliotekę do obsługi tego narzędzia - UsbFat, która jednak okazała się być słabo opisana.
-\section{Menadżer obecności - umożliwiający katalogowanie daych}
-\section{Baza studentów - umożliwiająca identyfikakację danych zebranych z ELS}
+\section{Menedżer obecności - umożliwiający katalogowanie danych}
+\section{Baza studentów - umożliwiająca identyfikację danych zebranych z ELS}
 
 \chapter{Możliwość dalszego rozwoju systemu}
 \subsubsection{Zautomatyzowana weryfikacja}
-\indent Mankamentem zaprezentowanego w powyższej pracy podejścia konieczność, weryfikacji czy osoba zbliżająca legitymację do czytnika jest rzeczywiście jej właścicielem. W opracowanu \cite{fingerprint}, przedstawiono projekt udostępniania informacji o studencie w oparciu o kartę RFID oraz dodatkową weryfikację poprzez sprawdzenie lini papilarnych. W systemie weryfikującym obecność na zajęciach można byłoby skorzysstać z podobnego rowiązania.\\
-\indent Innym dającym sie zastosować podejściem jest system do rozpoznawania twarzy.
+\indent Mankamentem zaprezentowanego w powyższej pracy podejścia jest konieczność manualnej weryfikacji czy osoba zbliżająca legitymację do czytnika jest rzeczywiście jej właścicielem. W opracowaniu \cite{fingerprint}, przedstawiono projekt udostępniania informacji o studencie w oparciu o kartę RFID oraz dodatkową weryfikację poprzez sprawdzenie linii papilarnych. W systemie weryfikującym obecność na zajęciach można byłoby skorzystać z podobnego rozwiązania.\\
+\indent Innym dającym się zastosować podejściem jest system do rozpoznawania twarzy.
 \subsubsection{Integracja z uczelnianym systemem}
-\indent Projektowany przeze mnie system od początku pomyslany był w taki sposób, aby umożliwić integrację z zewnętrznym system. Bazę studentów, ktora w moim projekcie jest osobną aplikację, łatwo można by zastąpić przez akademicką platformę. Kolejnym polem do integracji jest system logowania. Korzystanie z konta z USOSA, byłoby ułatwieniem dla korzystajacych z aplikacji pracowników i studentów oraz pozwoliłoby uniknąć przechowywania w systemia wrażliwych danych związanych z utworzonymi kontami.
+\indent Projektowany przeze mnie system od początku pomyślany był w taki sposób, aby umożliwić integrację z zewnętrznym źródłem informacji o studentach. Bazę studentów, która w moim projekcie jest osobną aplikację, łatwo można by zastąpić przez akademicką platformę. Kolejnym polem do integracji jest system logowania. Korzystanie z konta z USOSA, byłoby ułatwieniem dla korzystających z aplikacji pracowników i studentów oraz pozwoliłoby uniknąć przechowywania w systemie wrażliwych danych związanych z utworzonymi kontami.
 \subsubsection{Udostępnienie systemu uczestnikom wykładu}
-\indent Rozwinięciem systemu byłoby napewno udostępnienie studentom funkcjonalności zalogowania się i wglądu do ich aktualnych statystyk związanych z obecnościami. Byłoby to zadanie o tyle utrudnione, że należałoby udostępniać zainteresowanemu dane dotyczące tylko jego osoby. Można byłoby to rozwiazać poprzez integrację z uczelnianym systemem do logowania albo udostępniając studentom konta zakładane przez administratora, który zajmowałby się potwierdzeniem tożsamości.
+\indent Rozwinięciem systemu byłoby na pewno udostępnienie studentom funkcjonalności zalogowania się i wglądu do ich aktualnych statystyk związanych z obecnościami. Byłoby to zadanie o tyle utrudnione, że należałoby udostępniać zainteresowanemu dane dotyczące tylko jego osoby. Można byłoby to rozwiązać poprzez integrację z uczelnianym systemem do logowania albo udostępniając studentom konta zakładane przez administratora, który zajmowałby się potwierdzeniem tożsamości.
 \subsubsection{Informowanie zainteresowanych o obecnościach}
-\indent W cytowanym we wstępie opracowaniu \cite{theory_base} wskazane jest, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów. Wskazane jest, że `wczesna interwencja` w przypadku upuszczania przez ucznia zajęć, może zapobiec przerwaniu przez niego studiów. Nasuwa to bardzo wiele możliwości rozwoju aplikacji weryfikującej obecności. Zaprojektowaną przeze mnie platformę można by wyposażyć w możliwość informowania studenta o tym, że limit jego nieobecności na pewnych zajęciach jest bliski wyczerpania się. \\
+\indent W cytowanym we wstępie opracowaniu \cite{theory_base} wskazane jest, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów. Wskazane jest, że `wczesna interwencja` w przypadku opuszczania przez ucznia zajęć, może zapobiec przerwaniu przez niego studiów. Nasuwa to bardzo wiele możliwości rozwoju aplikacji weryfikującej obecności. Zaprojektowaną przeze mnie platformę można by wyposażyć w możliwość informowania studenta o tym, że limit jego nieobecności na pewnych zajęciach jest bliski wyczerpania się. \\
 \indent Możliwe również byłoby automatyczne informowanie organów uczelnianych o kłopotach studenta na podstawie jego absencji. \\
 \subsubsection{Platforma do szybkiego reagowania}
-\indent Idąc tym tropem, integrując uczesniane systemy, udostępniając studentom dostęp do ich kont i umożliwiając interakacje poprzez kanały takie jak email czy sms, można ucznić z prostej aplikacji rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Powiązujac informacje na temat tego na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć
+\indent Idąc tym tropem, integrując uczelniane systemy, udostępniając studentom wgląd w ich obecności i umożliwiając interakcje poprzez kanały takie jak mail czy sms, można z prostej aplikacji stworzyć rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Powiązując informacje na temat tego na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć
 
 \chapter{Wnioski}
 
@@ -316,5 +319,3 @@ Czytnik fal radiowych umożliwi odczytanie danych z etykiety RFID znajdującej s
 		\url{https://en.wikipedia.org/wiki/Radio-frequency_identification}
 \end{thebibliography}
 \end{document}
-
-
