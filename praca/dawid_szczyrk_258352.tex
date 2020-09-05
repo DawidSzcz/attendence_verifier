@@ -14,9 +14,27 @@
 % zlamaniu wierszy w temacie pracy, zwlaszcza tego w jezyku pracy. Uzyj do tego
 % polecenia \fmlinebreak.
 \polishtitle {System kontroli obecności na podstawie elektronicznych legitymacji studenckich}
-\englishtitle {Students attendence verifing system with the use of student card}
-\polishabstract {\ldots}
-\englishabstract{\ldots}
+\englishtitle {Students attendence verifing system with the use of electronic student's card}
+\polishabstract{
+\indent Projekt wykonany w ramach tego opracowania, przedstawia realizację narzędzia umożliwiającego weryfikację uczestników wykładu na podstawie Elektronicznej Legitymacji Studenckiej. \\
+\indent Poniższa praca referuje proces od analizy problemu i postawienia wymagań do realizacji finalnej wersji wielokomponentowego projektu.
+Na efekt ostateczny składają się aplikacje wykorzystujące technologie webowe, oparte na popularnych frameworkach języka PHP oraz niskopoziomowe elektroniczne urządzenie zaprojektowane i wykonane na potrzeby tego projektu z wykorzystaniem platformy Arduino. \\
+\indent Pierwszym z elementów składających się na finalne rozwiązanie jest urządzenie elektroniczne - weryfikator, udostępniające zrozumiały interfejs użytkownika i realizujące zadania związane ze zbieraniem danych od uczestników wykładu. Zostało ono wykonane w oparciu o płytkę Arduino Uno rozszerzoną o dodatkowe komponenty w tym czytnik RFID i USB Host Shield.
+Całość układu, wraz z interfejsem do komunikacji z użytkownikiem, została połączona przy pomocy płytki stykowej i opakowana w sposób umożliwiający sprawne użytkowanie oraz wygodny transport.\\
+\indent Dodatkowo w ramach referowanego projektu wykonano internetową aplikację umożliwiającą katalogowanie zebranych przy pomocy weryfikatora obecności.
+Użytkownikowi umożliwiono zarejestrowanie indywidualnego konta w serwisie, w którego kontekście możliwe jest tworzenie struktury wykładów i zajęć odpowiadającej rzeczywistemu kalendarzowi prowadzącego. Aplikacja została wykonana przy użyciu frameworka języka PHP - Yii2.
+Została zaprojektowana w sposób niezależny od bazy danych studentów, aby umożliwić wygodne podłączenie systemu do istniejącego serwisu uczelnianego pozwalającego powiązać dane zebrane z ELS z informacjami o posiadającym ją studencie.
+\indent Podczas pracy nad projektem nie było możliwości podłączenia się do żadnego istniejącego systemu uczelnianego udostępniającego dane studentów. Z tego powodu, jako element projektu, została stworzona aplikacja - w oparciu o framework Symfony4 - umożliwiająca pobranie danych studenta i udostępniająca w tym celu RESTowe Api.
+\indent Obie stworzone aplikacje wraz z połączonymi z nimi bazami danych osadzone zostały w chmurze w sposób zapewniający bezpieczeństwo i niezawodność.}
+\englishabstract{
+\indent Within the following project, a student attendance verification system with usage of Electronic Students Card (ESC) was developed. \\
+\indent The presented work describes a process from problem analysis and demands defining to developing the final version of a multi-component project. The final system consists of Internet applications for collecting and managing studends presence data, and an electronic device made for this project with the usage of the Arduino platform. \\
+\indent The electronic device - the verificator - provides a comprehensive user interface and is responsible for collecting data about student presences. The final circuit was made based on the Arduino Uno board, extended with plenty of additional parts such as an RFID module and USB Host Shield. All interconnected parts were put in comfortable for use and transportation box. \\
+\indent For managing data collected by the verificator, an internet application was developed. It allows a user to create an account, and manage presences data in its context. It is possible to create a composition of lectures and classes, which corresponds with the real calendar of a lecturer. It was developed with the usage of the PHP framework - Yii2. \\
+It was designed not to relate to concrete student's data managing system, to be flexible about a university system it is connected with. \\
+\indent Additionally, a system that allows correlation of data collected by verifier from ESC was developed. It takes the role of student data managing system, and provides REST API, to retrieve demanded information. It was created based on the PHP framework - Symfony4. \\
+\indent Both created services along with date bases connected with each of them were deployed in the cloud system with respect to proper security and reliability standards.
+}
 % w pracach wielu autorow nazwiska mozna oddzielic poleceniem \and
 \author {Dawid Szczyrk}
 % w przypadku kilku promotorow, lub koniecznosci podania ich afiliacji, linie
@@ -46,15 +64,14 @@
 
 \chapter{Wprowadzenie}
 
-Celem niniejszej pracy jest zaprojektowanie użytecznego i niedrogiego w utrzymaniu systemu do kontroli obecności studentów na wykładzie.\\
-\indent Niemalże każde zajęcia na naszym instytucie zaczynają się od zebrania listy obecności. Odbywa się to w siermiężny sposób, ponieważ każdy ze studentów musi wpisać swoje dane na listę obecności.
-Taka forma jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Dziś, kiedy do ochrony danych osobowych przykłada się
-coraz większą wagę, starodawne sposoby sprawdzania obecności są tym bardziej wątpliwe.\\
-\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym czasochłonnym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości jego zmienić. Istnieją jednak opracowania które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}.\\
-\indent Patrząc na problem sprawdzanie obecności z szerszej perspektywy. można również dojść do wniosku, że nie ma konieczności sprawdzania obecności w ogóle. Na studia w olbrzymiej części uczęszczają osoby dorosłe, odpowiedzialne za siebie, być moża należy wieć zrezygnować z kontroli. Zostało jednak sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale\\\\
-\indent Poniższa praca przedstawia proces od postawienia wymagań do realizacji finalnej wersji wielokomponentowego projektu. Na efekt ostateczny składają się aplikacje wykorzystujące najnowsze technologie i oparte na popularnych frameworkach, oraz niskopoziomowe elektroniczne urządzenie zaprojektowane i wykonane na potrzeby tego projektu.\\
-\indent Z jednej strony w ramach pracy musiałem zaprojektować komunikację pomiędzy poszczególnymi komponentami, zaproponować i wdrożyć architekturę aplikacji internetowych, tzn. serwery na których wykonywany jest kod stron internetowych oraz bazy danych. W wersji finalnej użytkownikowi umożliwiono stworzenie własnego konta w internetowym serwisie i zarządzanie danymi o obecnościach w jego kontekście. Wszystko to zostało oparte na nowoczesnych rozwiązaniach chmurowych. \\
-\indent Z drugiej strony moim zadaniem było zaprojektowanie niedrogiego urządzenia elektronicznego, które miało za zadanie udostępniać zrozumiały interfejs i realizować zadania związane ze zbieraniem danych od uczestników wykładu. Zagadnienie to wymaga wiedzy z zakresu elektroniki, zapoznania się ze schematami poszczególnych modułów oraz zrozumienia zasady ich działania. Kolejnym etapem projektu było połączenie odrębnych komponentów w jedną całość, a więc projekt układu elektronicznego na płytce stykowej i zamknięcie wszystkiego w opakowaniu umożliwiającym bezpieczne i wygodne użytkowanie.
+
+\indent Zgodnie z ustępem 3 paragrafu 2 zarządzenia nr 116/2020 rektora Uniwersytetu Wrocławskiego \cite{uwr} podczas wszystkich zajęć na uczelni, które odbywają się w formie stacjonarnej lub hybrydowej obligatoryjne jest prowadzenie listy obecności uczestników zajęć.\\
+\indent Panująca na świecie pandemia COVID-19 zmusiła ludzi do porzucenia wielu do tej pory dobrze sprawdzających się rozwiązań na rzecz takich, które pomogą zapobiec rozprzestrzenianiu się wirusa. Gospodarki i codzienne życie ludzi zostały przestawione na tryby tzw. nowej normalności.\\
+\indent W niemniejszym stopniu obecna sytuacja dotknęła pracy uniwersytetów. Po okresie zdalnego nauczania, wraz z nowym rokiem akademickim tradycyjne formy nauczania wracają do sal wykładowych, a troska o bezpieczeństwo studentów i pracowników uniwersytetu narzuca reorganizację życia akademickiego.\\
+\indent Jednym z elementów funkcjonowania instytucji naukowych, który powinien zostać dostosowany do nowych wymogów sanitarnych, jest prowadzenie listy obecności na zajęciach stacjonarnych. Obecna forma realizowana poprzez podawanie sobie przez studentów kartki na której spisane zostają ich dane prowokuje dodatkowe niebezpieczeństwo zakażenia wirusem. \\
+\indent Dodatkowym motywatorem, zachęcającym do usprawnienia obecnego rozwiązania, jest cytowane na początku zarządzenie rektora Uniwersytetu Wrocławskiej ustalające, że od semestru zimowego 2020 na wszystkich prowadzonych zajęciach obowiązkowe jest zbieranie listy obecności. \\
+\indent Względy zdrowotne, nie są jedynym uzasadnieniem konieczności optymalizacji identyfikowania osób biorących udział w zajęciach. Obecna forma tego procesu jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Istotną kwestią którą należy wziąć pod uwagę jest również ochrona danych osobowych, do której w dzisiejszym świecie przykłada się coraz większą wagę.\\
+\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym siermiężnym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości go zmienić. Istnieją jednak opracowania które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}. Zostało dodatkowo sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale\\
 
 
 \chapter{Analiza problemu}
@@ -316,6 +333,9 @@ coraz większą wagę, starodawne sposoby sprawdzania obecności są tym bardzie
 		2015, JOURNAL OF ADVANCEMENT IN ENGINEERING AND TECHNOLOGY
 		\url{https://www.researchgate.net/publication/235598499_RFID-Based_Students_Attendance_Management_System}
 	\bibitem{rfid_itself}
-		\url{https://en.wikipedia.org/wiki/Radio-frequency_identification}
+		\url{https://en.wikipedia.org/wiki/Radio-frequency_identification}	
+	\bibitem{uwr}
+		ZARZĄDZENIE Nr 116/2020 Rektora Uniwersytetu Wrocławskiego z dnia 3 września 2020 r
+		\url{https://bip.uni.wroc.pl/download/attachment/25560/nr_116_2020_zarzadzenie_funkcjonowanie-uwr-w-zwiazku-z-covid_19.pdf}
 \end{thebibliography}
 \end{document}
