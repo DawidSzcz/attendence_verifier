@@ -280,8 +280,46 @@ It was designed not to relate to concrete student's data managing system, to be 
 \indent Po pierwsze USB Host Shield zajął magistralę ICSP, będącą jedynym wyjściem pinów interfejsu SPI w układzie Arduino Leonrado. Po perypetiach wcześniej już przeze mnie opisanych, zdecydowałem się na zmianę wersji płytki na Uno. \\
 \indent Kolejnym utrudnieniem które zostało postawione na mojej drodze ze względu na korzystanie z pendriva, były problemy z dostępnością biblioteki obsługującej pamięć w tej formie. Podstawowa biblioteka obsługująca układ USB Host Shield nie przewiduje wykorzystania złącza USB do podłączenia pamięci masowej. \\
 \indent Ostatecznie udało mi się znaleźć nieszczególnie popularną bibliotekę do obsługi tego narzędzia - UsbFat, która jednak okazała się być słabo opisana.
-\section{Menedżer obecności - umożliwiający katalogowanie danych}
-\section{Baza studentów - umożliwiająca identyfikację danych zebranych z ELS}
+
+\section{Elektroniczny dziennik}
+\indent W celu wygodnego przetwarzania zebranych danych o obecnościach stworzona została aplikacja internetowa - elektroniczny dziennik. W serrwisie użytkownik może założyć konto, w jego kotekście tworzyć strukturę prowadzonych przez siebie zajęć i uzupełniać listę obecnych na nich studenów .\\
+\indent Dziennik umożliwia bieżące przeglądanie obecności studentów uczesniczących w wykładzie oraz, w dowolnym momencie, wygenerowanie raportu w formacie CSV ze zagregowanymi obecnościami uczesników wykładu na zajęciach z których się on składa.
+\subsubsection{Struktura dziennika}
+\indent Użytkownik serwisu po założeniu konta i zalogowaniu ukazuje się lista instancji wykładów, które są przypisane do jego konta i na których może dokonać standardowych operacji przeglądania/usuwania/dodawania. Instancja wykladu składa się z nazwy, opisu, listy uczesników oraz listy zajęć w jej ramach. Instancję wykladu można  rozumieć jako zajęcia prowadzone przez jednego prowadzącego z grupą studentów w ramach jednego przedmiotu. \\
+\indent Do instancji wykładu zostaje przypisana grupa studentów, którzy są zapisani na zajęcia prowadzone przez użytkownika w ramach wykładu. Przykładową listą uczestników będzie więc jedna grupa studentów uczesniczących w ćwiczeniach prowadzonych przez jednego pracownika uniwerytetu w ramach jednego przedmiotu. Dodatkowo, generowany raport z obecności na jednej instancji wykładu będzie odnosił się tylko do studenów znajdujących się na tej liście.\\
+\indent Każda instancja wykładu posiada skończony zbiór zajęć, których pojedyncza instancja składa się z daty i godziny oraz przypisanej do niej listy obecności. Taka instancja może być rozumiana jako pojedyncze zajęcia jednej grupy studentów. Na listę obecności zajęć mogą zostać wpisani studenci, którzy nie są wpisani na listę uczesników instancji wykładu. Będą widoczni w przeglądzie konkretnych zajęć w graficznym interfejsie dziennika, jednak nie zostaną wzięci pod uwagę przy generowaniu raportu dla instancji wykładu.\\
+
+\indent Posługując się przykładem zajęć z AISDu prowadzonych w ramach pojedynczego semestru, struktura w dzienniku będzie wyglądała następująco:
+\indent Przedmiot będzie rozdzielony pomiędzy konta wykładowcy i wszystkich ćwiczeniowców prowadzących zajęcia. \\
+\indent Wykladowca stworzy na swoim koncie w elektornicznym dzienniku instancję wykładu, przypisane do niego zostaną wszystkie wykłady, a listą uczesników będą wszyscy studenci zapisani na ten przedmiot. Lista obecności pojedynczych zajęć będzie więc składać się ze wszystkich studentów, którzy w trakcie odbywania się wykładu w sali Instytutu Informatyki przyłożą swoją legitymację do weryfikatora.\\
+\indent Ćwiczeniowcy na swoich kontach utworzą osobne instancje wykładu, przypiszą do nich zajęcia odpowiadające prowadzonym przez nich cotygodniowym ćwiczeniom oraz dodadzą grupę studentów, którzy zapisali się do ich grupy. \\
+\indent Pojedynczy przedmiot prowadzony w ramach jednego semestru, zostanie więc podzielony na tyle instancji wykładu w elektronicznym dzienniku ilu jest prowadzących i wykladowców. Każdy z nich będzie zbierał obecności tylko w ramach prowadzonych przez siebie zajęć. \\
+\indent Jeśli użytkownik elektronicznego dziennika, w ramach jednego przedmiotu prowadzi wiele różnych zajęć. np. wykład i ćwiczenia albo ćwiczenia z różnymi grupami studenów, powinien on przypisać do swojego konta kilka instancji wykładu z przypisanymmi do niej grupami studenów oraz instancjami prowadzonych przez niego zajęć z tą grupą.
+
+\subsubsection{Interfejs użytkownika}
+\indent Interfejs użytkownika elektronicznego dziennika jest prosty i sklada się tylko z elementów umożliwiający tworzenie struktury instancji wykładów i zajęć oraz zarządzaniem obecnościami. Wygląd strony został oparty na frontendowym freamworku Bootstrap\cite{bootstrap}. 
+Podstrony zostały ostylowane w sposób zapewniający przejrzystość i w miarę nowoczesny wygląd. \\
+\indent Cały interfejs aplikacji został zrealizowany w jezyku angielskim i na chwilę obecną nie ma możliwości przełączenia sie na język polski.\\
+\indent Główną podstroną widoczna dla użytkownika po zalogowaniu się na konto jest przegląd instancji wykładów przypisanych do niego. Z tego poziomu mogą zostać wykonane standardowe funkcje CRUD\cite{crud}.\\
+\indent Formularz dodawania nowej instancji wykładu umożliwia załączenie pliku, na postawie którego ostanie zainicjaliwowana grupa uczstników instancji wykładu. Plik powinien zawierać listę numerów albumu studentów wypisanych po przecinku.\\
+\indent Inicjalizacja listy zajęć jest możliwa w jednym z trzech trybów - pojedynczym, cotygodniowym lub comiesięcznym. W razie wybrania którejś z dwóch ostatnich opcji formularz umożliwi podanie początkowej i końcowej daty, a do wykładu zostaną przypisane zajęci odpowiednio co siedem i co 30 dni od pierwszej z nich. Formularz zakłada, że wszystkie zajęcia odbywać się będą o tej samej godzinie. Użytkownik będzie miał możliwość zmiany godziny w przeglądzie poszczególnych zajęć.\\
+\indent Po wejściu w przegląd instancji wykladu aplikacja wyświetla informacje o jej nazwie i opisie. Dodatkowo w dwóch domyślnie zwiniętych listach wyświetlona zostaje lista obecności i lista zajęć. Użytkownik ma możliwość dodawania/usuwania elementów tych list. W przypadku kiedy student posiadał już zaliczone obecności w ramach zajęć przyporządkowanych do tej instancji wykładu, a zostanie usunięty z listy uczesników, jego uczestnictwo zostanie zinterpretoweane jako udział wolnego słuchacz w zajęciach.\\
+\indent W tym widoku użytkownik dostaje również możliwość wygenerowania raportu z obecnościami w formacie CSV.\\
+\indent Ostatnim istotnym widokiem jest przegląd pojedynczych zajęć. Użytkownik otrzymuje możliwość zmodyfikowania ich daty i godziny oraz wyświetlenia i zarządzania listą obecności. Lista podzielona jest na dwie części - studentów którzy są uczestnikami instancji wykładu oraz wolnych słuchaczy. Każdy wiersz na pierwszej z list pokolorowany jest na czerwono lub zielono w zależności od tego czy dany uczesnik był obecny na zajęciach. \\
+\indent Dodatkowo interfejs umożliwia w tym widoku wysłanie na serwer pliku z obecnościami które zostały wygenerowane prze weryfikator.\\
+
+\subsubsection{Połączenie z bazą studentów}
+\indent Jak zostało określone podczas definiowania wymagań wobec projektu, dziennik elektroniczny jest niezależny od danych dotyczących studentów i nie przechowuje ich w żadnej formie.\\
+\indent  Podczas dodawania studenów do listy uczesników wykładu albo listy obecności na zajęciach aplikacja odwołuje się do zewnętrznego serwisu udostępniajęcego dane studentów.  Korzystając z podanych przez użytkownika informacji identyfikujących studenta - numeru albumu albo UIDu karty magnetycznej, odpytuje zewnętrzną aplikację korzystająć z RESTowego api. Kiedy dane studenta zostaną poprawnie pobrane, dziennik zapamiętuje jedynie identyfikator studenta w zewnętrznym systemie. Przy każdym żądaniu wyświetlenia danych studentów aplikacja wykorzystuje zapamiętany identyfikator do wysłania zapytania do zewnętrznego serwisu. \\
+\indent Takie podejście ma zasadnicze korzyści. Dzięki zapamiętywaniu zewnętrznego identyfikatora, aplikacja może uniknąć zapamiętywania wrażliwych danych. Pozwala to znacząco ograniczyć straty nawet w przypadku naruszenia bezpieczeństwa serwisu. Dodatkowo taka architektura jest przygotowaniem systemu do współpracy z rzeczywistami źródłami danych o studentach i wpięcia do cyfrowego systemu istniejącej uczelni.\\
+\subsubsection{Przegląd technologii}
+\indent Aplikacja została napisana we frameworku Yii2\cite{yii}, będącym rozszerzeniem języka PHP. Cała architektura opiera się na modelu MVC dodatkowo w ramach definiowania modeli i łączenie ich z bazą korzystam ze wzorca ActiveRecord, a kod związany z przetważaniem innych źródeł danych w serwisie wydzieliłem do osobnych serwisów w ramach aplikacji.\\
+\indent W projekcie frontendu korzystam z frameworka Bootstap\cite{bootstrap}, oraz gotowych komponentów\cite{kartik}\cite{da1}\cite{da2} wyświetlających edytowalne pola z datą i godziną. \\
+\indent Dane wygenerowane w trakcie funkcjonowania aplikacji przechowuję w relacyjnej bazie danych operującej na systemie PostreSQL\cite{psql}.\\
+\indent Gotowa aplikacja została uruchomiona w środowiku najnowszej wwesji PHP - 7.4.\\
+\indent Do zarządzania zależnościami serwisu wykorzysuję system do zarządzania pakietami Composer\cite{composer}.
+
+\section{Baza studentów}
 
 \chapter{Możliwość dalszego rozwoju systemu}
 \subsubsection{Zautomatyzowana weryfikacja}
@@ -297,7 +335,9 @@ It was designed not to relate to concrete student's data managing system, to be 
 \subsubsection{Platforma do szybkiego reagowania}
 \indent Idąc tym tropem, integrując uczelniane systemy, udostępniając studentom wgląd w ich obecności i umożliwiając interakcje poprzez kanały takie jak mail czy sms, można z prostej aplikacji stworzyć rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Powiązując informacje na temat tego na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć
 
-\chapter{Wnioski}
+\chapter{Podsumowanie}
+1. Żaden z przytoczonych przykładów nie rozwiązuje problemu w tak kompleksowy sposób
+2. Zbieranie danych na pendrive co jest bardziej elastyczne
 
 \ldots
 
@@ -337,5 +377,19 @@ It was designed not to relate to concrete student's data managing system, to be 
 	\bibitem{uwr}
 		ZARZĄDZENIE Nr 116/2020 Rektora Uniwersytetu Wrocławskiego z dnia 3 września 2020 r
 		\url{https://bip.uni.wroc.pl/download/attachment/25560/nr_116_2020_zarzadzenie_funkcjonowanie-uwr-w-zwiazku-z-covid_19.pdf}
+	\bibitem{bootstrap}
+		\url{https://getbootstrap.com/}	
+	\bibitem{kartik}
+		\url{https://github.com/kartik-v/yii2-widget-timepicker}	
+	\bibitem{da1}
+		\url{https://github.com/2amigos/yii2-date-time-picker-widget}	
+	\bibitem{da2}
+		\url{https://github.com/2amigos/yii2-date-picker-widget}	
+	\bibitem{yii}
+		\url{https://www.yiiframework.com/}
+	\bibitem{composer}
+		\url{https://getcomposer.org/}	
+	\bibitem{psql}
+		\url{https://www.postgresql.org/}	
 \end{thebibliography}
 \end{document}
