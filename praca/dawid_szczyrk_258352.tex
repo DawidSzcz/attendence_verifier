@@ -21,19 +21,19 @@
 Na efekt ostateczny składają się aplikacje wykorzystujące technologie webowe, oparte na popularnych frameworkach języka PHP oraz niskopoziomowe elektroniczne urządzenie zaprojektowane i wykonane na potrzeby tego projektu z wykorzystaniem platformy Arduino. \\
 \indent Pierwszym z elementów składających się na finalne rozwiązanie jest urządzenie elektroniczne - weryfikator, udostępniające zrozumiały interfejs użytkownika i realizujące zadania związane ze zbieraniem danych od uczestników wykładu. Zostało ono wykonane w oparciu o płytkę Arduino Uno rozszerzoną o dodatkowe komponenty w tym czytnik RFID i USB Host Shield.
 Całość układu, wraz z interfejsem do komunikacji z użytkownikiem, została połączona przy pomocy płytki stykowej i opakowana w sposób umożliwiający sprawne użytkowanie oraz wygodny transport.\\
-\indent Dodatkowo w ramach referowanego projektu wykonano internetową aplikację umożliwiającą katalogowanie zebranych przy pomocy weryfikatora obecności.
+\indent Dodatkowo w ramach referowanego projektu wykonano internetową aplikację - elektroniczny dziennik - umożliwiającą katalogowanie zebranych przy pomocy weryfikatora obecności.
 Użytkownikowi umożliwiono zarejestrowanie indywidualnego konta w serwisie, w którego kontekście możliwe jest tworzenie struktury wykładów i zajęć odpowiadającej rzeczywistemu kalendarzowi prowadzącego. Aplikacja została wykonana przy użyciu frameworka języka PHP - Yii2.
-Zaprojektowano ją w sposób niezależny od bazy danych studentów, aby umożliwić wygodne podłączenie systemu do istniejącego serwisu uczelnianego pozwalającego powiązać dane zebrane z ELS z informacjami o posiadającym ją studencie.\\
+Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego działania wymaga dostępu do serwisu udostępniajacego takie dane.\\
 \indent Podczas pracy nad projektem nie było możliwości podłączenia się do żadnego istniejącego systemu uczelnianego udostępniającego dane studentów. Z tego powodu, jako element projektu, została stworzona aplikacja - w oparciu o framework Symfony4 - umożliwiająca pobranie danych studenta i udostępniająca w tym celu RESTowe API.\\
 \indent Obie stworzone aplikacje wraz z połączonymi z nimi bazami danych osadzone zostały w chmurze w sposób zapewniający bezpieczeństwo i niezawodność.}
 \englishabstract{
 \indent Within the following project, a student attendance verification system with usage of Electronic Students Card (ESC) was developed. \\
 \indent The presented work describes a process from problem analysis and demands defining to developing the final version of a multi-component project. The final system consists of Internet applications for collecting and managing studends presence data, and an electronic device made for this project with the usage of the Arduino platform. \\
-\indent The electronic device - the verificator - provides a comprehensive user interface and is responsible for collecting data about student presences. The final circuit was made based on the Arduino Uno board, extended with plenty of additional parts such as an RFID module and USB Host Shield. All interconnected parts were put in comfortable for use and transportation box. \\
+\indent The electronic device - the verificator - provides a comprehensive user interface and is responsible for collecting data about student presences. The final circuit was made based on the Arduino Uno board, extended with plenty of additional parts such as an RFID module and USB Host Shield. All interconnected parts were put in a plastic box to make it comfortable for use and transportation. \\
 \indent For managing data collected by the verificator, an internet application was developed. It allows a user to create an account, and manage presences data in its context. It is possible to create a composition of lectures and classes, which corresponds with the real calendar of a lecturer. It was developed with the usage of the PHP framework - Yii2. \\
 It was designed not to relate to concrete student's data managing system, to be flexible about a university system it is connected with. \\
-\indent Additionally, a system that allows correlation of data collected by verifier from ESC was developed. It takes the role of student data managing system, and provides REST API, to retrieve demanded information. It was created based on the PHP framework - Symfony4. \\
-\indent Both created services along with date bases connected with each of them were deployed in the cloud system with respect to proper security and reliability standards.
+\indent Additionally, a system which allows correlation of Electronic Student Card UID with information about student was developed. It takes the role of student data managing system, and provides REST API, to retrieve demanded information. It was created based on the PHP framework - Symfony4. \\
+\indent Both created services along with data bases connected with each of them were deployed in the cloud system with respect to proper security and reliability standards.
 }
 % w pracach wielu autorow nazwiska mozna oddzielic poleceniem \and
 \author {Dawid Szczyrk}
@@ -68,18 +68,18 @@ It was designed not to relate to concrete student's data managing system, to be 
 \indent Zgodnie z ustępem 3 paragrafu 2 zarządzenia nr 116/2020 rektora Uniwersytetu Wrocławskiego \cite{uwr} podczas wszystkich zajęć na uczelni, które odbywają się w formie stacjonarnej lub hybrydowej obligatoryjne jest prowadzenie listy obecności uczestników zajęć.\\
 \indent Panująca na świecie pandemia COVID-19 zmusiła ludzi do porzucenia wielu do tej pory dobrze sprawdzających się rozwiązań na rzecz takich, które pomogą zapobiec rozprzestrzenianiu się wirusa. Gospodarki i codzienne życie ludzi zostały przestawione na tryby tzw. nowej normalności.\\
 \indent W niemniejszym stopniu obecna sytuacja dotknęła pracy uniwersytetów. Po okresie zdalnego nauczania, wraz z nowym rokiem akademickim tradycyjne formy nauczania wracają do sal wykładowych, a troska o bezpieczeństwo studentów i pracowników uniwersytetu narzuca reorganizację życia akademickiego.\\
-\indent Jednym z elementów funkcjonowania instytucji naukowych, który powinien zostać dostosowany do nowych wymogów sanitarnych, jest prowadzenie listy obecności na zajęciach stacjonarnych. Obecna forma realizowana poprzez podawanie sobie przez studentów kartki na której spisane zostają ich dane prowokuje dodatkowe niebezpieczeństwo zakażenia wirusem. \\
-\indent Dodatkowym motywatorem, zachęcającym do usprawnienia obecnego rozwiązania, jest cytowane na początku zarządzenie rektora Uniwersytetu Wrocławskiej ustalające, że od semestru zimowego 2020 na wszystkich prowadzonych zajęciach obowiązkowe jest zbieranie listy obecności. \\
-\indent Względy zdrowotne nie są jedynym uzasadnieniem konieczności optymalizacji identyfikowania osób biorących udział w zajęciach. Obecna forma tego procesu jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Istotną kwestią którą należy wziąć pod uwagę jest również ochrona danych osobowych, do której w dzisiejszym świecie przykłada się coraz większą wagę.\\
-\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym siermiężnym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości go zmienić. Istnieją jednak opracowania, które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}. Zostało dodatkowo sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale.\\
+\indent Jednym z elementów funkcjonowania instytucji naukowych, który powinien zostać dostosowany do nowych wymogów sanitarnych, jest prowadzenie listy obecności na zajęciach stacjonarnych. Obecna forma realizowana poprzez podawanie sobie przez studentów kartki, na której spisane zostają ich dane, prowokuje dodatkowe niebezpieczeństwo zakażenia wirusem. \\
+\indent Dodatkowym motywatorem, zachęcającym do usprawnienia obecnego rozwiązania, jest cytowane na początku zarządzenie rektora Uniwersytetu Wrocławskiego ustalające, że od semestru zimowego 2020 na wszystkich prowadzonych zajęciach obowiązkowe jest zbieranie listy obecności. \\
+\indent Względy zdrowotne nie są jedynym uzasadnieniem konieczności optymalizacji identyfikowania osób biorących udział w zajęciach. Obecna forma tego procesu jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Istotnąym czynnikiem, który należy wziąć pod uwagę jest również ochrona danych osobowych, do której w dzisiejszym świecie przykłada się coraz większą wagę.\\
+\indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości go zmienić. Istnieją jednak opracowania, które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}. Zostało dodatkowo sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale.\\
 
 
 \chapter{Analiza problemu}
 \section{Przegląd obecnego sposobu sprawdzania obecności}
-\indent W celu doprecyzowania wymagań stawianych przed projektowanym przeze mnie system postanowiłem rozważyć znany mi z autopsji proces weryfikowania obecności na zajęciach prowadzonych przez Uniwersytet Wrocławski\\
-\indent Sprawdzanie listy obecności jest w dużej mierze uzależnione od preferencji prowadzącego i zwyczajów panujących na konkretnym wydziale - przykładowo obecność może być potwierdzona słownie - poprzez kolejne wywołanie osób z listy albo pisemnie - poprzez udostępnienie listy na którą uczestnicy będą zobowiązani się wpisać.\\
-\indent Dla uproszczenia dalszych rozważań postanowiłem przyjąć za ogólnie stosowaną metodę pisemną - która według moich obserwacji jest stosowana częściej - i na tej podstawie wyodrębnić czynności, które składają się na wypełnienie listy obecności podczas zajęć.\\
-\indent Zbieranie informacji o obecności studentów na wykładzie jest czynnością na pierwszy rzut oka oczywistą, po bliższym przyjrzeniu się całej procedurze okazuje się jednak, że daje się ona rozłożyć na jeszcze prostsze elementy. \\
+\indent W celu doprecyzowania wymagań stawianych przed projektowanym systemem postanowiono rozważyć proces weryfikowania obecności na zajęciach prowadzonych przez Uniwersytet Wrocławski\\
+\indent Sprawdzanie listy obecności jest w dużej mierze uzależnione od preferencji prowadzącego i zwyczajów panujących na konkretnym wydziale - przykładowo obecność może być potwierdzona słownie - poprzez kolejne wywołanie osób z listy albo pisemnie - poprzez udostępnienie listy, na którą uczestnicy będą zobowiązani się wpisać.\\
+\indent Dla uproszczenia dalszych rozważań przyjęto za ogólnie stosowaną metodę pisemną - która według obserwacji autora jest stosowana częściej - i na tej podstawie wyodrębnić czynności, które składają się na wypełnienie listy obecności podczas zajęć.\\
+\indent Zbieranie informacji o obecności studentów na wykładzie jest czynnością na pozór oczywistą, po bliższym przyjrzeniu się całej procedurze okazuje się jednak, że daje się ona rozłożyć na jeszcze prostsze elementy. \\
 
 \begin{itemize}
 \item Przygotowanie kartki z listą obecności (przypisanie listy obecności do zajęć których będzie ona dotyczyła).
@@ -88,23 +88,23 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item Przeniesienie zebranych danych do uczelnianego systemu.
 \end{itemize}
 
-\indent Powyższy schemat zbierania listy obecności podatny jest na dodatkowe błędy. Nie trudno wyobrazić sobie sytuację w której student intencjonalnie podał nie swoje dane w celu zaliczenia obecności innej osobie. Kolejnym krokiem który może doprowadzić do błędów na ostatecznej liście obecności jest błąd ludzki podczas przenoszenia danych z kartki do uczelnianego systemu komputerowego. Taki błąd trudno jest od razu wychwycić ze względu na to, że studenci zazwyczaj nie przeglądają na bieżąco list obecności dostępnych np. na USOSie.\\
-\indent Pierwszym elementem nadającym się do usprawnienia jest samo tworzenie listy obecności z informacją na temat zajęć, których taka lista będzie dotyczyła. Fizyczna lista, poza czasem poświęconym na jej stworzenie, musi być po odbytych zajęciach przechowywana - co stwarza ryzyko jej zgubienia. Dodatkowo istnieje prawdopodobieństwo, że trafi w niepowołane ręce i ktoś nieżyczliwy wpisze na nią dodatkowe nazwiska. Do tego wszystkiego dochodzi jeszcze aspekt ekologiczny, ponieważ każda kolejna kartka generuje wymagające utylizacji śmieci. \\
+\indent Powyższy schemat zbierania listy obecności podatny jest na dodatkowe błędy. Nie trudno wyobrazić sobie sytuację w której student intencjonalnie podał nie swoje dane w celu zaliczenia obecności innej osobie. Kolejnym czynnikiem, który może doprowadzić do błędów na ostatecznej liście obecności jest błąd ludzki podczas przenoszenia danych z kartki do uczelnianego systemu komputerowego. Taki błąd trudno jest od razu wychwycić ze względu na to, że studenci zazwyczaj nie przeglądają na bieżąco list obecności dostępnych np. na USOSie.\\
+\indent Pierwszym elementem nadającym się do usprawnienia jest samo tworzenie listy obecności z informacją na temat zajęć, których taka lista będzie dotyczyła. Fizyczna lista, poza czasem poświęconym na jej stworzenie, musi być po odbytych zajęciach przechowywana - co stwarza ryzyko jej zgubienia. Dodatkowo istnieje prawdopodobieństwo, że trafi w niepowołane ręce i ktoś wpisze na nią dodatkowe nazwiska. Do tego wszystkiego dochodzi jeszcze aspekt ekologiczny, ponieważ każda kolejna kartka generuje wymagające utylizacji śmieci. \\
 \indent Również udział studentów w rejestrowaniu własnej obecności może ulec optymalizacji. Wpisanie własnego imienia i nazwiska, a czasem numeru albumu zabiera czas, naraża na upublicznienie dane osobowe i utrudnia studentowi śledzenie wykładu.\\
-\indent Weryfikacja poprawności listy jest nie tylko pracochłonna, ale również podatna na błędy. Czas poświęcony na policzenie uczestników rośnie wprost proporcjonalnie do ich liczby. Dodatkowo prowadzący zajęcia może się pomylić albo ktoś może dopisać do listy już po tym sprawdzeniu.\\
+\indent Weryfikacja poprawności listy jest nie tylko pracochłonna, ale również podatna na błędy. Czas poświęcony na policzenie uczestników rośnie wprost proporcjonalnie do ich liczby. Dodatkowo prowadzący zajęcia może się pomylić lub ktoś może dopisać się do listy już po tym sprawdzeniu.\\
 \indent Z całą pewnością usprawnienia wymaga proces przenoszenia danych z fizycznego nośnika do uczelnianego systemu komputerowego. Problemem jest nie tylko to, że podczas wpisywania obecności do komputerowego systemu można popełnić błąd, ale również to, że jest to proces czasochłonny.\\
 
 \section{Istniejące i możliwe realizacje zagadnienia}
 \subsection{Podłączenie czytnika RFID bezpośrednio do komputera}
 \indent Popularnym pomysłem usprawniającym system weryfikacji obecności jest skorzystanie technologii RFID (Radio-frequency identification). Wykorzystuje ona pole elektromagnetyczne do śledzenia na niewielkie odległości tagów (etykiet) RFID - małych transmiterów fal radiowych zdolnych do przechowywania danych umożliwiających zdalną identyfikację \cite{rfid_itself}. Tagi często mają formę kart, breloków lub innych łatwych w transporcie i przechowywaniu przedmiotów.\\
 \indent W opracowaniu \cite{rfid_serial} przedstawiono projekt weryfikatora obecności zrealizowany przy pomocy radio technologii. Każdemu studentowi został przypisany tag z unikatowym identyfikatorem. System składa się z czytnika etykiet podłączonego do komputera przy użyciu portu szeregowego oraz aplikacji komputerowej, zdolnej do rozpoznawania zbliżonych do czytnika tagów i zapamiętywania którzy studenci zeskanowali swoje karty w trakcie zajęć. \\
-\indent Ciekawym pomysłem przedstawionym w tym projekcie jest przekazanie osobnego tagu prowadzącemu zajęcia. Zbliżenie tej etykiety na początku i na końcu zajęć do czytnika wyznacza ramy czasowe podczas których obecność może zostać zaliczona studentom. Dodatkowo zastosowano tutaj podejście, w którym uczestnik powinien rejestrować swoje pojawienie się, jak i opuszczenie zajęć - jest to odstępstwo od tradycyjnej formy zbierania obecności. \\
+\indent Ciekawym pomysłem przedstawionym w tym projekcie jest przekazanie osobnego tagu prowadzącemu zajęcia. Zbliżenie tej etykiety na początku i na końcu zajęć do czytnika wyznacza ramy czasowe, podczas których obecność może zostać zaliczona studentom. Dodatkowo zastosowano tutaj podejście, w którym uczestnik powinien rejestrować swoje pojawienie się, jak i opuszczenie zajęć - jest to odstępstwo od tradycyjnej formy zbierania obecności. \\
 \indent W projekcie można zaobserwować kilka wad. Wykorzystany czytnik RFID jest urządzeniem w całości dostarczonym przez producenta. Można spodziewać się że jest to rozwiązanie drogie, a samego urządzenia nie będzie dało się rozszerzyć o dodatkowe funkcjonalności. \\
-\indent Taka architektura pociąga za sobą konieczność ciągłego połączenia z komputerem oraz dodatkowego okablowania. Może to powodować problemy logistyczne, jeśli chcielibyśmy korzystać z systemu w różnych salach.\\
+\indent Taka architektura pociąga za sobą konieczność ciągłego połączenia z komputerem oraz dodatkowego okablowania. Może to powodować problemy logistyczne, jeśli trzeba korzystać z systemu w różnych salach.\\
 \indent Sama aplikacja komputerowa katalogująca zebrane obecności również poddana jest ograniczeniom. Korzystanie z tego systemu możliwe jest wyłącznie na komputerach, na których zainstalowano taką aplikację, co jest rozwiązaniem uciążliwym. Baza danych zapamiętująca obecności współdzielona jest pomiędzy poszczególne instancje aplikacji na różnych komputerach, jest więc ona udostępniona publicznie, co ułatwia nieautoryzowany dostęp.
 
 \subsection{Podłączenie przy pomocy kabla ethernetowego}
-\indent W opracowaniu opisanym w pracy \cite{rfid_serial} zaproponowano podobną realizację, tym razem w oparciu o bezpośrednie podłączenie czytnika do internetu kablem RJ45. Wykorzystywane urządzenie jest stworzone na bazie Arduino Uno rozszerzonym o moduł RFID i gniazdo pozwalające podłączyć kabel ethernetowy. \\
+\indent W opracowaniu opisanym w pracy \cite{ethernet} zaproponowano podobną realizację, tym razem w oparciu o bezpośrednie podłączenie czytnika do internetu kablem RJ45. Wykorzystywane urządzenie jest stworzone na bazie Arduino Uno rozszerzonym o moduł RFID i gniazdo pozwalające podłączyć kabel ethernetowy. \\
 \indent Zaproponowany projekt rozwiązuje problem konieczności korzystania z komputera w bezpośrednim połączeniu z czytnikiem, a wybrany układ elektroniczny pozwala rozszerzyć urządzenie o dodatkowe funkcjonalności. Łączność internetowa pozwala na natychmiastowe odnotowywanie obecności w bazie, co na pewno jest wygodnym rozwiązaniem. \\
 \indent W treści opracowania nie został poruszony problem połączenia obecności z zajęciami, na których została ona odnotowana. W przypadku rozszerzenia systemu o kolejne czytniki podłączone do sieci i korzystania z wielu urządzeń jednocześnie, nie będzie możliwości rozszyfrowania, z jakich zajęć pochodzą spływające do serwera dane. \\
 \indent Jedynym możliwym sposobem na komunikację urządzenia z użytkownikiem jest w tym wypadku buzzer, co może okazać się niewystarczające do wyrażenia stanu urządzenia. W razie kłopotów z łącznością albo anteną RFID nie ma możliwości wygodnego sygnalizowania problemu.
@@ -122,7 +122,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \indent Wymagałoby to dołączenia dodatkowego interfejsu, który pozwalałby wprowadzać takie dane, co jeszcze bardziej komplikowałoby projektowane urządzenie. Dodatkowo ograniczyłoby to zbiór układów scalonych, z których możnaby skorzystać, ponieważ musiałby on posiadać wystarczającą ilość pamięci, pinów i innych potrzebnych peryferiów.
 
 \section{Określenie wymagań wobec projektu}
-\indent W poprzednim rozdziale wspomniano o wielu możliwych realizacjach problemu zbierania obecności, co jest i tak tylko niewielkim wycinkiem możliwych do wykonania projektów. W opracowaniu \cite{review} wspomniano o wielu innych przedsięwzięciach, z których na wyróżnienie zasługują:
+\indent W poprzednim rozdziale wspomniano o wielu możliwych realizacjach problemu zbierania obecności, co jest tylko niewielkim wycinkiem możliwych do wykonania projektów. W opracowaniu \cite{review} wspomniano o wielu innych przedsięwzięciach, z których na wyróżnienie zasługują:
 
 \begin{itemize}
 \item Skorzystanie z telefonu komórkowego i łączności bluetooth w celu odnotowania obecności.
@@ -130,7 +130,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item Użycie kamery i rozpoznawania twarzy w celu identyfikacji wchodzących na wykład studentów.
 \end{itemize}
 
-\indent Analiza powyższych rozwiązań wraz z ich mocnymi i słabymi stronami pozwoliła wyłonić zbiór wymagań wobec projektowanego systemu. Wymagania zostały dobrane pod kątem poprawienia wydajności klasycznego sposobu weryfikowania obecności, co zostało rozważone w rozdziale 2.1, oraz możliwości jakie dają współczesne technologie - które zostały opisane powyżej.
+\indent Analiza powyższych rozwiązań wraz z ich mocnymi i słabymi stronami pozwoliła wyłonić zbiór wymagań wobec projektowanego systemu. Wymagania zostały dobrane pod kątem poprawienia wydajności klasycznego sposobu weryfikowania obecności, co zostało rozważone w rozdziale 2.1, oraz możliwości jakie dają współczesne technologie, które zostały opisane powyżej.
 
 \subsubsection{Urządzenie powinno udostępniać następujące funkcjonalności:}
 
@@ -146,16 +146,16 @@ It was designed not to relate to concrete student's data managing system, to be 
 
 
 \chapter{Określenie struktury projektu}
-\indent Finalnie zdecydowałem, żeby jednoznacznie oddzielić sposób zbierania danych od ich przechowywania i przetwarzania.\\
-\indent Realizacja projektu korzysta z faktu, że polskie uczelnie powszechnie korzystają z Elektronicznych Legitymacji Studenckich (ELS), które zawierają wbudowany tag RFID\cite{rfid}. \\
+\indent Finalnie zadecydowano się jednoznacznie oddzielić sposób zbierania danych od ich przechowywania i przetwarzania.\\
+\indent Realizacja projektu opiera się na fakcie, że polskie uczelnie powszechnie korzystają z Elektronicznych Legitymacji Studenckich (ELS), które zawierają wbudowany tag RFID. \\
 \indent Komponent umożliwiający studentowi odnotowanie swojej obecności na wykładzie - weryfikator - został oparty o platformę Arduino. Urządzenie zostało rozszerzone o moduły umożliwiające realizację założeń z poprzedniego rozdziału.\\
 \indent Dodatkowo częścią urządzenia będzie zegar RTC umożliwiający zapamiętanie godziny, o której odnotowane zostały obecności, a więc powiązanie ich z konkretnymi zajęciami, oraz wyświetlacz LCD + Buzzer, pozwalające na wygodne korzystanie z samodzielnego urządzenia. \\
-\indent Sposobem na potwierdzenie tożsamości studenta będzie w wypadku realizowanego projektu porównanie zdjęcia na legitymacji z twarzą osoby która zbliża ją do czytnika. Za tę weryfikację odpowiedzialny będzie prowadzący.\\\\
+\indent Sposobem na potwierdzenie tożsamości studenta będzie w wypadku realizowanego projektu porównanie zdjęcia na legitymacji z twarzą osoby, która zbliża ją do czytnika. Za tę weryfikację odpowiedzialny będzie prowadzący.\\\\
 
-\indent Rolę oprogramowania odpowiedzialnego za katalogowanie zebranych przez weryfikator danych będzie pełnić w moim systemie ogólnodostępna aplikacja internetowa, umożliwiająca założenie konta i zarządzanie zebranymi obecnościami w kontekście całego przedmiotu i w kontekście pojedynczych zajęć. Dodatkowo ma ona umożliwiać generowanie raportów ze zagregowanymi danymi, tak aby dało się łatwo prześledzić obecności w kontekście całego semestru. \\
-\indent Postanowiłem uczynić realizowany projekt niezależnym od danych studentów. Dzięki takiemu podejściu w łatwy sposób będę mógł przełączyć cały system na korzystanie z baz danych na różnych uczelniach oraz uniknę konieczności przechowywania wrażliwych danych w systemie. \\
-\indent Ze względu na to, że na etapie realizowania założonego projektu nie uzyskałem dostępu do serwisu udostępniającego dane wrocławskich studentów, stworzyłem własną, niezależną od innych części projektu, aplikację realizującą funkcję bazy danych studentów. \\
-\indent Umożliwia ona powiązanie danych pobranych z legitymacji studenckiej z danymi pozwalającymi na jego identyfikację. Jest to aplikacja rozłączna względem systemu zarządzającego obecnościami osób uczestniczących w zajęciach, wystawiająca RESTowe API.
+\indent Rolę oprogramowania odpowiedzialnego za katalogowanie zebranych przez weryfikator danych w omawianym systemie będzie pełnić ogólnodostępna aplikacja internetowa - elektroniczny dziennik, umożliwiający założenie konta i zarządzanie zebranymi obecnościami w kontekście całego przedmiotu i w kontekście pojedynczych zajęć. Dodatkowo ma on umożliwiać generowanie raportów ze zagregowanymi danymi tak, aby dało się łatwo prześledzić obecności w kontekście całego semestru. \\
+\indent Wirtualny dziennik zaprojektowano w taki sposób, żeby był niezależny od danych studentów. Dzięki takiemu podejściu w łatwy sposób można przełączyć cały system na korzystanie z baz danych na różnych uczelniach. Uniknie się także konieczności przechowywania wrażliwych danych w systemie. \\
+\indent Ze względu na to, że na etapie realizowania założonego projektu nie uzyskano dostępu do serwisu udostępniającego dane wrocławskich studentów, została stworzona dodatkowa aplikacja, niezależna od innych części projektu. \\
+\indent Umożliwia ona powiązanie danych pobranych z legitymacji studenckiej z danymi pozwalającymi na identyfikację jej posiadacza. Jest to aplikacja rozłączna względem systemu zarządzającego obecnościami osób uczestniczących w zajęciach, wystawiająca RESTowe API.
 
 \chapter{Realizacja}
 \section{Weryfikator - czytnik legitymacji studenckich}
@@ -165,7 +165,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item Stworzenie pliku, na którym zapamiętani zostaną uczestnicy zajęć.
 \item Zebranie informacji z elektronicznej legitymacji studenckiej, potwierdzające obecność uczestników.
 \item Wyświetlanie informacji o stanie urządzenia, w szczególności sukcesu odczytania danych z legitymacji.
-\item Zapamiętanie czasu kiedy zebrane zostały obecności.
+\item Zapamiętanie czasu, w którym zebrane zostały obecności.
 \end{itemize}
 \indent Dodatkowo cała elektronika powinna zostać schowana wewnątrz plastikowego opakowania, a zasilanie dostarczane za pomocą kabla podłączonego do sieci elektrycznej. Opakowanie powinno zostać wyposażone w otwory na kabel zasilający, zewnętrzny nośnik danych oraz wyświetlacz. Czytnik kart RFID powinien być tak zlokalizowany, aby umożliwić łatwe zebranie danych z ELS.
 \subsection{Zastosowana platforma i peryferia}
@@ -178,7 +178,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item porty SPI, I2C, szeregowy.
 \item Jednostka obliczeniowa o częstotliwości zegara 20MHz.
 \end{itemize}
-\indent Dodatkowo, w celu zapewnienia wszystkich wymaganych funkcjonalności przez projektowany przeze mnie weryfikator, skorzystałem z następujących dodatkowych modułów:
+\indent Dodatkowo, w celu zapewnienia wszystkich wymaganych funkcjonalności przez projektowany weryfikator, skorzystano z następujących dodatkowych modułów:
 \begin{itemize}
 \item Czytnik RFID - do odczytywania danych z legitymacji studenckiej wyposażonej w interfejs zbliżeniowy. Czytnik podłączony jest przez port szeregowy.
 \item USB Host Shield - dodające gniazdo USB, umożliwiające podłączenie pendriva, korzystający z drugiego portu SPI.
@@ -190,7 +190,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \indent Do skonstruowania ostatecznego układu z zebranych elementów użyto dodatkowo:
 \begin{itemize}
 \item Jednej dwustronnej płytki stykowej.
-\item Dwóch rezystorów 220 Ohm.
+\item Trzech rezystorów 220 Ohm.
 \item kilkudziesięciu kabli różnej długości.
 \item Jednego przycisku do resetowania zegara.
 \end{itemize}
@@ -199,6 +199,11 @@ It was designed not to relate to concrete student's data managing system, to be 
 \caption{Układ elektroniczny}
 \centering
 \includegraphics{circuit.png}
+\end{figure}
+\begin{figure}[h]
+\caption{Gotowe urządzenie}
+\centering
+\includegraphics{arduino1.jpg}
 \end{figure}
 \subsection{Działanie}
 \indent Osią działania zaprojektowanego weryfikatora jest interakcja z dwoma zewnętrznymi urządzeniami. Jednym z nich jest nośnik danych, na którym zapisane zostaną obecności uczestników zajęć. W realizowanym projekcie rolę tę pełni pendrive sformatowany w systemie FAT. W zależności od tego, czy w danym momencie pendrive jest podłączony, urządzenie jest w stanie oczekiwania na drugie z zewnętrznych narzędzi - Elektroniczną Legitymację Studencką. Dodatkowo weryfikator jest zdolny do wyświetlanie komunikatów o swoim stanie na ekranie LCD i wydawania sygnałów dźwiękowych przy pomocy brzęczka. Częścią urządzenia jest również zegar RTC, który pozwala śledzić aktualną godzinę. Weryfikator monitoruje swój własny stan i jest zdolny do wykrywania błędów takich jak:
@@ -225,7 +230,7 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item STATE\_USB\_REMOVE - czekanie na odłączenie pendriva. Wyświetlacz:''Reinsert USB". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST.
 \item STATE\_USB\_LOST - odłączono pendrive - ekran: "USB removed", sygnał dźwiękowy oraz przejście do stanu STATE\_USB\_WAIT.
 \item STATE\_FILE\_ERROR - błąd zapisu do pliku - ekran: ''Open file error", przejście do stanu STATE\_USB\_REMOVE.
-\item STATE\_CLOCK\_ERROR - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: "Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT.
+\item STATE\_CLOCK\_ERROR - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: ''Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT.
 \item STATE\_CLOCK\_ERROR\_USB\_WAIT - oczekiwanie na pendrive z czasem - wyświetlacz "Insert pendrive with time". Sterowanie pozostaje w tym stanie, do czasu kiedy na zewnętrznym nośniku wykryty zostanie plik o nazwie tdav, który w pierwszym wierszu będzie zawierał datę w formacie "YYYY/MM/DD hh:mm:ss". W przypadku wykrycia poprawnego pliku program zapamiętuje datę z pliku tdav i przechodzi w stan STATE\_CLOCK\_ERROR\_CLICK.\\
 - W razie błędu przy inicjalizacji pendriva program przechodzi do stanu STATE\_INIT\_ERROR. \\
 - W razie wykrycia pendrive i nie wykrycia pliku o nazwie tdav wyświetlona zostaje informacja "Upload time tdav".\\
@@ -233,58 +238,50 @@ It was designed not to relate to concrete student's data managing system, to be 
 \item STATE\_CLOCK\_ERROR\_CLICK - oczekiwanie na reset - wyświetlacz: ''Click to reset". Sterowanie pozostaje w tym stanie, do czasu kiedy zostanie przyciśnięty guzik resetu. Po naciśnięciu guzika na zegarze zostaje ustawiona zapamiętana data, wyświetlony zostaje komunikat "Time set", a sterowanie przechodzi w stan STATE\_USB\_INIT. Jeśli podczas ustawiania czasu na zagarze wystąpi błąd program przechodzi w stan STATE\_CLOCK\_ERROR\_RESET\_FAIL.
 \item STATE\_CLOCK\_ERROR\_RESET\_FAIL - błąd resetowania czasu. Wyświetlacz: ''Clock Reset Fail". Ze względu na brak możliwości ustawienia poprawnego czasu jest to stan, z którego urządzenie nie może wrócić do poprawnego funkcjonowania.
 \end{itemize}
-\subsection{Procedura resetowania zegara RTC}
-
 \subsection{Napotkane problemy}
 \subsubsection{Dwa moduły korzystające z interfejsu SPI}
-\indent Podczas wstępnej fazy planowanie podstawą weryfikatora miała być płytka Arduino Leonardo. \\
-\indent Tak jak zrealizowano w ostatecznej werji miała ona zostać rozszerzona o USB Host Shield oraz moduł RFID - oba używają interfejsu SPI. Każdy z tych komponentów osobno współpracował poprawnie z Arduino Leonardo. Problemy pojawiły się, kiedy połączono wszystko w jedną całość w celu zapisywania odczytanych danych z ELS na podłączonym pendrivie. \\
+\indent Podczas wstępnej fazy planowania podstawą weryfikatora miała być płytka Arduino Leonardo. \\
+\indent Podobnie jak w ostatecznej wersji miała ona zostać rozszerzona o USB Host Shield oraz moduł RFID - oba używają interfejsu SPI. Każdy z tych komponentów osobno współpracował poprawnie z Arduino Leonardo. Problemy pojawiły się, kiedy połączono wszystko w jedną całość w celu zapisywania odczytanych danych z ELS na podłączonym pendrivie. \\
 \indent Podczas montowania układu okazało się, że w tej wersji płytki piny interfejsu SPI znajdują się w magistrali ICSP, która była już zajęta przez moduł USB w taki sposób, że nie było możliwości podłączenia tam innych kabli. \\
-\indent Próba dolutowania kabli do magistrali CSP na płytce USB Host Shield(z shielda wystają jedynie milimetrowe pinu CSP), zakończyła się przepaleniem połączeń wewnątrz tego układu i w konsekwencji jego uszkodzeniem. \\
+\indent Próba dolutowania kabli do magistrali CSP na płytce USB Host Shield (z shielda wystają jedynie milimetrowe pinu CSP), zakończyła się przepaleniem połączeń wewnątrz tego układu i w konsekwencji jego uszkodzeniem. \\
 \indent W celu rozwiązania problemu z portem SPI ostatecznie wykorzystano wersję UNO, ktora interfejs SPI ma doprowadzony również na piny 10-13. \\
+\begin{figure}[h]
+\caption{Uklad USB Host shield ze wskazaniem na zakończenia magistrali CSP}
+\centering
+\includegraphics[scale=0.35]{usb_host_shield.jpg}
+\end{figure}
+
 
 \subsubsection{Problemy z odczytaniem danych z ELS}
-\indent W początkowej wersji urządzenie korzystało z modułu RFID - MFRC-522. Ten komponent bez zarzutów współpracował z załączonymi w zestawie tagami, jednak bardzo słabo wykrywał Elektroniczną Legitymację Studencką. Odczytanie Uidu z ELS zajmowało zazwyczaj parę minut. Żeby rozwiązać ten problem postanowiłem zamienić moduł RFID, na taki o którym czytałem, że ma lepszy zasięg - PNS532. Pierwsze próby zwiastowały pełny sukces - próby odczytania danych z ELS przebiegały bez zarzutu. \\
-\indent Problem pojawił się jednak przy współpracy nowego modułu z resztą układu. Jak już zostało wcześniej wspomniane, Arduino Uno posiada jeden port SPI, do którego można podłączyć więcej urządzeń. Niestety w tym wypadku rzeczywistość okazała się odbiegać od oczekiwań. Arduino było w stanie współpracować tylko z jednym z dwóch komponentów - albo USB Host shield, albo modułem PNS532. Ostatecznie okazało się jednak, że moduł PNS532 udostępnia również inne porty, dzięki czemu udało mi się go podłączyć przy pomocy portu szeregowego.
-\begin{figure}[h]
-\caption{Uklad USB Host shield ze wskzaniem na zakończenia magistrali CSP}
-\centering
-\includegraphics[scale=0.6]{usb_host_shield.jpg}
-\end{figure}
-
+\indent W początkowej wersji urządzenie korzystało z modułu RFID - MFRC-522. Ten komponent bez zarzutów współpracował z załączonymi w zestawie tagami, jednak bardzo słabo wykrywał Elektroniczną Legitymację Studencką. Odczytanie Uidu z ELS zajmowało zazwyczaj parę minut. Żeby rozwiązać ten problem, zmieniono moduł RFID na taki o lepszy, zasięgu - PNS532. Pierwsze próby zwiastowały pełny sukces - próby odczytania danych z ELS przebiegały bez zarzutu. \\
+\indent Problem pojawił się jednak przy współpracy nowego modułu z resztą układu. Jak już zostało wcześniej wspomniane, Arduino Uno posiada jeden port SPI, do którego można podłączyć więcej urządzeń. Niestety Arduino było w stanie współpracować tylko z jednym z dwóch komponentów - albo USB Host shield, albo modułem PNS532. Ostatecznie okazało się jednak, że moduł PNS532 udostępnia również inne porty, dzięki czemu udało się go podłączyć przy pomocy portu szeregowego.
 \subsubsection{Wypełniona pamięć operacyjna}
 \indent W miarę dołączania kolejnych komponentów do układu, tzn. zegara RTC, brzęczka oraz wyświetlacza LCD, zaczęły pojawiać się problemy z pamięcią. \\
-\indent Pierwsza skończyła się pamięć operacyjna, której kontroler posiada jedynie 2KB. Objawiało się to nagłym zawieszaniem się wykonywania programu, bez jednoznacznego określenia przyczyny.\\
+\indent Pierwsza skończyła się pamięć operacyjna, której kontroler posiada jedynie 2KB. Objawiało się to nagłym zawieszaniem się wykonywania programu bez jednoznacznego określenia przyczyny.\\
 \indent Udało się rozwiązać ten problem dzięki większej dyscyplinie w korzystaniu z pamięci. Ograniczono liczbę zmiennych globalnych, a największy efekt przyniosło przeniesienie wykorzystywanych w programie napisów z pamięci operacyjnej do pamięci flash, do czego służy dyrektywa PROGMEM.\\
-\indent Pamięć flash jest przeznaczona do przechowywania kodu programu i nie ma do niej swobodnego dostępu, jak w przypadku pamięci operacyjnej. Dodanie kolejnej biblioteki, która ułatwiłaby przechowywanie danych w tej przestrzeni, nie było możliwe ze względu na ograniczone zasoby.\\
-\indent Ostatecznie skorzystano z pamięci flash wczytując dane bajt po bajcie. Dzięki temu rozwiązaniu nie było potrzeby przechowywania wszystkich łańcuchów znaków jednocześnie w pamięci SRAM.
-\begin{figure}[h]
-\caption{Stałe programu przechowywane w pamięci flash}
-\centering
-\includegraphics[scale=0.8]{progmem.png}
-\end{figure}
+\indent Pamięć flash jest przeznaczona do przechowywania kodu programu i nie ma do niej swobodnego dostępu, jak w przypadku pamięci operacyjnej. Korzystanie z niej w do przechowyuwania stałych jest uciążliwe, ponieważ każdy bajt danych musi być odczytywany osobno, jednak dzięki temu nie było potrzeby przechowywania wszystkich łańcuchów znaków jednocześnie w pamięci SRAM.
 \subsubsection{Wypełniona pamięć flash}
 \indent Przeniesienie łańcuchów znaków do pamięci flash, chociaż poprawiło wydajność pamięci operacyjnej, to spowodowało wyczerpanie przestrzeni przeznaczonej na kod programu. \\
 \indent Pamięć flash jest bardziej pojemna niż SRAM, ponieważ w tym wypadku jest to aż 32KB do dyspozycji programisty, jednak duża liczba bibliotek do obsługi peryferiów doprowadziła do wyczerpanie się również tej przestrzeni. \\
-\indent Ułatwieniem w przypadku optymalizowania wykorzystania pamięci flash jest to, że przestrzeń zajmowana przez kod programu jest stała po kompilacji. Nie ma więc obawy że w trakcie przebiegu programu nastąpi nagły wzrost i przekroczenie pojemności. Wystarczy dostosować się do limitu 32 KB. \\
-\indent Udało się tego dokonać poprzez ograniczenie liczby funkcji które zadeklarowano w programie, oraz schowanie komunikatów wysyłanych na serial monitor wewnątrz dyrektyw preprocesora \#if DEBUG serial.println(''SETUP"); \#endif. Dzięki temu można było łatwo wyłączyć kod programu odpowiedzialny za debugowanie.\\
+\indent Ułatwieniem w przypadku optymalizowania wykorzystania pamięci flash jest to, że przestrzeń zajmowana przez kod programu jest stała po kompilacji. Nie ma więc obawy, że w trakcie przebiegu programu nastąpi nagły wzrost i przekroczenie pojemności. Wystarczy dostosować się do limitu 32 KB. \\
+\indent Problem został przezwycieżony poprzez ograniczenie liczby funkcji, które zadeklarowano w programie, oraz schowanie komunikatów wysyłanych na serial monitor wewnątrz dyrektyw preprocesora \#if DEBUG serial.println(''SETUP"); \#endif. Dzięki temu można było łatwo wyłączyć kod programu odpowiedzialny za debugowanie.\\
 \subsubsection{Moduł WIFI}
-\indent W pierwszej wersji planowanego przeze mnie weryfikatora, miał on się łączyć z siecią za pomocą modułu WIFI. Bardzo dużo kłopotów sprawił mi jednak układ ESP8266, odpowiedzialny za tę łączność. Po wgraniu sterownika do tego układu przestawał on być wykrywany przez komputer i Arduino.\\ 
-\indent Pomimo wykorzystania kilku takich układów za każdym razem pojawiał się ten sam problem. Nie udało się dociec jaka była tego przyczyna. Ostatecznie zrezygnowano z wykorzystania modułu ESP8266 ze względu na zmianę koncepcji.
+\indent W pierwszej wersji planowanego weryfikatora miał on się łączyć z siecią za pomocą modułu WIFI. Wielu problemów przysporzył jednak układ ESP8266, odpowiedzialny za tę łączność. Po wgraniu sterownika do tego układu przestawał on być wykrywany przez komputer i Arduino.\\ 
+\indent Pomimo wykorzystania kilku takich układów za każdym razem pojawiał się ten sam problem. Ostatecznie zrezygnowano z wykorzystania modułu ESP8266 ze względu na zmianę koncepcji.
 
 \subsection{Inne koncepcje weryfikatora}
-\indent Na etapie projektowania weryfikatora, jako jego podstawa, brany był pod uwagę układ Raspberry Pi. Ostatecznie zrezygnowano z tego pomysłu, ze względu na to że takie urządzenie mogłoby wymagać utrzymywania systemu operacyjnego aktualnej wersji. Za wykorzystaniem Arduino przemawia również cena takiego układu i fakt, że jest on bardzo dobrze znany studentom Instytutu Informatyki Uwr z zajęć Systemów Wbudowanych.\\
+\indent Na etapie projektowania weryfikatora, jako jego podstawa brany był pod uwagę układ Raspberry Pi. Ostatecznie zrezygnowano z tego pomysłu, ze względu na to, że takie urządzenie mogłoby wymagać utrzymywania systemu operacyjnego w aktualnej wersji. Za wykorzystaniem Arduino przemawia również cena takiego układu i fakt, że jest on bardzo dobrze znany studentom Instytutu Informatyki UWr z zajęć Systemów Wbudowanych.\\
 \indent Projektując układ należało również podjąć decyzję z jakiego nośnika skorzystać do przenoszenia danych z weryfikatora do aplikacji zarządzającej obecnościami. Poza wykorzystanym w ostatecznym rozwiązaniu pendrivem brano również pod uwagę skorzystanie z karty SD \\
-\indent Ze względu na większą dostępność i łatwiejsze podłączenie klasycznego pendrive'a do komputera ( nie każdy komputer posiada slot na kartę SD), zdecydowano się nie tę właśnie możliwość. Później okazało się, że ta decyzja miała swoje konsekwencje.\\
+\indent Ze względu na większą dostępność i łatwiejsze podłączenie klasycznego pendrive'a do komputera (nie każdy komputer posiada slot na kartę SD), zdecydowano się na tę właśnie możliwość. Później okazało się, że ta decyzja miała swoje konsekwencje.\\
 \indent Po pierwsze USB Host Shield zajął magistralę ICSP, będącą jedynym wyjściem pinów interfejsu SPI w układzie Arduino Leonrado, co w konsekwencji doprowadziło do zmiany wersji płytki na UNO. \\
-\indent Kolejnym utrudnieniemspowodowanym przez korzystanie z pendriva, były problemy z dostępnością biblioteki obsługującej pamięć w tej formie. Podstawowa biblioteka obsługująca układ USB Host Shield nie przewiduje wykorzystania złącza USB do podłączenia pamięci masowej. \\
+\indent Kolejnym utrudnieniem, spowodowanym przez korzystanie z pendriva, były problemy z dostępnością biblioteki obsługującej pamięć w tej formie. Podstawowa biblioteka obsługująca układ USB Host Shield nie przewiduje wykorzystania złącza USB do podłączenia pamięci masowej. \\
 \indent Ostatecznie skorzystano z mniej popularnej biblioteki do obsługi tego narzędzia - UsbFat\cite{usbfat}, która jednak okazała się być słabo opisana.
 
 \section{Elektroniczny dziennik}
 \indent W celu wygodnego przetwarzania zebranych danych o obecnościach stworzona została aplikacja internetowa - elektroniczny dziennik. W serwisie użytkownik może założyć konto, w jego kontekście stworzyć strukturę prowadzonych przez siebie zajęć i uzupełniać listę obecnych na nich studentów.\\
-\indent Dziennik umożliwia przeglądanie obecności studentów, którzy wzięli udział w zajęciach oraz w dowolnym momencie wygenerowanie raportu w formacie CSV ze zagregowanymi obecnościami.
+\indent Dziennik umożliwia przeglądanie obecności studentów, którzy wzięli udział w zajęciach oraz  wygenerowanie raportu w formacie CSV ze zagregowanymi obecnościami.
 \subsubsection{Struktura dziennika}
-\indent Użytkownikowi serwisu po założeniu konta i zalogowaniu ukazuje się lista instancji wykładów, które są przypisane do jego konta i na których może dokonać standardowych operacji przeglądania/usuwania/dodawania. Instancja wykladu składa się z nazwy, opisu, listy uczesników oraz listy zajęć w jej ramach. Instancję wykladu można  rozumieć jako zajęcia prowadzone przez jednego prowadzącego z grupą studentów w ramach jednego przedmiotu. \\
+\indent Użytkownikowi serwisu po założeniu konta i zalogowaniu ukazuje się lista instancji wykładów, które są przypisane do jego konta i na których może dokonać standardowych operacji przeglądania/edytowania/usuwania/dodawania. Instancja wykladu składa się z nazwy, opisu, listy uczesników oraz listy zajęć w jej ramach. Instancję wykladu można  rozumieć jako zajęcia prowadzone przez jednego prowadzącego z grupą studentów w ramach jednego przedmiotu. \\
 \indent Do instancji wykładu zostaje przypisana grupa studentów, którzy są zapisani na zajęcia prowadzone przez użytkownika w ramach wykładu. Przykładową listą uczestników będzie więc jedna grupa studentów uczesniczących w ćwiczeniach prowadzonych przez jednego pracownika uniwerytetu w ramach jednego przedmiotu. Dodatkowo, generowany raport z obecności na jednej instancji wykładu będzie odnosił się tylko do studenów znajdujących się na tej liście.\\
 \indent Każda instancja wykładu posiada skończony zbiór zajęć, których pojedyncza instancja składa się z daty i godziny oraz przypisanej do niej listy obecności. Taka instancja może być rozumiana jako pojedyncze zajęcia jednej grupy studentów. Na listę obecności zajęć mogą zostać wpisani studenci, którzy nie są wpisani na listę uczesników instancji wykładu. Będą widoczni w przeglądzie konkretnych zajęć w graficznym interfejsie dziennika, jednak nie zostaną wzięci pod uwagę przy generowaniu raportu dla instancji wykładu.\\
 
@@ -296,52 +293,52 @@ It was designed not to relate to concrete student's data managing system, to be 
 
 \subsubsection{Interfejs użytkownika}
 \indent Interfejs użytkownika elektronicznego dziennika jest prosty i sklada się tylko z elementów umożliwiający tworzenie struktury instancji wykładów i zajęć oraz zarządzaniem obecnościami. Wygląd strony został oparty na frontendowym freamworku Bootstrap\cite{bootstrap}. 
-Podstrony zostały ostylowane w sposób zapewniający przejrzystość i w miarę nowoczesny wygląd. \\
+Podstrony zostały ostylowane w sposób zapewniający przejrzystość i stosunkowo nowoczesny wygląd. \\
 \indent Cały interfejs aplikacji został zrealizowany w jezyku angielskim i na chwilę obecną nie ma możliwości przełączenia sie na język polski.\\
 \subsubsection{Przegląd instanicji wykładów}
 \indent Główną podstroną widoczna dla użytkownika po zalogowaniu się na konto jest przegląd instancji wykładów przypisanych do niego. Z tego poziomu mogą zostać wykonane standardowe funkcje CRUD\cite{crud}.\\
-\indent Formularz dodawania nowej instancji wykładu umożliwia załączenie pliku, na postawie którego ostanie zainicjaliwowana grupa uczstników instancji wykładu. Plik powinien zawierać listę numerów albumu studentów wypisanych po przecinku.\\
-\indent Inicjalizacja listy zajęć jest możliwa w jednym z trzech trybów - pojedynczym, cotygodniowym lub comiesięcznym. W razie wybrania którejś z dwóch ostatnich opcji formularz umożliwi podanie początkowej i końcowej daty, a do wykładu zostaną przypisane zajęci odpowiednio co siedem i co 30 dni od pierwszej z nich. Formularz zakłada, że wszystkie zajęcia odbywać się będą o tej samej godzinie. Użytkownik będzie miał możliwość zmiany godziny w przeglądzie poszczególnych zajęć.\\
+\indent Formularz dodawania nowej instancji wykładu umożliwia załączenie pliku, na postawie którego zostanie zainicjaliwowana grupa uczestników instancji wykładu. Plik powinien zawierać listę numerów albumu studentów wypisanych po przecinku.\\
+\indent Inicjalizacja listy zajęć jest możliwa w jednym z trzech trybów - pojedynczym, cotygodniowym lub comiesięcznym. W razie wybrania którejś z dwóch ostatnich opcji formularz umożliwi podanie początkowej i końcowej daty, a do wykładu zostaną przypisane zajęcia odpowiednio co siedem i co 30 dni od pierwszej z nich. Formularz zakłada, że wszystkie zajęcia odbywać się będą o tej samej godzinie. Użytkownik będzie miał możliwość zmiany godziny w przeglądzie poszczególnych zajęć.\\
 \subsubsection{Podgląd pojedynczej instanicji wykładu}
-\indent Po wejściu w przegląd instancji wykladu aplikacja wyświetla informacje o jej nazwie i opisie. Dodatkowo w dwóch domyślnie zwiniętych listach wyświetlona zostaje lista obecności i lista zajęć. Użytkownik ma możliwość dodawania/usuwania elementów tych list. W przypadku, kiedy student posiadał już zaliczone obecności w ramach zajęć przyporządkowanych do tej instancji wykładu, a zostanie usunięty z listy uczesników, jego uczestnictwo zostanie zinterpretoweane jako udział wolnego słuchacz w zajęciach.\\
+\indent Po wejściu w przegląd instancji wykladu aplikacja wyświetla informacje o jej nazwie i opisie. Dodatkowo w dwóch domyślnie zwiniętych listach wyświetlona zostaje lista obecności i lista zajęć. Użytkownik ma możliwość dodawania/usuwania elementów tych list. W przypadku, kiedy student posiadał już zaliczone obecności w ramach zajęć przyporządkowanych do tej instancji wykładu, a zostanie usunięty z listy uczestników, jego uczestnictwo zostanie zinterpretoweane jako udział wolnego słuchacza w zajęciach.\\
 \indent W tym widoku użytkownik dostaje również możliwość wygenerowania raportu z obecnościami w formacie CSV.\\
 \subsubsection{Podgląd pojedynczych zajęć}
-\indent Ostatnim istotnym widokiem jest przegląd pojedynczych zajęć. Użytkownik otrzymuje możliwość zmodyfikowania ich daty i godziny oraz wyświetlenia i zarządzania listą obecności. Lista podzielona jest na dwie części - studentów którzy są uczestnikami instancji wykładu oraz wolnych słuchaczy. Każdy wiersz na pierwszej z list pokolorowany jest na czerwono lub zielono w zależności od tego czy dany uczesnik był obecny na zajęciach. \\
+\indent Ostatnim istotnym widokiem jest przegląd pojedynczych zajęć. Użytkownik otrzymuje możliwość zmodyfikowania ich daty i godziny oraz wyświetlenia i zarządzania listą obecności. Lista podzielona jest na dwie części - studentów którzy są uczestnikami instancji wykładu oraz wolnych słuchaczy. Każdy wiersz na pierwszej z list pokolorowany jest na czerwono lub zielono w zależności od tego, czy dany uczestnik był obecny na zajęciach. \\
 \indent Interfejs umożliwia w tym widoku wysłanie na serwer pliku z obecnościami, które zostały wygenerowane prze weryfikator.\\
 \subsubsection{Dodatkowe widoki}
 \indent Aplikacja udostępnia dodatkowo widoki informacyjne związane z funkcjonowaniem serwisu - Kontakt/Opis oraz związane z funkcją logowania/rejestracji. Te części aplikacji są uproszczone i w razie uruchomienia systemu w wersji produkcyjnej będą wymagały uzupełnienia.
 
 \subsubsection{Połączenie z bazą studentów}
 \indent Jak zostało określone podczas definiowania wymagań wobec projektu, dziennik elektroniczny jest niezależny od danych dotyczących studentów i nie przechowuje ich w żadnej formie.\\
-\indent  Podczas dodawania studenów do listy uczesników wykładu albo listy obecności na zajęciach aplikacja odwołuje się do zewnętrznego serwisu udostępniajęcego dane studentów.  Korzystając z podanych przez użytkownika informacji identyfikujących studenta - numeru albumu albo UIDu karty magnetycznej, odpytuje zewnętrzną aplikację poprzez udostępnione API. Kiedy dane studenta zostaną poprawnie pobrane, dziennik zapamiętuje jedynie identyfikator studenta w zewnętrznym systemie. Przy każdym żądaniu wyświetlenia danych studentów aplikacja wykorzystuje zapamiętany identyfikator do wysłania zapytania do zewnętrznego serwisu. \\
+\indent Podczas dodawania studenów do listy uczesników wykładu albo listy obecności na zajęciach aplikacja odwołuje się do zewnętrznego serwisu udostępniajęcego dane studentów. Korzystając z podanych przez użytkownika informacji identyfikujących studenta - numeru albumu albo UIDu karty magnetycznej, odpytuje zewnętrzną aplikację poprzez udostępnione API. Kiedy dane studenta zostaną poprawnie pobrane, dziennik zapamiętuje jedynie identyfikator studenta w zewnętrznym systemie. Przy każdym żądaniu wyświetlenia danych studentów aplikacja wykorzystuje zapamiętany identyfikator do wysłania zapytania do zewnętrznego serwisu. \\
 \indent Takie podejście ma zasadnicze korzyści. Dzięki zapamiętywaniu zewnętrznego identyfikatora, aplikacja może uniknąć zapamiętywania wrażliwych danych. Pozwala to znacząco ograniczyć straty nawet w przypadku naruszenia bezpieczeństwa serwisu. Dodatkowo taka architektura jest przygotowaniem systemu do współpracy z rzeczywistami źródłami danych o studentach i wpięcia do cyfrowego systemu istniejącej uczelni.\\
 \subsubsection{Przegląd technologii}
-\indent Aplikacja została napisana we frameworku Yii2\cite{yii}, będącym rozszerzeniem języka PHP. Cała architektura opiera się na modelu MVC dodatkowo w ramach definiowania modeli i łączenie ich z bazą korzystam ze wzorca ActiveRecord, a kod związany z przetważaniem innych źródeł danych w serwisie wydzieliłem do osobnych serwisów w ramach aplikacji.\\
-\indent W projekcie frontendu korzystam z frameworka Bootstap\cite{bootstrap}, oraz gotowych komponentów\cite{kartik}\cite{da1}\cite{da2} wyświetlających edytowalne pola z datą i godziną. \\
-\indent Dane wygenerowane w trakcie funkcjonowania aplikacji przechowuję w relacyjnej bazie danych operującej na systemie PostreSQL\cite{psql}.\\
+\indent Aplikacja została napisana we frameworku Yii2\cite{yii}, będącym rozszerzeniem języka PHP. Cała architektura opiera się na modelu MVC. W ramach definiowania modeli i łączenia ich z bazą korzystano ze wzorca ActiveRecord, a kod związany z przetwarzaniem innych źródeł danych w serwisie wydzielono do osobnych serwisów w ramach aplikacji.\\
+\indent W projekcie frontendu korzystano z frameworka Bootstap\cite{bootstrap} oraz gotowych komponentów\cite{kartik}\cite{da1}\cite{da2} wyświetlających edytowalne pola z datą i godziną. \\
+\indent Dane wygenerowane w trakcie funkcjonowania aplikacji przechowywane są w relacyjnej bazie danych operującej na systemie PostreSQL\cite{psql}.\\
 \indent Gotowa aplikacja została uruchomiona w środowiku najnowszej wersji PHP - 7.4.\\
-\indent Do zarządzania zależnościami serwisu wykorzysuję system do zarządzania pakietami Composer\cite{composer}.
+\indent Do zarządzania zależnościami serwisu wykorzystano system do zarządzania pakietami Composer\cite{composer}.
 
 \section{Baza studentów}
-\indent Baza studentów jest aplikacją internetową umożliwiającą zarządzanie danymi studentów i udostępniającą API. Jej zadaniem jest imitowanie systemu istniejącej uczelni i umożliwienie pobrania szczegółowych danych studenta po numerze albumu i identyfikatorze przypisanym do Elektronicznej Legitymacji studenckiej.\\
-\indent Aplikacja została napisana w technologii Symfony4\cite{symfony} z biblioteką Doctrine\cite{doctrine} w roli ORMa pośredniczącego w komunikacji z bazą danych w systemie PostgreSQL. Do stworzenia interfejsu umożliwiającego zarządzaniem danymi studenów wykorzystany został framework Bootstrap.\\
+\indent Baza studentów jest aplikacją internetową, umożliwiającą zarządzanie danymi studentów i udostępniającą API. Jej zadaniem jest imitowanie systemu istniejącej uczelni i umożliwienie pobrania szczegółowych danych studenta po numerze albumu i identyfikatorze przypisanym do Elektronicznej Legitymacji Studenckiej.\\
+\indent Aplikacja została napisana w technologii Symfony4\cite{symfony} z biblioteką Doctrine\cite{doctrine} w roli ORMa pośredniczącego w komunikacji z bazą danych w systemie PostgreSQL. Do stworzenia interfejsu umożliwiającego zarządzanie danymi studenów wykorzystany został framework Bootstrap.\\
 \subsection{Funkcjonwanie}
 \indent Ze względu na fakt, że aplikacja ma za zadanie jedynie imitować działający system i umożliwić działanie elektronicznego dziennika, funkcjonalności realizowane przez aplikację ograniczone zostały do minimum. 
 \subsubsection{Zarządzanie informacjami o studentach}
-\indent Administrator systemu, może zalogować się na stworzone w systemie konto i wykonać na danych studentów  standardowe operacje CRUD. Dodatkowo uzytkownik ma możliwość wysłania na serwer pliku w formacie JSON ze zbiorczymi danymi studentów, których ma zamiar dodać do systemu. Studenci dodani w kontekście jednego konta, są dostępni tylko z perspektywy tego konta.
+\indent Administrator systemu może zalogować się na stworzone w systemie konto i wykonać na danych studentów standardowe operacje CRUD. Dodatkowo użytkownik ma możliwość wysłania na serwer pliku w formacie JSON ze zbiorczymi danymi studentów, które ma zamiar dodać do systemu. Studenci dodani w kontekście jednego konta, są dostępni tylko z perspektywy tego konta.
 Pozwala to na stworzenie w aplikacji odrępnych przestrzeni odpowiadających systemom różnych instytucji, które chciałyby korzystać z takiego serwisu.\\
 \indent Przechowywane dane studentów:
 \begin{itemize}
-\item user\_id - identyfikator użytkownika bazy danych,
+\item user\_id - identyfikator użytkownika bazy danych.
 \item album\_no - numer albumu studenta, unikalny w kontekście użytkownika który stworzył dandy rekord.
-\item name - imię
-\item surname - nazwisko
-\item start\_year - rok rozpoczecia studiów
-\item semestr - aktualny semestr studiowania
-\item card\_uid - identyfikator ELS z której korzysta student, unikalny w kontekście użytkownika który stworzył dandy rekord
+\item name - imię.
+\item surname - nazwisko.
+\item start\_year - rok rozpoczecia studiów.
+\item semestr - aktualny semestr studiowania.
+\item card\_uid - identyfikator ELS z której korzysta student, unikalny w kontekście użytkownika który stworzył dandy rekord.
 \end{itemize}
 \subsection{Udostępnione API}
-\indent Aplikacja udostępnia API w architekturze REST\cite{rest}. Do authoryzacji zapytań o dane studentów używany jest metoda HTTP Basic. Zautoryzowany użytkownik ma dostęp do tylko tych rekorów, które zostały utworzone w kontekście jego konta.\\
+\indent Aplikacja udostępnia API w architekturze REST\cite{rest}. Do authoryzacji zapytań o dane studentów używany jest metoda HTTP Basic. Zautoryzowany użytkownik ma dostęp do tylko tych rekordów, które zostały utworzone w kontekście jego konta.\\
 \indent Lista przekazanych w żądaniu parametrów powinna być zakodowana base64, a dla parametrów, dla których w bazie nie istenieje rekord zwracana jest pusta tablica.
 \indent Możliwe requesty:
 \begin{itemize}
@@ -357,49 +354,49 @@ Pozwala to na stworzenie w aplikacji odrępnych przestrzeni odpowiadających sys
 \centering
 \includegraphics[scale=0.6]{AWS.png}
 \end{figure}
-\indent W celu prezentacji gotowego rozwziązania cały system został wrdożony na platformę przygotowaną przez Amazona - AWS\cite{aws} idostępniającą część swoich funkcjonalności na rok za darmo w ramach programu AWS Free Tier. \\
-\indent Zaproponowana architektura to przykład trójwarstwowego podejście do wdrażania systemów korzystających z równoważenia obciążenie, serwerów uruchomieniowych aplikacji i baz danych. \\
-\indent Każda z aplikacji utworzona jest w dwóch instancjach w różnych sieciach. Do obu serwisów przydzielony jest Load Balancer, który równoważy ruch pomiędzy istniejące instancje. W przypadku braku dostpności któregoś z serwerów na których uruchomione zostały aplikacje, cały ruch przekazywany jest do drugiego z nich.\\
-\indent W celu zapewnienia bezpieczeństwa, bazy danych znajdują się w osobnych sieciach, do których dostęp został umożliwiony jedynie z sieci w których znajdująć się aplikacje dziennika elekronicznego i bazy studentów. \\
-\indent Dodatkowo aplikacje pobierają informacje o swojej konfiguracji ze zmiennych środowiskowych serwera na którym zostały uruchomione. Są to informacje o sposobie połączenia z bazą danych, a w przypadku dziennika elekronicznego również odnośnik i dane do logowania do aplikacji bazy studentów.
+\indent W celu prezentacji gotowego rozwiązania cały system został wrdożony na platformę przygotowaną przez Amazona - AWS\cite{aws} udostępniającą część swoich funkcjonalności na rok za darmo w ramach programu AWS Free Tier. \\
+\indent Zaproponowana architektura to przykład trójwarstwowego podejścia do wdrażania systemów korzystających z równoważenia obciążenia, serwerów uruchomieniowych aplikacji i baz danych. \\
+\indent Każda z aplikacji utworzona jest w dwóch instancjach w różnych sieciach. Do obu serwisów przydzielony jest Load Balancer, który równoważy ruch pomiędzy istniejące instancje. W przypadku braku dostpności któregoś z serwerów, na których uruchomione zostały aplikacje, cały ruch przekazywany jest do drugiego z nich.\\
+\indent W celu zapewnienia bezpieczeństwa, bazy danych znajdują się w osobnych sieciach, do których dostęp został umożliwiony jedynie z sieci, w których znajdują się aplikacje dziennika elekronicznego i bazy studentów. \\
+\indent Dodatkowo aplikacje pobierają informacje o swojej konfiguracji ze zmiennych środowiskowych serwera, na którym zostały uruchomione. Są to informacje o sposobie połączenia z bazą danych, a w przypadku dziennika elekronicznego również odnośnik i dane do logowania do aplikacji bazy studentów.
 \section{Narzędzie wykorzystane w trakcie realizacji}
 \begin{itemize}
-\item PhpStorm - śrdowisko programistyczne ułatwiająceo programowania w PHP
-\item GIT - system kontrolii wersji
-\item HeidiSQL - Klient bazy danych 
-\item Postman - platforma do testowania API
-\item AWS console - narzędzie do zarządzania zasobami w chmurze AWS
-\item Arduino IDE - środowisko umożliwiajace pisanie kodu i wgrywanie go na kontroler
-\item Putty - narzędzie do łączności ze zdalnym serwerem wykorzystujące protokół SSH
-\item Xdebug - rozszerzenie PHP umożliwiające debugowanie
-\item Profiler Symfony4/Yii2
-\item Visual paradigm - narzędzie do projektowania diagramów
-\item Frizing - narzędzie do projektowania diagramów obwodów
+\item PhpStorm - środowisko programistyczne ułatwiająceo programowania w PHP.
+\item GIT - system kontrolii wersji.
+\item HeidiSQL - Klient bazy danych.
+\item Postman - platforma do testowania API.
+\item AWS console - narzędzie do zarządzania zasobami w chmurze AWS.
+\item Arduino IDE - środowisko umożliwiajace pisanie kodu i wgrywanie go na kontroler.
+\item Putty - narzędzie do łączności ze zdalnym serwerem wykorzystujące protokół SSH.
+\item Xdebug - rozszerzenie PHP umożliwiające debugowanie.
+\item Profiler wbudowany w Symfony4/Yii2.
+\item Visual paradigm - narzędzie do projektowania diagramów.
+\item Frizing - narzędzie do projektowania diagramów obwodów.
 \end{itemize}
 
 \chapter{Możliwość dalszego rozwoju systemu}
 \section{Powiązania pomiędzy instancjami wykładu}
-\indent Dziennik elektroniczny na aktualnym stadium rozwoju nie jest świadomy powiązania pomiędzy instancjami wykładu wchodzącymi w skład jednego rzeczywistego przedmiotu. Każdy prowadzący tworzy odrębną strukturę zajęć na swoim koncie i brakuje informacji na temat tego w ramach jakiego przedmiotu są te zajęcia prowadzone. \\
-\indent Dzięki rozszerzeniu aplikacji o taką wiedzę, elektroniczny dziennik byłaby w stanie generować raport podsumowujący dla całego przedmiotu, agregujący statystyki obecności na wykładzi i ćwiczeniach dla każdego studenta. Dodatkowo można byłoby zautomatyzować procedurę odrabiania zajęć na innych ćwiczeniach. \\
-\indent Takie rozwiązanie wymagałoby szczególnej ostrożności ponieważ informacje z rożnych kont byłyby wzajemnie widoczne. Aktualnie taka sytuacja nie występuje.
+\indent Dziennik elektroniczny na aktualnym stadium rozwoju nie jest świadomy powiązania pomiędzy instancjami wykładu wchodzącymi w skład jednego rzeczywistego przedmiotu. Każdy prowadzący tworzy odrębną strukturę zajęć na swoim koncie i brakuje informacji na temat tego, w ramach jakiego przedmiotu są te zajęcia prowadzone. \\
+\indent Dzięki rozszerzeniu aplikacji o taką wiedzę, elektroniczny dziennik byłby w stanie generować raport podsumowujący dla całego przedmiotu, agregując statystyki obecności na wykładzie i ćwiczeniach dla każdego studenta. Dodatkowo można byłoby zautomatyzować procedurę odrabiania zajęć na innych ćwiczeniach. \\
+\indent Takie rozwiązanie wymagałoby szczególnej ostrożności, ponieważ informacje z rożnych kont byłyby wzajemnie widoczne. Aktualnie taka sytuacja nie występuje.
 \section{Zautomatyzowana weryfikacja}
-\indent Mankamentem zaprezentowanego w powyższej pracy podejścia jest konieczność manualnej weryfikacj,i czy osoba zbliżająca legitymację do czytnika jest rzeczywiście jej właścicielem. W opracowaniu \cite{fingerprint} przedstawiono projekt udostępniania informacji o studencie w oparciu o kartę RFID oraz dodatkową weryfikację poprzez sprawdzenie linii papilarnych. W systemie weryfikującym obecność na zajęciach można byłoby skorzystać z podobnego rozwiązania.\\
+\indent Mankamentem zaprezentowanego w powyższej pracy podejścia jest konieczność manualnej weryfikacji, czy osoba zbliżająca legitymację do czytnika jest rzeczywiście jej właścicielem. W opracowaniu \cite{fingerprint} przedstawiono projekt udostępniania informacji o studencie w oparciu o kartę RFID oraz dodatkową weryfikację poprzez sprawdzenie linii papilarnych. W systemie weryfikującym obecność na zajęciach można byłoby skorzystać z podobnego rozwiązania.\\
 \indent Innym dającym się zastosować podejściem jest system do rozpoznawania twarzy.
 \section{Integracja z uczelnianym systemem}
-\indent Projektowany przeze mnie system od początku pomyślany był w taki sposób, aby umożliwić integrację z zewnętrznym źródłem informacji o studentach. Bazę studentów, która w moim projekcie jest osobną aplikację, łatwo można by zastąpić przez akademicką platformę. Kolejnym polem do integracji jest system logowania. Korzystanie z konta z USOSa, byłoby ułatwieniem dla korzystających z aplikacji pracowników i studentów oraz pozwoliłoby uniknąć przechowywania w systemie wrażliwych danych związanych z utworzonymi kontami.
-\section{Udostępnienie systemu uczestnikom wykładu}
-\indent Rozwinięciem systemu byłoby na pewno udostępnienie studentom funkcjonalności zalogowania się i wglądu do ich aktualnych statystyk związanych z obecnościami. Byłoby to zadanie o tyle utrudnione, że należałoby udostępniać zainteresowanemu dane dotyczące tylko jego osoby. Można byłoby to rozwiązać poprzez integrację z uczelnianym systemem do logowania albo udostępniając studentom konta zakładane przez administratora, który zajmowałby się potwierdzeniem tożsamości.
+\indent Projektowany system od początku miał na celu integrację z zewnętrznym źródłem informacji o studentach. Bazę studentów, która w projekcie jest osobną aplikację, łatwo można by zastąpić przez akademicką platformę. Kolejnym polem do integracji jest system logowania. Korzystanie z konta z USOSa byłoby ułatwieniem dla korzystających z aplikacji pracowników i studentów oraz pozwoliłoby uniknąć przechowywania w systemie wrażliwych danych związanych z utworzonymi kontami.
+\section{Udostępnienie systemu studentom}
+\indent Rozwinięciem systemu byłoby udostępnienie studentom funkcjonalności zalogowania się i wglądu do ich aktualnych statystyk związanych z obecnościami. Istotnym problemem byłoby tworzenie kont przypisanych do właściwej osoby. Można byłoby to rozwiązać poprzez integrację z uczelnianym systemem do logowania albo udostępniając studentom konta zakładane przez administratora, który zajmowałby się potwierdzeniem tożsamości.
 \section{Informowanie zainteresowanych o obecnościach}
-\indent W cytowanym we wstępie opracowaniu \cite{theory_base} wskazane jest, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów. Wskazane jest, że `wczesna interwencja` w przypadku opuszczania przez ucznia zajęć, może zapobiec przerwaniu przez niego studiów. Nasuwa to bardzo wiele możliwości rozwoju aplikacji weryfikującej obecności. Zaprojektowaną przeze mnie platformę można by wyposażyć w możliwość informowania studenta o tym, że limit jego nieobecności na pewnych zajęciach jest bliski wyczerpania się. \\
-\indent Możliwe również byłoby automatyczne informowanie organów uczelnianych o kłopotach studenta na podstawie jego absencji. \\
+\indent W cytowanym we wstępie opracowaniu \cite{theory_base} wskazane jest, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów. Wskazane jest, że `wczesna interwencja` w przypadku opuszczania przez ucznia zajęć, może zapobiec przerwaniu przez niego studiów. Nasuwa to bardzo wiele możliwości rozwoju aplikacji weryfikującej obecności. Referpwaną platformę można by wyposażyć w możliwość informowania studenta o tym, że limit jego nieobecności na pewnych zajęciach jest bliski wyczerpania się. \\
+\indent Możliwe stałoby się automatyczne informowanie organów uczelnianych o kłopotach studenta na podstawie jego absencji. \\
 \section{Platforma do szybkiego reagowania}
-\indent Idąc tym tropem, integrując uczelniane systemy, udostępniając studentom wgląd w ich obecności i umożliwiając interakcje poprzez kanały takie jak mail czy sms, można z prostej aplikacji stworzyć rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Powiązując informacje na temat tego na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć
+\indent Idąc tym tropem, integrując uczelniane systemy, udostępniając studentom wgląd w ich obecności i umożliwiając interakcje poprzez kanały takie jak mail czy sms, można z prostej aplikacji stworzyć rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Wiążąc informacje na temat tego, na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć.
 
 \chapter{Podsumowanie}
 \indent Powyższa praca w kompleksowy sposób przedstawia proces od zaprojektowania do wdrożenia systemu do monitorowania obecności studentów na zajęciach uniweryteckich. \\
 \indent System jest zrozumiały i łatwy w obsłudze, jednak ze względu na to, że jak dotąd nie został włączony w istniejącą architekturę cyfrową żadnego uniwerystetu, może wymagać dostosowania. \\
-\indent Projekt pozwala na prowadzenie kontroli obecności na wieliu zajęciach jednocześnie i wygodne przetwarzanie zebranych danych.\\
-\indent Na tle przytoczonych w rodziale 2 przykładów innych realizacji podobnych systemów, w moim przekonaniu, opisany powyżej pojekt jest przedstawiony w sposób najbardziej kompleksowy.
+\indent Projekt pozwala na prowadzenie kontroli obecności na wielu zajęciach jednocześnie i wygodne przetwarzanie zebranych danych.\\
+\indent Na tle przytoczonych w rozdziale 2 przykładów innych realizacji podobnych systemów, opisany powyżej pojekt jest przedstawiony w sposób najbardziej kompleksowy.
 
 \begin{thebibliography}{9}
 	\bibitem{theory_base}
@@ -407,6 +404,11 @@ Pozwala to na stworzenie w aplikacji odrępnych przestrzeni odpowiadających sys
 		\textit{Intervening Early: Attendance and Performance Monitoring as a Trigger for First Year Support in the Biosciences}
 		2016, Bioscience Education
 		\url{https://doi.org/10.3108/beej.15.4}
+	\bibitem{fingerprint}
+		Asiya R. Shaikh, Dipali.S.Sahane, Pradip V.Wagh
+		\textit{RFID and FINGERPRINT based Students Database System}
+		2020
+		\url{https://www.irjet.net/archives/V7/i4/IRJET-V7I4445.pdf}
 	\bibitem{bluetooth}
 		Vishal Bhalla and Tapodhan Singla and Ankit Gahlot and Vijay Gupta
 		\textit{Bluetooth Based Attendance Management System}
@@ -461,10 +463,10 @@ Pozwala to na stworzenie w aplikacji odrępnych przestrzeni odpowiadających sys
 		\url{https://en.wikipedia.org/wiki/Amazon_Web_Services}	
 	\bibitem{usbfat}
 		\url{https://github.com/greiman/UsbFat}
-	\bibitem{rfid}
-		\url{https://en.wikipedia.org/wiki/Radio-frequency_identification}	
 	\bibitem{crud}
 		\url{https://pl.wikipedia.org/wiki/CRUD}	
+	\bibitem{rest}
+		\url{https://en.wikipedia.org/wiki/Representational_state_transfer}	
 		
 		
 		
