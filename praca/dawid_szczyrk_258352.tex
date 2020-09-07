@@ -26,6 +26,7 @@ Użytkownikowi umożliwiono zarejestrowanie indywidualnego konta w serwisie, w k
 Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego działania wymaga dostępu do serwisu udostępniajacego takie dane.\\
 \indent Podczas pracy nad projektem nie było możliwości podłączenia się do żadnego istniejącego systemu uczelnianego udostępniającego dane studentów. Z tego powodu, jako element projektu, została stworzona aplikacja - w oparciu o framework Symfony4 - umożliwiająca pobranie danych studenta i udostępniająca w tym celu RESTowe API.\\
 \indent Obie stworzone aplikacje wraz z połączonymi z nimi bazami danych osadzone zostały w chmurze w sposób zapewniający bezpieczeństwo i niezawodność.}
+
 \englishabstract{
 \indent Within the following project, a student attendance verification system with usage of Electronic Students Card (ESC) was developed. \\
 \indent The presented work describes a process from problem analysis and demands defining to developing the final version of a multi-component project. The final system consists of Internet applications for collecting and managing students presence data, and an electronic device made for this project with the usage of the Arduino platform. \\
@@ -64,12 +65,10 @@ It was designed not to relate to concrete student's data management  system, to 
 
 \chapter{Wprowadzenie}
 
-
-\indent Zgodnie z ustępem 3 paragrafu 2 zarządzenia nr 116/2020 rektora Uniwersytetu Wrocławskiego \cite{uwr} podczas wszystkich zajęć na uczelni, które odbywają się w formie stacjonarnej lub hybrydowej obligatoryjne jest prowadzenie listy obecności uczestników zajęć.\\
 \indent Panująca na świecie pandemia COVID-19 zmusiła ludzi do porzucenia wielu do tej pory dobrze sprawdzających się rozwiązań na rzecz takich, które pomogą zapobiec rozprzestrzenianiu się wirusa. Gospodarki i codzienne życie ludzi zostały przestawione na tryby tzw. nowej normalności.\\
 \indent W niemniejszym stopniu obecna sytuacja dotknęła pracy uniwersytetów. Po okresie zdalnego nauczania, wraz z nowym rokiem akademickim tradycyjne formy nauczania wracają do sal wykładowych, a troska o bezpieczeństwo studentów i pracowników uniwersytetu narzuca reorganizację życia akademickiego.\\
-\indent Jednym z elementów funkcjonowania instytucji naukowych, który powinien zostać dostosowany do nowych wymogów sanitarnych, jest prowadzenie listy obecności na zajęciach stacjonarnych. Obecna forma realizowana poprzez podawanie sobie przez studentów kartki, na której spisane zostają ich dane, prowokuje dodatkowe niebezpieczeństwo zakażenia wirusem. \\
-\indent Dodatkowym motywatorem, zachęcającym do usprawnienia obecnego rozwiązania, jest cytowane na początku zarządzenie rektora Uniwersytetu Wrocławskiego ustalające, że od semestru zimowego 2020 na wszystkich prowadzonych zajęciach obowiązkowe jest zbieranie listy obecności. \\
+\indent Jednym z elementów funkcjonowania instytucji naukowych, który powinien zostać dostosowany do nowych wymogów sanitarnych, jest prowadzenie listy obecności na zajęciach stacjonarnych. Zgodnie z ustępem 3 paragrafu 2 zarządzenia nr 116/2020 rektora Uniwersytetu Wrocławskiego \cite{uwr} podczas wszystkich zajęć na uczelni, które odbywają się w formie stacjonarnej lub hybrydowej obligatoryjne jest prowadzenie listy obecności uczestników zajęć. Obecna forma realizowana poprzez podawanie sobie przez studentów kartki, na której spisane zostają ich dane, prowokuje dodatkowe niebezpieczeństwo zakażenia wirusem. \\
+\indent Dodatkową zachętą do usprawnienia obecnego rozwiązania, jest cytowane powyżej zarządzenie rektora Uniwersytetu Wrocławskiego ustalające, że od semestru zimowego 2020 na wszystkich prowadzonych zajęciach obowiązkowe jest zbieranie listy obecności. \\
 \indent Względy zdrowotne nie są jedynym uzasadnieniem konieczności optymalizacji identyfikowania osób biorących udział w zajęciach. Obecna forma tego procesu jest uciążliwa, zajmuje kilka pierwszych minut zajęć, a studenci się rozpraszają podając sobie listę obecności. Istotnym czynnikiem, który należy wziąć pod uwagę jest również ochrona danych osobowych, do której w dzisiejszym świecie przykłada się coraz większą wagę.\\
 \indent W dobie współczesnych zdobyczy technologicznych można uznać za zaskakujące, że wciąż trwamy przy tym procesie. Wydawać by się mogło, że obecne podejście jest tak zakorzenione w akademickiej kulturze, że nie ma możliwości go zmienić. Istnieją jednak opracowania, które wskazują, że warto jest wdrażać nowoczesne rozwiązania, ponieważ ma to bezpośrednie przełożenie na prędkość sprawdzania obecności \cite{lcd}. Zostało dodatkowo sprawdzone \cite{theory_base}, że obecność ma wprost proporcjonalny wpływ na wyniki w nauce i odsetek uczniów porzucających studia przed ich ukończeniem. Wskazane zostało, że sprawdzanie obecności ma znaczenie nie tylko jako forma przymusu, ale również jako wyraz troski uczelni o swoich studentów i ma wpływ na ich morale.\\
 
@@ -145,7 +144,7 @@ It was designed not to relate to concrete student's data management  system, to 
 
 
 
-\chapter{Określenie struktury projektu}
+\section{Określenie struktury projektu}
 \indent Finalnie zdecydowano się jednoznacznie oddzielić sposób zbierania danych od ich przechowywania i przetwarzania.\\
 \indent Realizacja projektu opiera się na fakcie, że polskie uczelnie powszechnie korzystają z Elektronicznych Legitymacji Studenckich (ELS), które zawierają wbudowany tag RFID. \\
 \indent Komponent umożliwiający studentowi odnotowanie swojej obecności na wykładzie - weryfikator - został oparty o platformę Arduino. Urządzenie zostało rozszerzone o moduły umożliwiające realizację założeń z poprzedniego rozdziału.\\
@@ -214,30 +213,13 @@ It was designed not to relate to concrete student's data management  system, to 
 \end{itemize}
 
 \indent Kod weryfikatora projektowano z myślą o tym, żeby łatwo dało się przedstawić przebieg programu na diagramie. Struktura kodu jest przemyślana w taki sposób, żeby podczas jednego przebiegu pętli głównej wykonywał się jedynie kod powiązany z aktualnym stanem urządzenia. Taki układ nie tylko pozwala zwięźle opowiadać o działaniu urządzenia, ale również ułatwia testowanie poprawności podczas pisania kodu i montowania urządzenia.\\
-\indent Weryfikator w danej chwili może znajdować się w jednym z 12 stanów. Na przedstawionym diagramie stany oczekujące na zdarzenie przedstawiono kolorem kremowym, a stany przejściowe kolorem niebieskim:
+\indent Weryfikator w danej chwili może znajdować się w jednym z 12 stanów. Na przedstawionym diagramie stany oczekujące na zdarzenie przedstawiono kolorem kremowym, a stany przejściowe kolorem niebieskim. Opis poszczególnych stanów znajduje się w załączniku~\ref{a:stany} do niniejszej pracy.
 \begin{figure}[h]
 \caption{Diagram stanów}
 \centering
 \includegraphics[scale=0.6]{state_machine.png}
 \end{figure}
 
-\begin{itemize}
-\item STATE\_USB\_WAIT - oczekiwanie na pendrive - ekran wyświetla informację - "Insert pendrive". Próba inicjalizacji nośnika zajmuje około 5 sekund dlatego wyświetlany czas jest aktualizowany z opóźnieniem.
-\item STATE\_USB\_INIT - inicjalizacja pendriva - po odnalezieniu pendriva wyświetlana jest informacja "USB Inserted". W przypadku błędu inicjalizacji - przejście do stanu STATE\_INIT\_ERROR, w razie sukcesu na podstawie aktualnego czasu stworzona i zapamiętana zostaje nazwa YY-MM-DD-hh\_mm\_ss dla pliku, który będzie przechowywał zebrane uidy.
-\item STATE\_CARD\_WAIT - oczekiwanie na kartę RFID - ekran: "Scan Card". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST. W przypadku wykrycia karty, ale błędu w odczycie (np. ze względu na zbyt szybkie odsunięcie karty) wyświetlenie informacji: Read error.
-\item STATE\_CARD\_FOUND - zapisywanie Uidu do pliku - otwarcie pliku o zapamiętanej nazwie zapisanie do niego odczytanego Uidu. W razie błędu przy zapisie przejście do stanu STATE\_FILE\_ERROR, w przypadku sukcesu sygnał dźwiękowy, wyświetlenie informacji ''Read Success" i powrót do stanu STATE\_CARD\_WAIT.
-\item STATE\_INIT\_ERROR - błąd inicjalizacji pendriva - ekran: "Init Error".
-\item STATE\_USB\_REMOVE - czekanie na odłączenie pendriva. Wyświetlacz:''Reinsert USB". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST.
-\item STATE\_USB\_LOST - odłączono pendrive - ekran: "USB removed", sygnał dźwiękowy oraz przejście do stanu STATE\_USB\_WAIT.
-\item STATE\_FILE\_ERROR - błąd zapisu do pliku - ekran: ''Open file error", przejście do stanu STATE\_USB\_REMOVE.
-\item STATE\_CLOCK\_ERROR - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: ''Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT.
-\item STATE\_CLOCK\_ERROR\_USB\_WAIT - oczekiwanie na pendrive z czasem - wyświetlacz "Insert pendrive with time". Sterowanie pozostaje w tym stanie, do czasu kiedy na zewnętrznym nośniku wykryty zostanie plik o nazwie tdav, który w pierwszym wierszu będzie zawierał datę w formacie "YYYY/MM/DD hh:mm:ss". W przypadku wykrycia poprawnego pliku program zapamiętuje datę z pliku tdav i przechodzi w stan STATE\_CLOCK\_ERROR\_CLICK.\\
-- W razie błędu przy inicjalizacji pendriva program przechodzi do stanu STATE\_INIT\_ERROR. \\
-- W razie wykrycia pendrive i nie wykrycia pliku o nazwie tdav wyświetlona zostaje informacja "Upload time tdav".\\
-- W razie złego formatu pierwszej linijki w pliku tdav wyświetlona zostaje informacja: "Bad date format".
-\item STATE\_CLOCK\_ERROR\_CLICK - oczekiwanie na reset - wyświetlacz: ''Click to reset". Sterowanie pozostaje w tym stanie, do czasu kiedy zostanie przyciśnięty guzik resetu. Po naciśnięciu guzika na zegarze zostaje ustawiona zapamiętana data, wyświetlony zostaje komunikat "Time set", a sterowanie przechodzi w stan STATE\_USB\_INIT. Jeśli podczas ustawiania czasu na zagarze wystąpi błąd program przechodzi w stan STATE\_CLOCK\_ERROR\_RESET\_FAIL.
-\item STATE\_CLOCK\_ERROR\_RESET\_FAIL - błąd resetowania czasu. Wyświetlacz: ''Clock Reset Fail". Ze względu na brak możliwości ustawienia poprawnego czasu jest to stan, z którego urządzenie nie może wrócić do poprawnego funkcjonowania.
-\end{itemize}
 \subsection{Napotkane problemy}
 \subsubsection{Dwa moduły korzystające z interfejsu SPI}
 \indent Podczas wstępnej fazy planowania podstawą weryfikatora miała być płytka Arduino Leonardo. \\
@@ -286,7 +268,7 @@ It was designed not to relate to concrete student's data management  system, to 
 \indent Każda instancja wykładu posiada skończony zbiór zajęć, których pojedyncza instancja składa się z daty i godziny oraz przypisanej do niej listy obecności. Taka instancja może być rozumiana jako pojedyncze zajęcia jednej grupy studentów. Na listę obecności zajęć mogą zostać wpisani studenci, którzy nie są wpisani na listę uczestników instancji wykładu. Będą widoczni w przeglądzie konkretnych zajęć w graficznym interfejsie dziennika, jednak nie zostaną wzięci pod uwagę przy generowaniu raportu dla instancji wykładu.\\
 
 \indent Posługując się przykładem jednego przedmiotu, prowadzonych w ramach pojedynczego semestru, struktura w dzienniku będzie wyglądała następująco: zajęcia w ramach przedmiotu będą rozdzielone pomiędzy konta wykładowcy i wszystkich ćwiczeniowców prowadzących zajęcia. \\
-\indent Wykladowca stworzy na swoim koncie w elektornicznym dzienniku instancję wykładu, przypisane do niego zostaną wszystkie wykłady, a listą uczesników będą wszyscy studenci zapisani na ten przedmiot. Lista obecności pojedynczych zajęć będzie więc składać się ze wszystkich studentów, którzy w trakcie odbywania się wykładu w sali Instytutu Informatyki przyłożą swoją legitymację do weryfikatora.\\
+\indent Wykładowca stworzy na swoim koncie w elektronicznym dzienniku instancję wykładu, przypisane do niego zostaną wszystkie wykłady, a listą uczestników będą wszyscy studenci zapisani na ten przedmiot. Lista obecności pojedynczych zajęć będzie więc składać się ze wszystkich studentów, którzy w trakcie odbywania się wykładu w sali Instytutu Informatyki przyłożą swoją legitymację do weryfikatora.\\
 \indent Ćwiczeniowcy na swoich kontach utworzą osobne instancje wykładu, przypiszą do nich zajęcia odpowiadające prowadzonym przez nich cotygodniowym ćwiczeniom oraz dodadzą grupę studentów, którzy zapisali się do ich grupy. \\
 \indent Pojedynczy przedmiot prowadzony w ramach jednego semestru zostanie więc podzielony na tyle instancji wykładu w elektronicznym dzienniku, ilu jest prowadzących i wykładowców. Każdy z nich będzie zbierał obecności tylko w ramach prowadzonych przez siebie zajęć. \\
 \indent Jeśli użytkownik elektronicznego dziennika w ramach jednego przedmiotu prowadzi wiele różnych zajęć. np. wykład i ćwiczenia albo ćwiczenia z różnymi grupami studentów, powinien on przypisać do swojego konta kilka instancji wykładu z przypisanymi do niej grupami studentów oraz instancjami prowadzonych przez niego zajęć z tą grupą.
@@ -322,31 +304,7 @@ Podstrony zostały ostylowane w sposób zapewniający przejrzystość i stosunko
 \section{Baza studentów}
 \indent Baza studentów jest aplikacją internetową, umożliwiającą zarządzanie danymi studentów i udostępniającą API. Jej zadaniem jest imitowanie systemu istniejącej uczelni i umożliwienie pobrania szczegółowych danych studenta po numerze albumu i identyfikatorze przypisanym do Elektronicznej Legitymacji Studenckiej.\\
 \indent Aplikacja została napisana w technologii Symfony4\cite{symfony} z biblioteką Doctrine\cite{doctrine} w roli ORMa pośredniczącego w komunikacji z bazą danych w systemie PostgreSQL. Do stworzenia interfejsu umożliwiającego zarządzanie danymi studentów wykorzystany został framework Bootstrap.\\
-\subsection{Funkcjonwanie}
-\indent Ze względu na fakt, że aplikacja ma za zadanie jedynie imitować działający system i umożliwić działanie elektronicznego dziennika, funkcjonalności realizowane przez aplikację ograniczone zostały do minimum. 
-\subsubsection{Zarządzanie informacjami o studentach}
-\indent Administrator systemu może zalogować się na stworzone w systemie konto i wykonać na danych studentów standardowe operacje CRUD. Dodatkowo użytkownik ma możliwość wysłania na serwer pliku w formacie JSON ze zbiorczymi danymi studentów, które ma zamiar dodać do systemu. Studenci dodani w kontekście jednego konta, są dostępni tylko z perspektywy tego konta.
-Pozwala to na stworzenie w aplikacji odrębnych przestrzeni odpowiadających systemom różnych instytucji, które chciałyby korzystać z takiego serwisu.\\
-\indent Przechowywane dane studentów:
-\begin{itemize}
-\item user\_id - identyfikator użytkownika bazy danych.
-\item album\_no - numer albumu studenta, unikalny w kontekście użytkownika który stworzył dandy rekord.
-\item name - imię.
-\item surname - nazwisko.
-\item start\_year - rok rozpoczęcia studiów.
-\item semestr - aktualny semestr studiowania.
-\item card\_uid - identyfikator ELS z której korzysta student, unikalny w kontekście użytkownika który stworzył dandy rekord.
-\end{itemize}
-\subsection{Udostępnione API}
-\indent Aplikacja udostępnia API w architekturze REST\cite{rest}. Do authoryzacji zapytań o dane studentów używany jest metoda HTTP Basic. Zautoryzowany użytkownik ma dostęp do tylko tych rekordów, które zostały utworzone w kontekście jego konta.\\
-\indent Lista przekazanych w żądaniu parametrów powinna być zakodowana base64, a dla parametrów, dla których w bazie nie istnieje rekord zwracana jest pusta tablica.
-\indent Możliwe requesty:
-\begin{itemize}
-\item GET: /api/students
-\item GET: /api/students/id/{id}
-\item GET: /api/students/card\_id/{card\_uid}
-\item GET: /api/students/album\_no/{album\_no}
-\end{itemize}
+Ze względu na fakt, że aplikacja ma za zadanie jedynie imitować działający system i umożliwić działanie elektronicznego dziennika, funkcjonalności realizowane przez aplikację ograniczone zostały do minimum. Opis tego komponentu stanowi załącznik~\ref{a:bazastudentów}.
 
 \section{Propozycja wdrożenia systemu}
 \begin{figure}[h]
@@ -358,23 +316,14 @@ Pozwala to na stworzenie w aplikacji odrębnych przestrzeni odpowiadających sys
 \indent Zaproponowana architektura to przykład trójwarstwowego podejścia do wdrażania systemów korzystających z równoważenia obciążenia, serwerów uruchomieniowych aplikacji i baz danych. \\
 \indent Każda z aplikacji utworzona jest w dwóch instancjach w różnych sieciach. Do obu serwisów przydzielony jest Load Balancer, który równoważy ruch pomiędzy istniejące instancje. W przypadku braku dostępności któregoś z serwerów, na których uruchomione zostały aplikacje, cały ruch przekazywany jest do drugiego z nich.\\
 \indent W celu zapewnienia bezpieczeństwa, bazy danych znajdują się w osobnych sieciach, do których dostęp został umożliwiony jedynie z sieci, w których znajdują się aplikacje dziennika elektronicznego i bazy studentów. \\
-\indent Dodatkowo aplikacje pobierają informacje o swojej konfiguracji ze zmiennych środowiskowych serwera, na którym zostały uruchomione. Są to informacje o sposobie połączenia z bazą danych, a w przypadku dziennika elekronicznego również odnośnik i dane do logowania do aplikacji bazy studentów.
-\section{Narzędzie wykorzystane w trakcie realizacji}
-\begin{itemize}
-\item PhpStorm - środowisko programistyczne ułatwiającego programowania w PHP.
-\item GIT - system kontroli wersji.
-\item HeidiSQL - Klient bazy danych.
-\item Postman - platforma do testowania API.
-\item AWS console - narzędzie do zarządzania zasobami w chmurze AWS.
-\item Arduino IDE - środowisko umożliwiające pisanie kodu i wgrywanie go na kontroler.
-\item Putty - narzędzie do łączności ze zdalnym serwerem wykorzystujące protokół SSH.
-\item Xdebug - rozszerzenie PHP umożliwiające debugowanie.
-\item Profiler wbudowany w Symfony4/Yii2.
-\item Visual paradigm - narzędzie do projektowania diagramów.
-\item Frizing - narzędzie do projektowania diagramów obwodów.
-\end{itemize}
+\indent Dodatkowo aplikacje pobierają informacje o swojej konfiguracji ze zmiennych środowiskowych serwera, na którym zostały uruchomione. Są to informacje o sposobie połączenia z bazą danych, a w przypadku dziennika elektronicznego również odnośnik i dane do logowania do aplikacji bazy studentów.
 
-\chapter{Możliwość dalszego rozwoju systemu}
+Załącznik \ref{a:narzedzia} zawiera dodatkowo listę wszystkich narzędzi wykorzystanych w tym projekcie.
+
+\chapter{Podsumowanie i możliwości dalszego rozwoju systemu}
+\indent Niniejsza praca w kompleksowy sposób przedstawia proces od projektowania do wdrożenia systemu do monitorowania obecności studentów na zajęciach uniwersyteckich. System jest łatwy w obsłudze, jednak ze względu na to, że jak dotąd nie został włączony w istniejącą architekturę cyfrową żadnego uniwersytetu, może wymagać dostosowania. \\
+\indent Projekt pozwala na prowadzenie kontroli obecności na wielu zajęciach jednocześnie i wygodne przetwarzanie zebranych danych. Na tle przytoczonych w rozdziale 2 przykładów innych realizacji podobnych systemów, niniejszy projekt jest przedstawiony w sposób najbardziej kompleksowy. W dalszej części tego rozdziału omówione są możliwe kierunki rozwoju tego projektu.
+
 \section{Powiązania pomiędzy instancjami wykładu}
 \indent Dziennik elektroniczny na aktualnym stadium rozwoju nie jest świadomy powiązania pomiędzy instancjami wykładu wchodzącymi w skład jednego rzeczywistego przedmiotu. Każdy prowadzący tworzy odrębną strukturę zajęć na swoim koncie i brakuje informacji na temat tego, w ramach jakiego przedmiotu są te zajęcia prowadzone. \\
 \indent Dzięki rozszerzeniu aplikacji o taką wiedzę, elektroniczny dziennik byłby w stanie generować raport podsumowujący dla całego przedmiotu, agregując statystyki obecności na wykładzie i ćwiczeniach dla każdego studenta. Dodatkowo można byłoby zautomatyzować procedurę odrabiania zajęć na innych ćwiczeniach. \\
@@ -392,11 +341,6 @@ Pozwala to na stworzenie w aplikacji odrębnych przestrzeni odpowiadających sys
 \section{Platforma do szybkiego reagowania}
 \indent Idąc tym tropem, integrując uczelniane systemy, udostępniając studentom wgląd w ich obecności i umożliwiając interakcje poprzez kanały takie jak mail czy sms, można z prostej aplikacji stworzyć rozbudowaną platformę do monitorowania wyników studenta i adekwatnego reagowania w przypadku wykrycia potencjalnych problemów. Wiążąc informacje na temat tego, na jakim etapie studiów znajduje się student z jego aktualnymi wynikami, byłoby możliwe automatyczne dopasowanie pomocy, takiej jak rozmowa z pracownikiem uczeni odpowiedzialnym za studentów, czy zaproponowanie dodatkowych zajęć.
 
-\chapter{Podsumowanie}
-\indent Powyższa praca w kompleksowy sposób przedstawia proces od projektowania do wdrożenia systemu do monitorowania obecności studentów na zajęciach uniwersyteckich. \\
-\indent System jest zrozumiały i łatwy w obsłudze, jednak ze względu na to, że jak dotąd nie został włączony w istniejącą architekturę cyfrową żadnego uniwerystetu, może wymagać dostosowania. \\
-\indent Projekt pozwala na prowadzenie kontroli obecności na wielu zajęciach jednocześnie i wygodne przetwarzanie zebranych danych.\\
-\indent Na tle przytoczonych w rozdziale 2 przykładów innych realizacji podobnych systemów, opisany powyżej pojekt jest przedstawiony w sposób najbardziej kompleksowy.
 
 \begin{thebibliography}{9}
 	\bibitem{theory_base}
@@ -471,4 +415,68 @@ Pozwala to na stworzenie w aplikacji odrębnych przestrzeni odpowiadających sys
 		
 		
 \end{thebibliography}
+
+\appendix
+\chapter{Załączniki}
+\section{Opis stanów weryfikatora}\label{a:stany}
+Weryfikator posiada 12 możliwych stanów:
+\begin{itemize}
+\item STATE\_USB\_WAIT - oczekiwanie na pendrive - ekran wyświetla informację - "Insert pendrive". Próba inicjalizacji nośnika zajmuje około 5 sekund dlatego wyświetlany czas jest aktualizowany z opóźnieniem.
+\item STATE\_USB\_INIT - inicjalizacja pendriva - po odnalezieniu pendriva wyświetlana jest informacja "USB Inserted". W przypadku błędu inicjalizacji - przejście do stanu STATE\_INIT\_ERROR, w razie sukcesu na podstawie aktualnego czasu stworzona i zapamiętana zostaje nazwa YY-MM-DD-hh\_mm\_ss dla pliku, który będzie przechowywał zebrane uidy.
+\item STATE\_CARD\_WAIT - oczekiwanie na kartę RFID - ekran: ''Scan Card". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST. W przypadku wykrycia karty, ale błędu w odczycie (np. ze względu na zbyt szybkie odsunięcie karty) wyświetlenie informacji: Read error.
+\item STATE\_CARD\_FOUND - zapisywanie Uidu do pliku - otwarcie pliku o zapamiętanej nazwie zapisanie do niego odczytanego Uidu. W razie błędu przy zapisie przejście do stanu STATE\_FILE\_ERROR, w przypadku sukcesu sygnał dźwiękowy, wyświetlenie informacji ''Read Success" i powrót do stanu STATE\_CARD\_WAIT.
+\item STATE\_INIT\_ERROR - błąd inicjalizacji pendriva - ekran: "Init Error".
+\item STATE\_USB\_REMOVE - czekanie na odłączenie pendriva. Wyświetlacz:''Reinsert USB". W razie wykrycia odłączenia pendriva przejście do stanu STATE\_USB\_LOST.
+\item STATE\_USB\_LOST - odłączono pendrive - ekran: "USB removed", sygnał dźwiękowy oraz przejście do stanu STATE\_USB\_WAIT.
+\item STATE\_FILE\_ERROR - błąd zapisu do pliku - ekran: ''Open file error", przejście do stanu STATE\_USB\_REMOVE.
+\item STATE\_CLOCK\_ERROR - błąd zegara - w razie wykrycia problemów z zegarem w którymś ze stanów [STATE\_USB\_WAIT, STATE\_CARD\_WAIT, STATE\_CARD\_FOUND, STATE\_USB\_INIT, STATE\_USB\_REMOVE] sterowanie przechodzi do tego stanu. Wyświetlona zostaje informacja: ''Clock Error", następnie sterowanie przechodzi do STATE\_CLOCK\_ERROR\_USB\_WAIT.
+\item STATE\_CLOCK\_ERROR\_USB\_WAIT - oczekiwanie na pendrive z czasem - wyświetlacz "Insert pendrive with time". Sterowanie pozostaje w tym stanie, do czasu kiedy na zewnętrznym nośniku wykryty zostanie plik o nazwie tdav, który w pierwszym wierszu będzie zawierał datę w formacie "YYYY/MM/DD hh:mm:ss". W przypadku wykrycia poprawnego pliku program zapamiętuje datę z pliku tdav i przechodzi w stan STATE\_CLOCK\_ERROR\_CLICK.\\
+- W razie błędu przy inicjalizacji pendriva program przechodzi do stanu STATE\_INIT\_ERROR. \\
+- W razie wykrycia pendrive i nie wykrycia pliku o nazwie tdav wyświetlona zostaje informacja "Upload time tdav".\\
+- W razie złego formatu pierwszej linijki w pliku tdav wyświetlona zostaje informacja: "Bad date format".
+\item STATE\_CLOCK\_ERROR\_CLICK - oczekiwanie na reset - wyświetlacz: ''Click to reset". Sterowanie pozostaje w tym stanie, do czasu kiedy zostanie przyciśnięty guzik resetu. Po naciśnięciu guzika na zegarze zostaje ustawiona zapamiętana data, wyświetlony zostaje komunikat "Time set", a sterowanie przechodzi w stan STATE\_USB\_INIT. Jeśli podczas ustawiania czasu na zagarze wystąpi błąd program przechodzi w stan STATE\_CLOCK\_ERROR\_RESET\_FAIL.
+\item STATE\_CLOCK\_ERROR\_RESET\_FAIL - błąd resetowania czasu. Wyświetlacz: ''Clock Reset Fail". Ze względu na brak możliwości ustawienia poprawnego czasu jest to stan, z którego urządzenie nie może wrócić do poprawnego funkcjonowania.
+\end{itemize}
+
+\section{Opis bazy studentów}\label{a:bazastudentów}
+\subsubsection{Zarządzanie informacjami o studentach}
+\indent Administrator systemu może zalogować się na stworzone w systemie konto i wykonać na danych studentów standardowe operacje CRUD. Dodatkowo użytkownik ma możliwość wysłania na serwer pliku w formacie JSON ze zbiorczymi danymi studentów, które ma zamiar dodać do systemu. Studenci dodani w kontekście jednego konta, są dostępni tylko z perspektywy tego konta.
+Pozwala to na stworzenie w aplikacji odrębnych przestrzeni odpowiadających systemom różnych instytucji, które chciałyby korzystać z takiego serwisu.\\
+\indent Przechowywane dane studentów:
+\begin{itemize}
+\item user\_id - identyfikator użytkownika bazy danych.
+\item album\_no - numer albumu studenta, unikalny w kontekście użytkownika który stworzył dandy rekord.
+\item name - imię.
+\item surname - nazwisko.
+\item start\_year - rok rozpoczęcia studiów.
+\item semestr - aktualny semestr studiowania.
+\item card\_uid - identyfikator ELS z której korzysta student, unikalny w kontekście użytkownika który stworzył dandy rekord.
+\end{itemize}
+\subsection{Udostępnione API}
+\indent Aplikacja udostępnia API w architekturze REST\cite{rest}. Do autoryzacji zapytań o dane studentów używany jest metoda HTTP Basic. Zautoryzowany użytkownik ma dostęp do tylko tych rekordów, które zostały utworzone w kontekście jego konta.\\
+\indent Lista przekazanych w żądaniu parametrów powinna być zakodowana base64, a dla parametrów, dla których w bazie nie istnieje rekord zwracana jest pusta tablica.
+\indent Możliwe requesty:
+\begin{itemize}
+\item GET: /api/students
+\item GET: /api/students/id/{id}
+\item GET: /api/students/card\_id/{card\_uid}
+\item GET: /api/students/album\_no/{album\_no}
+\end{itemize}
+
+
+\section{Narzędzie wykorzystane w trakcie realizacji}\label{a:narzedzia}
+\begin{itemize}
+\item PhpStorm - środowisko programistyczne ułatwiającego programowania w PHP.
+\item GIT - system kontroli wersji.
+\item HeidiSQL - Klient bazy danych.
+\item Postman - platforma do testowania API.
+\item AWS console - narzędzie do zarządzania zasobami w chmurze AWS.
+\item Arduino IDE - środowisko umożliwiające pisanie kodu i wgrywanie go na kontroler.
+\item Putty - narzędzie do łączności ze zdalnym serwerem wykorzystujące protokół SSH.
+\item Xdebug - rozszerzenie PHP umożliwiające debugowanie.
+\item Profiler wbudowany w Symfony4/Yii2.
+\item Visual paradigm - narzędzie do projektowania diagramów.
+\item Frizing - narzędzie do projektowania diagramów obwodów.
+\end{itemize}
+
 \end{document}
