@@ -121,7 +121,7 @@ Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego dzia�
 \subsection{Urządzenie rejestrujące obecności za pośrednictwem sieci bezprzewodowej}
 \indent W przypadku tego rozwiązania mikrokontroler zastałby rozszerzony o moduł do bezprzewodowej łączności z internetem, a stworzona aplikacja udostępniałaby interfejs do odnotowywania obecności. \\
 \indent Na etapie planowanie tego rozwiązania wyniknęły komplikacje. Ten sposób wysyłania danych do aplikacji katalogującej obecności wymagałby umożliwienia powiązania obecności z zajęciami, na których zostały zebrane. \\
-\indent Wymagałoby to dołączenia dodatkowego interfejsu, któryby to umożliwiał, co jeszcze bardziej komplikowałoby projektowane urządzenie. Dodatkowo ograniczyłoby to zbiór układów scalonych, z których można by skorzystać, ponieważ musiałby on posiadać wystarczającą ilość pamięci, pinów i innych potrzebnych peryferiów.
+\indent Wymagałoby to dołączenia dodatkowego interfejsu, który by to umożliwiał, co jeszcze bardziej komplikowałoby projektowane urządzenie. Dodatkowo ograniczyłoby to zbiór układów scalonych, z których można by skorzystać, ponieważ musiałby on posiadać wystarczającą ilość pamięci, pinów i innych potrzebnych peryferiów.
 
 \section{Określenie wymagań wobec projektu}
 \indent W poprzednim rozdziale wspomniano o wielu możliwych realizacjach problemu weryfikowania uczestnictwa w zajęciach, co jest tylko niewielkim wycinkiem możliwych do wykonania projektów. W opracowaniu \cite{review} wspomniano o wielu przedsięwzięciach, z których na wyróżnienie zasługują:
@@ -218,7 +218,7 @@ Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego dzia�
 \end{figure}
 \subsection{Procedura resetowania zegara RTC}
 \indent Urządzenie korzysta z dodatkowego układu elektronicznego - zegara RTC. Moduł jest zdolny śledzić aktualny czas nawet w przypadku odłączenia weryfikatora od zasilania. Do układu dołączona jest w tym celu bateria, która raz na dwa lata może ulec rozładowania.\\
-\indent W takim przypadku urządzenie wyświetli komunikat ''Clock Error' i przejdzie w tryb oczekiwania na podanie nowego czasy. W celu zresetowania zegara należy wykonać następujące kroki (weryfikator wyświetla na ekranie informacje podpowiadające co zostało do zrobienia):
+\indent W takim przypadku urządzenie wyświetli komunikat 'Clock Error' i przejdzie w tryb oczekiwania na podanie nowego czasy. W celu zresetowania zegara należy wykonać następujące kroki (weryfikator wyświetla na ekranie informacje podpowiadające co zostało do zrobienia):
 \begin{enumerate}
 \item Rozkręcić plastikowe opakowanie.
 \item Wymienić baterię w module RTC.
@@ -232,7 +232,7 @@ Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego dzia�
 \item Kable, rezystory, płytka stykowa 10 zł.
 \item Zegar RTC 5 zł.
 \item Wyświetlacz LCD 10 zł.
-\item PN532- moduł RFID 30 zł.
+\item PN532 - moduł RFID 30 zł.
 \item USB Host Shield 35 zł.
 \item pudełko 10 zł.
 \item klon Arduino Uno - 20 zł.
@@ -291,7 +291,7 @@ Wirtualny dziennik nie przechowuje informacji o studentach i do poprawnego dzia�
 
 \indent Posługując się przykładem jednego przedmiotu, prowadzonych w ramach pojedynczego semestru, struktura w dzienniku będzie wyglądała następująco: zajęcia w ramach przedmiotu będą rozdzielone pomiędzy konta wykładowcy i wszystkich ćwiczeniowców prowadzących zajęcia. \\
 \indent Wykładowca stworzy na swoim koncie w elektronicznym dzienniku instancję wykładu, przypisane do niego zostaną wszystkie wykłady, a listą uczestników będą wszyscy studenci zapisani na ten przedmiot. Na Listę obecności pojedynczych zajęć będą więc wpisani wszyscy studenci, którzy w trakcie odbywania się wykładu w sali Instytutu Informatyki przyłożą swoją legitymację do weryfikatora.\\
-\indent Ćwiczeniowcy na swoich kontach utworzą osobne instancje wykładu, przypiszą do nich zajęcia odpowiadające prowadzonym przez siebie cotygodniowym ćwiczeniom. Do listy studentów przypisanej do tej instancji wykładu przypisani zostaną Ci, którzy zapisali się do grupy danego prowadzącego. \\
+\indent Ćwiczeniowcy na swoich kontach utworzą osobne instancje wykładu, przypiszą do nich zajęcia odpowiadające prowadzonym przez siebie cotygodniowym ćwiczeniom. Do listy studentów przypisanej do tej instancji wykładu powinni zostać dodani Ci, którzy zapisali się do grupy danego prowadzącego. \\
 \indent Pojedynczy przedmiot prowadzony w ramach jednego semestru zostanie więc podzielony na tyle instancji wykładu w elektronicznym dzienniku, ilu jest prowadzących i wykładowców. Każdy z nich będzie zbierał obecności tylko w ramach prowadzonych przez siebie zajęć. \\
 \indent Jeśli użytkownik elektronicznego dziennika w ramach jednego przedmiotu prowadzi wiele różnych zajęć. np. wykład i ćwiczenia albo ćwiczenia z różnymi grupami studentów, powinien on przypisać do swojego konta kilka instancji wykładu z przypisanymi do nich grupami studentów oraz instancjami prowadzonych przez niego zajęć z tą grupą.
 
