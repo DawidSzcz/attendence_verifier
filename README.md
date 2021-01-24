@@ -1,5 +1,5 @@
 # Arduino
-W folderze znajduje się kod wgrany na Arduino.
+W folderze verifier_board znajduje się kod wgrany na Arduino. W wolderze praca - treść pracy magisterskiej.
 
 Zmontowane urządzenie:
 
