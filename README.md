@@ -1,7 +1,8 @@
 # Arduino
-W folderze verifier_board znajduje się kod wgrany na Arduino. W wolderze praca - treść pracy magisterskiej.
+W folderze verifier_board znajduje się kod wgrany na Arduino.
 
-Zmontowane urządzenie:
+
+Fotografie urządzenia na bazie arduino:
 
 ![Zmotowane urządzenie](https://raw.githubusercontent.com/ZielonyKazik/praca-mgr/master/praca/arduino1.jpg)
 
